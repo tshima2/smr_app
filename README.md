@@ -4,25 +4,25 @@
 現場情報共有ツール
 
 # 概要 #
-目的の場所へのルート情報を地図ベースで登録/共有
-経由地の情報をハッシュタグとして付加することで細やかなルート案内と、検索/共有を図ります。
+目的の場所を地図ベースで登録し、注意事項や気づき情報を蓄積/共有
 
 # コンセプト #
 未経験・経験浅の運輸/物流業者を応援！
-現場についての蓄積された不定型の情報共有を図ります。
+チーム内で現場への気づきを蓄積し共有、活用を図ります。
 
 # バージョン #
 Ruby 2.6.5 Rails 5.2.5
 
 # 機能一覧 #
- * 利用者がチーム内で共有できる現場（場所）情報の作成/参照/編集/削除
- * 現場情報の住所から地図を表示 
+ * 利用者がチーム内で共有できる現場情報の作成/参照/編集/削除
+ * 現場情報の住所から地図を表示
+ * 現場情報にチームメンバーの気づきを登録
  * 現場情報にラベルを紐付けて絞り込み検索 
  * 現場情報にハッシュタグを紐付けて絞り込み検索
  * Google KMLファイル読み込み、ハッシュタグと地図の自動生成 
 
 # 就業Termから使用予定の2つ以上の技術 # 
- * devise
+ * Deviseを利用したログイン機能
  * コメント機能（編集や削除もできること。投稿失敗時にエラーメッセージをAjaxで出力すること）
 
 # カリキュラム外の使用予定ライブラリ(gem等)
@@ -64,20 +64,21 @@ By adding the information of the waypoints as a hashtag, detailed route guidance
 
 # Concept #
 Supporting inexperienced and inexperienced transportation / logistics companies!
-We will share the accumulated irregular information about the site.
+This system supports the accumulation and utilization of awareness in the field within the team.
 
 # Version #
 Ruby 2.6.5 Rails 5.2.5
 
 # Functions List #
-  * Create / reference / edit / delete site (location) information that users can share within the team
+　* Create / reference / edit / delete site information that users can share within the team
   * Display the map from the address of the site information
+  * Register the awareness of team members in the site information
   * Search by associating a label with site information
   * Search by associating hashtags with site information
   * Read Google KML file, automatically generate hashtag and map
 
 # Two or more technologies to be used from a Diver Employment Term #
-  * devise
+  * Login function using Devise
   * Comment function (can be edited and deleted. Output an error message with Ajax when posting fails)
 
 # Library to be used outside the curriculum (gem etc.) #
