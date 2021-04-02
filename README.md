@@ -33,12 +33,11 @@ Ruby 2.6.5 Rails 5.2.5
  * https://docs.google.com/spreadsheets/d/1sKZ-tPR601fRRa5cgoPGUt8aSxJSGSRxcbIBju0XznM/edit#gid=19502736
 
 # テーブル定義 #
- * https://drive.google.com/file/d/1kpgWND1QiznXNLstpNg6I8M6fpvOR7gC/view?usp=sharing
+ * https://drive.google.com/file/d/1IETLChkCs4MlTZLP22DV_Q3Qyh9pTbKi/view?usp=sharing
 
 # ER図 #
 
-  * https://drive.google.com/file/d/1tYJgTDO3eYaLQY02WQNv5GrPRUGEQeTy/view?usp=sharing  (draw.io)
-    
+  * https://drive.google.com/file/d/1niVR-EkLpVOv_mSORSe_mp8dKwEOJKgr/view?usp=sharing (draw.io)
 
 # 画面遷移図 #
 
@@ -89,8 +88,8 @@ Ruby 2.6.5 Rails 5.2.5
  * https://docs.google.com/spreadsheets/d/1sKZ-tPR601fRRa5cgoPGUt8aSxJSGSRxcbIBju0XznM/edit#gid=19502736
  
 # Table_Definition #
- * https://drive.google.com/file/d/1kpgWND1QiznXNLstpNg6I8M6fpvOR7gC/view?usp=sharing
- 
+ * https://drive.google.com/file/d/1IETLChkCs4MlTZLP22DV_Q3Qyh9pTbKi/view?usp=sharing 
+
 # Screen transition diagram #
   * (please open with app)
     https://drive.google.com/file/d/1F2f3SE30bvL5Um2bPeV9Z-S8sPpcfCVq/view?usp=sharing
@@ -99,7 +98,7 @@ Ruby 2.6.5 Rails 5.2.5
  * https://drive.google.com/file/d/1_7j5QH2XuDYRiseUbGtsNBDVWQpPqpoP/view?usp=sharing
  
 # ER diagram #
-  * https://drive.google.com/file/d/1tYJgTDO3eYaLQY02WQNv5GrPRUGEQeTy/view?usp=sharing  (draw.io)    
+  * https://drive.google.com/file/d/1niVR-EkLpVOv_mSORSe_mp8dKwEOJKgr/view?usp=sharing (draw.io)
 
 # To be used Gem #
  * devise
