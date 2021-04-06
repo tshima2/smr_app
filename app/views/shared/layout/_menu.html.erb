@@ -1,0 +1,31 @@
+<!-- ナビゲーションバー start -->
+<div class="smr_nav">
+<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">      
+  <a href="#" class="navbar-brand">メニュー</a>
+  <button class="navbar-toggler" type="button"
+          data-toggle="collapse"
+          data-target="#navmenu1"
+          aria-controls="navmenu1"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navmenu1">
+    <div class="navbar-nav">
+      <%= link_to "チーム作成", new_team_path, class: "nav-item nav-link" %>
+      <%= link_to "マイページ", user_path, class: "nav-item nav-link" %>
+      <div class="dropdown">
+        <a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown">チーム選択</a>
+        <div class="dropdown-menu">
+          <% (current_user.teams.blank? ? Team.where(id: 1): current_user.teams).each do |team| %>
+            <%= link_to team.name, team_path(team.id), class: 'dropdown-item' %>
+          <% end %>
+        </div>
+      </div>          
+      <%= link_to "サイト一覧", team_sites_path(1), class: "nav-item nav-link" %>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-item nav-link" %>
+    </div>
+  </div>
+</nav>
+</div>
+<!-- ナビゲーションバー end -->

@@ -25,3 +25,15 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# .gitignore file
+/.gitignore
+
+# rails start script
+/start_app
+
+# cifs autosave files
+/cifs*
+
+# kml files
+/public/maps
