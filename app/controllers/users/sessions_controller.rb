@@ -6,7 +6,7 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def after_sign_in_path_for(user)
-    byebug
+    #byebug
     keep_team = user.keep_team_id
     if keep_team.nil?
       if user.teams.count == 1
