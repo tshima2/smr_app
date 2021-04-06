@@ -10,7 +10,8 @@ Rails.application.routes.draw do
 
   get 'statics/top'
   #get 'sites/index'
-  root to: "sites#index"
+  #root to: "sites#index"
+  root to: 'statics#top'
 
   resources :teams do
     member do
