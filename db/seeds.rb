@@ -30,8 +30,8 @@ Assign.create!(user_id: user02.id, team_id: team01.id)
 Assign.create!(user_id: user03.id, team_id: team01.id)
 Assign.create!(user_id: user04.id, team_id: team01.id)
 Assign.create!(user_id: user02.id, team_id: team02.id)
-Assign.create!(user_id: user03.id, team_id: team02.id)
 Assign.create!(user_id: user03.id, team_id: team03.id)
+Assign.create!(user_id: user04.id, team_id: team02.id)
 Assign.create!(user_id: user04.id, team_id: team03.id)
 
 # create Site
@@ -49,7 +49,8 @@ _name="小島新田公園"; _address="川崎区田町3-11-1"; _memo="memo06"
 site06=Site.create!(user_id: user04.id, team_id: team03.id, name: _name, address: _address, memo: _memo)
 
 # create Comment
-=begin
+_content = "https://www.google.com/maps/d/edit?mid=1kUIUniMq5Eghbk7jcKE0Wr8n1EobSGhs&usp=sharing"
+Comment.create!(user_id: user02.id, site_id: site01.id, content: _content)
 _content="現場入口が狭いので気をつけて"
 Comment.create!(user_id: user02.id, site_id: site01.id, content: _content)
 _content="念のため枕木を持参して下さい"
@@ -60,4 +61,3 @@ _content="右折信号が短いため大型車が並ぶと要注意"
 Comment.create!(user_id: user03.id, site_id: site06.id, content: _content)
 _content="中型（3t以内）は大師橋を渡ってすぐの信号を左折可能"
 Comment.create!(user_id: user03.id, site_id: site06.id, content: _content)
-=end
