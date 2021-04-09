@@ -61,3 +61,16 @@ _content="右折信号が短いため大型車が並ぶと要注意"
 Comment.create!(user_id: user03.id, site_id: site06.id, content: _content)
 _content="中型（3t以内）は大師橋を渡ってすぐの信号を左折可能"
 Comment.create!(user_id: user03.id, site_id: site06.id, content: _content)
+
+# create ImagePost
+ImagePost.create!(image: File.open("#{Rails.root.to_s}/public/images_for_seed/#{rand(1..7)}.jpg"), user_id: user02.id, site_id: site01.id)
+ImagePost.create!(image: File.open("#{Rails.root.to_s}/public/images_for_seed/#{rand(1..7)}.jpg"), user_id: user02.id, site_id: site01.id)
+ImagePost.create!(image: File.open("#{Rails.root.to_s}/public/images_for_seed/#{rand(1..7)}.jpg"), user_id: user02.id, site_id: site01.id)
+ImagePost.create!(image: File.open("#{Rails.root.to_s}/public/images_for_seed/#{rand(1..7)}.jpg"), user_id: user02.id, site_id: site01.id)
+ImagePost.create!(image: File.open("#{Rails.root.to_s}/public/images_for_seed/#{rand(1..7)}.jpg"), user_id: user04.id, site_id: site02.id)
+ImagePost.create!(image: File.open("#{Rails.root.to_s}/public/images_for_seed/#{rand(1..7)}.jpg"), user_id: user04.id, site_id: site02.id)
+ImagePost.create!(image: File.open("#{Rails.root.to_s}/public/images_for_seed/#{rand(1..7)}.jpg"), user_id: user03.id, site_id: site05.id)
+ImagePost.create!(image: File.open("#{Rails.root.to_s}/public/images_for_seed/#{rand(1..7)}.jpg"), user_id: user04.id, site_id: site06.id)
+ImagePost.create!(image: File.open("#{Rails.root.to_s}/public/images_for_seed/#{rand(1..7)}.jpg"), user_id: user04.id, site_id: site06.id)
+
+

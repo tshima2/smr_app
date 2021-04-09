@@ -1,19 +1,25 @@
 
 <div class="row">
   <div class="col-md-12">
+
     <div class="card">
       <div class="card-body">
-        <div class="row">
-          <div class="col-md-4">
+
+        <div class="row">  
+          <div class="col-md-12">
             <div>
               <%= image_tag default_img(nil), class: 'img' %><br>
               <%= @user.name %>&nbsp;&lt;<%= @user.email %>&gt;
             </div>
-            <%= link_to I18n.t('views.messages.edit_profile') , '#', class: 'btn btn-success btn-block mt-3' %>
+            <%= link_to I18n.t('views.messages.edit_profile') , '#', class: 'btn btn-sm btn-success mt-3' %>
           </div>
+        </div>
 
-          <div class="col-md-8">
-            <div>
+        <div class="row">  
+          <div class="col-md-12">
+         
+            <div class="mt-4">
+         
               <h5><%= I18n.t('views.messages.team_you_belong_to') %></h5>
               <table class="table">
                 <tbody>
@@ -30,6 +36,7 @@
 
           </div>
         </div>
+      
       </div>
       <!-- /.card-body -->
     </div>

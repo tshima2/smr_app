@@ -1,0 +1,21 @@
+
+<div class="col-auto">
+
+  <%= form_with(model: [site, comment], url: team_site_comments_path(team_id: site.team.id, site_id: site.id)) do |form| %>
+    <% if comment.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+        <ul>
+        <% comment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.text_field(:content, placeholder: "コメント入力..") %><%= form.submit value='追加' %> 
+    </div>  
+  <% end %>
+
+</div> 

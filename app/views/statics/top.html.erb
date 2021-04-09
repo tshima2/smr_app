@@ -1,2 +1,12 @@
-<h1>Statics#top</h1>
-<p>Find me in app/views/statics/top.html.erb</p>
+<h1>SmoothRunning サイト情報共有システムへようこそ！</h1>
+
+<P><%= I18n.t('views.top.line1') %><br>
+<%= I18n.t('views.top.line2') %></P>
+
+<P><%= I18n.t('views.top.line3') %><br>
+<%= I18n.t('views.top.line4') %></P>
+
+<%= image_tag 'truck.jpg' %>
+
+<br>
+<p><%= link_to I18n.t('views.messages.team_build2'), new_team_path %></p>

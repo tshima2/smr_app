@@ -1,0 +1,92 @@
+<p id="notice"><%= notice %></p>
+
+<article class="container_article">
+  <h1>現場情報詳細</h1>  
+
+  <div class="container-fluid">
+
+    <h3>基本属性</h3>
+    <!-- 基本属性ブロック end -->
+    <section class="site_show_basic_block border border-info">
+      <div class="row">
+        <div class="col-auto font-weight-bold">ID</div>
+        <div class="col-auto"><%= @site.id %></div>
+      </div>
+      <div class="row">
+        <div class="col-auto font-weight-bold">名称</div>
+        <div class="col-auto"><%= @site.address %></div>
+      </div>
+      <div class="row">
+        <div class="col-auto font-weight-bold">ラベル</div>
+        <div class="col-auto"><span class="badge badge-secondary">建築地</span></div>
+      </div>
+      <div class="row">  
+        <div class="col-auto font-weight-bold">メモ</div>
+        <div class="col-auto"><%= @site.name %></div>
+      </div>
+      <div class="row">
+        <div class="col-auto font-weight-bold">ハッシュタグ</div>
+        <div class="col-auto text-monospace">#トヨタホーム #成田街道 #エスパシオ</div>
+      </div>
+    </section>
+    <!-- 基本属性ブロック end -->
+
+    <!-- mapブロック start -->
+    <h3>マップ</h3>
+    <section class="site_show_map_block">  
+      <div class="row">
+        <div class="col-12">
+          <iframe frameborder="0" 
+                    style="border:0; width: 300px; height: 200px" 
+                    src="https://maps.google.co.jp/maps?output=embed&q=<%= @site.address%>">
+          </iframe>
+        </div>
+      </div>
+    </section>
+    <!-- mapブロック end -->
+
+    <!-- コメントブロック start -->
+    <h3>コメント一覧</h3>
+    <section class="site_show_comment_block border border-info">
+
+      <div id="comments_area">
+        <!-- コメント一覧 -->
+        <%= render partial: 'comments/index', locals: { comments: @comments, site: @site } %>
+      </div>
+    
+      <!-- コメント入力欄 -->
+      <%= render partial: 'comments/form', locals: { comment: @comment, site: @site } %>
+
+    </section>
+    <!-- コメントブロック end -->
+
+    <!-- 画像ブロック start -->
+    <h3>画像一覧</h3>                  
+    <section class="site_show_image_block">
+      <div class="row">
+        <% @image_posts.each do |post| %>
+          <div class="col-xs-12 col-xm-6 col-md-4 col-lg-3">
+            <div class="site_show_menu_on_image">
+              <%= image_tag(post.image_url, class:'site_show_image') %>
+              <div class="site_show_menu">
+                <%= link_to '×', image_post_path(id: post.id), method: :delete, data: {confirm: 'Are you sure?'} %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>      
+
+      <div class="row">
+        <div class="col-auto">
+          <%= link_to '画像追加', new_team_site_image_post_path(@site.team.id, @site.id) %>
+        </div>
+      </div>                  
+    
+    </section>
+    <!-- 画像ブロック end -->                      
+    
+  </div>
+  <!-- .container_fluid -->
+  <!-- 全体コンテナ end -->                
+
+</article>

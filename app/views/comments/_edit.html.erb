@@ -1,0 +1,16 @@
+<%= form_with(model: [site, comment], url: comment_path(comment.id) ) do |form| %>
+  <% if comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+      <ul>
+      <% comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.text_field(:content, id: "comment_content_#{site.id}") %><%= form.submit value='更新' %>
+  </div>
+<% end %>

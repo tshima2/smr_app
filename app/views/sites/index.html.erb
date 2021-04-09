@@ -30,7 +30,7 @@
   <td align="right">コメントの一部を入力</td><td><input type="text"></td>
 </tr>
     </table>
-    <input type="submit" value="絞込み" class="btn btn-primary btn-sm mb-3">
+    <input type="submit" value="絞込み" class="btn btn-sm btn-primary mb-3">
   </form>
 </div>
 
@@ -45,6 +45,7 @@
       <th>現場ID</th>
       <th>名称</th>
       <th>住所</th>
+      <th>メモ</th>
       <th>ラベル</th>
       <th>タグ数</th>
       <th>作成日時</th>
@@ -55,15 +56,16 @@
   <tbody>
   <% @sites.each do |site| %>
     <tr>
-      <td><%= link_to site.id, site_path, class: "btn btn-info" %></td>
+      <td><%= link_to site.id, team_site_path(site.team.id, site.id), class: "btn btn-sm btn-info" %></td>
       <td><%= site.name %></td>
       <td><%= site.address %></td>
+      <td><%= site.memo %></td>
       <td><!-- あとでラベルを記述 --></td>    
       <td><!-- あとでタグ数を記述 --></td>
-      <td><%= site.created_at %></td>
-      <td><%= site.updated_at %></td>
-      <td><%= link_to '編集', edit_site_path(site.id), class: "btn btn-info" %></td>
-      <td><%= link_to '削除', site_path(site.id), method: :delete,  data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+      <td><%= site.created_at.to_s(:datetime_jp) %></td>
+      <td><%= site.updated_at.to_s(:datetime_jp) %></td>
+      <td><%= link_to '編集', edit_team_site_path(site.team.id, site.id), class: "btn btn-sm btn-info" %></td>
+      <td><%= link_to '削除', team_site_path(site.team.id, site.id), method: :delete,  data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %></td>
     </tr>
     <% end %>
   </tbody>
