@@ -1,75 +1,107 @@
-<p id="notice"><%= notice %></p>
 
 <article class="container_article">
-<h1>現場情報一覧</h1>
+  <h1><%= I18n.t('views.labels.site_index') %></h1>
+  <h4><%= I18n.t('views.labels.site_filter_cond') %></h4>
 
-<h4>絞込み条件指定</h4>
-<div class="site_index_search_condition border border-dark">
-  <form>
-    <table border="0">
-<tr>
-  <td align="right">ラベルを選択</td>
-  <td>
-    <input type="checkbox" name="label" value="1" checked="checked"><span class="badge badge-primary">納品先</span>
-    <input type="checkbox" name="label" value="2" ><span class="badge badge-secondary">建築地</span>
-    <input type="checkbox" name="label" value="3" ><span class="badge badge-success">借地</span>
-    <input type="checkbox" name="label" value="3" ><span class="badge badge-info">車庫</span>
-    <input type="checkbox" name="label" value="3" ><span class="badge badge-warning">取引先</span>  
-  </td>
-</tr>
-<tr>
-  <td align="right">ハッシュタグを入力</td><td><input type="text"></td>
-</tr>
-<tr>
-  <td align="right">名称の一部を入力</td><td><input type="text"></td>
-</tr>
-<tr>
-  <td align="right">メモの一部を入力</td><td><input type="text"></td>
-</tr>
-<tr>
-  <td align="right">コメントの一部を入力</td><td><input type="text"></td>
-</tr>
-    </table>
-    <input type="submit" value="絞込み" class="btn btn-sm btn-primary mb-3">
-  </form>
-</div>
+  <div class="site_index_search_condition border border-dark">
+  
+    <%= search_form_for(@q, url: team_sites_path(team_id: current_user.keep_team_id), id: 'filter_form', method: :get) do |form| %>
+    <%#= search_form_for @q do |form| %>
+      <table>
+      <tr>
+      <td align="right">
+        <%= form.label :labels_id_in, I18n.t('views.labels.filter_select_label') %>
+      </td>
+      <td>          
+        <%= form.collection_check_boxes(:labels_id_in, Label.filter_team(current_user.keep_team_id), :id, :title) do |b| %>
+          <%= b.label { b.check_box + "<span class='badge badge-pill badge-light'>".html_safe() + b.text + "</span>".html_safe() } %>
+        <% end %>
+      </td>
+      </tr>
 
-<h4>一覧</h4>
-<div class="site_index_index">
-  <div class="text-right">
-    <a href="#">新規作成</a>
-  </div>
-  <table class="table table-sm table-bordered table-resposive table-hover">
-  <thead class="thead-light">  
-    <tr>
-      <th>現場ID</th>
-      <th>名称</th>
-      <th>住所</th>
-      <th>メモ</th>
-      <th>ラベル</th>
-      <th>タグ数</th>
-      <th>作成日時</th>
-      <th>更新日時</th>
-      <th></th><th></th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @sites.each do |site| %>
-    <tr>
-      <td><%= link_to site.id, team_site_path(site.team.id, site.id), class: "btn btn-sm btn-info" %></td>
-      <td><%= site.name %></td>
-      <td><%= site.address %></td>
-      <td><%= site.memo %></td>
-      <td><!-- あとでラベルを記述 --></td>    
-      <td><!-- あとでタグ数を記述 --></td>
-      <td><%= site.created_at.to_s(:datetime_jp) %></td>
-      <td><%= site.updated_at.to_s(:datetime_jp) %></td>
-      <td><%= link_to '編集', edit_team_site_path(site.team.id, site.id), class: "btn btn-sm btn-info" %></td>
-      <td><%= link_to '削除', team_site_path(site.team.id, site.id), method: :delete,  data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %></td>
-    </tr>
+      <tr>
+      <td align="right"><%= form.label :tags_name_in, I18n.t('views.labels.filter_input_hashtag') %></td>
+      <td>   
+        <%= form.search_field :tags_name_in, id:'' %>
+      </td>
+      </tr>
+
+      <tr>
+      <td align="right"><%= form.label :name_cont, I18n.t('views.labels.filter_input_name') %></td>
+      <td>   
+        <%= form.search_field :name_cont, id:'' %>
+      </td>
+      </tr>
+
+      <tr>
+      <td align="right"><%= form.label :memo_cont, I18n.t('views.labels.filter_input_memo') %></td>
+      <td>
+        <%= form.search_field :memo_cont %>
+      </td>
+      </tr>
+
+      <tr>
+      <td align="right"><%= form.label :comments_content_cont, I18n.t('views.labels.filter_input_comment') %></td>
+      <td><%= form.search_field :comments_content_cont %></td>
+      </tr>
+
+      <tr>
+        <td>
+        </td>
+        <td>
+          <%= form.submit I18n.t('views.labels.site_filter') %>
+        </td>
+      </tr>
+      </table>
     <% end %>
-  </tbody>
-  </table>
-    
-</div>
+  </div>
+
+  <div class="site_index_index">
+    <div class="text-right">
+      <%= link_to I18n.t('views.labels.link_site_new'), new_team_site_path(current_user.keep_team_id ) %>
+    </div>
+    <table class="table table-sm table-bordered table-resposive table-hover">
+    <thead class="thead-light">  
+      <tr>
+        <th><%= I18n.t('views.labels.site_id') %></th>
+        <th><%= I18n.t('views.labels.site_name') %></th>
+        <th><%= I18n.t('views.labels.site_address') %></th>
+        <th><%= I18n.t('views.labels.site_memo') %></th>
+        <th><%= I18n.t('views.labels.site_label') %></th>
+        <th><%= I18n.t('views.labels.site_hashtag') %></th>
+        <th><%= I18n.t('views.labels.site_created_at') %></th>
+        <th><%= I18n.t('views.labels.site_updated_at') %></th>
+        <th></th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+    <% @sites.each do |site| %>
+      
+      <tr>
+        <td><%= link_to site.id, team_site_path(site.team.id, site.id), class: "btn btn-sm btn-info" %></td>
+        <td><%= site.name %></td>
+        <td><%= site.address %></td>
+        <td><%= site.memo %></td>
+        <td>
+          <% site.site_labellings.each do |labelling| %>
+            <span class="badge badge-pill badge-light mr-1 p-2"><%= labelling.label.title %></span><br>
+          <% end %>
+        </td>    
+        <td>
+          <%= render 'sites/tag_list', tag_list: site.tag_list %>
+        </td>
+        <td><%= site.created_at.to_s(:datetime_jp) %></td>
+        <td><%= site.updated_at.to_s(:datetime_jp) %></td>
+        <td><%= link_to '編集', edit_team_site_path(site.team.id, site.id), class: "btn btn-sm btn-info" %></td>
+        <td><%= link_to '削除', team_site_path(site.team.id, site.id), method: :delete,  data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %></td>
+      </tr>
+
+      <% end %>
+
+    </tbody>
+    </table>
+      
+  </div>
 </article>

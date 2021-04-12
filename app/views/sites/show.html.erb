@@ -1,12 +1,10 @@
-<p id="notice"><%= notice %></p>
-
 <article class="container_article">
-  <h1>現場情報詳細</h1>  
+  <h1><%= I18n.t('views.labels.site_show') %></h1>  
 
   <div class="container-fluid">
 
     <h3>基本属性</h3>
-    <!-- 基本属性ブロック end -->
+    <!-- 基本属性ブロック start -->
     <section class="site_show_basic_block border border-info">
       <div class="row">
         <div class="col-auto font-weight-bold">ID</div>
@@ -18,7 +16,11 @@
       </div>
       <div class="row">
         <div class="col-auto font-weight-bold">ラベル</div>
-        <div class="col-auto"><span class="badge badge-secondary">建築地</span></div>
+        <div class="col-auto">
+          <% @site.site_labellings.each do |labelling| %>
+            <span class="badge badge-pill badge-light mr-1 p-2"><%= labelling.label.title %></span>&nbsp;
+          <% end %>
+        </div>
       </div>
       <div class="row">  
         <div class="col-auto font-weight-bold">メモ</div>
@@ -26,7 +28,11 @@
       </div>
       <div class="row">
         <div class="col-auto font-weight-bold">ハッシュタグ</div>
-        <div class="col-auto text-monospace">#トヨタホーム #成田街道 #エスパシオ</div>
+        <div class="col-auto text-monospace">
+          <% @site.tag_list.each do |tag| %>
+            <strong><%= tag %></strong>
+          <% end %>
+        </div>
       </div>
     </section>
     <!-- 基本属性ブロック end -->

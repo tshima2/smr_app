@@ -23,8 +23,11 @@ Rails.application.routes.draw do
     resources :sites do
       resources :comments, shallow: true
       resources :image_posts, shallow: true
+      get 'search'
     end
   end
 
+  resources :labels
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

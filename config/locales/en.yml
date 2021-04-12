@@ -214,6 +214,30 @@ en:
       short: "%d %b %I:%M %p"
     pm: pm
   views:
+    labels:
+      filter_select_label: 'Select labels'
+      filter_input_hashtag: 'Input hash-tags'
+      filter_input_name: 'Input name'
+      filter_input_memo: 'Input memo'
+      filter_input_comment: 'Input comment'
+      link_back_to_site_index: 'Back to site-index'
+      link_site_show: 'Show site'
+      link_site_new: 'New site'
+      site_index: 'Site index'
+      site_filter_cond: 'Filter condition'
+      site_filter: 'Do filter'      
+      site_show: 'Show site detail'
+      site_new: 'New site'
+      site_edit: 'Edit site'
+      site_id: 'ID'      
+      site_name: 'Name'
+      site_address: 'Address'      
+      site_memo: 'Memo'
+      site_label: 'Labels'
+      site_hashtag: 'Hashtags'
+      site_created_at: 'Created'
+      site_updated_at: 'Updated'
+      site_submit: 'Resistration'
     messages:
       create_agenda: 'Successfully created an agenda!'
       delete_agenda: 'Successfully deleted an agenda!'

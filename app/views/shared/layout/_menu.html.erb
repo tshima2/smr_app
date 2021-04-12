@@ -23,6 +23,9 @@
         </div>
       </div>          
       <%= link_to "サイト一覧", team_sites_path(1), class: "nav-item nav-link" %>
+      <% if current_user.id == current_user.keep_team.owner.id %>
+        <%= link_to "ラベル管理", labels_path, class: "nav-item nav-link" %>
+      <% end %>
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-item nav-link" %>
     </div>
   </div>

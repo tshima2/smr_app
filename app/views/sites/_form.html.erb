@@ -1,0 +1,47 @@
+
+<%= form_with(model: site,  url: choose_new_or_edit, local: true) do |form| %>
+
+<div class="container_article border border-dark">
+    <h3>基本属性</h3>
+
+    <!-- 基本属性ブロック start -->
+    <table>
+    <tr>
+      <td align="right"><%= form.label I18n.t('views.labels.site_name') %></td>
+      <td><%= form.text_field :name, id: '' %></td>
+    </tr>
+    <tr>
+      <td align="right"><%= form.label I18n.t('views.labels.site_address') %></td>
+      <td><%= form.text_field :address, id: '' %></td>
+    </tr>
+    <tr>
+      <td>
+        <td align="right"><%= form.label :labels, I18n.t('views.labels.filter_select_label') %></td>
+        <%= form.collection_check_boxes(:label_ids, Label.filter_team(current_user.keep_team_id), :id, :title) do |b| %>
+          <%= b.label do %>
+            <%= b.check_box %>
+            <span class='badge badge-pill badge-light'>
+              <%= b.text %>
+            </span>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td align="right"><%= form.label I18n.t('views.labels.site_memo') %></td>
+      <td><%= form.text_field :memo, id: '' %></td>
+    </tr>
+    <tr>
+      <td align="right"><%= form.label :tag_list, I18n.t('views.labels.filter_input_hashtag') %></td>
+      <td><%= form.text_field :tag_list, id: '' %></td>
+    </tr>
+
+    <tr><td>
+        <%= form.submit I18n.t('views.labels.site_submit') %>
+        </td>
+    </tr>
+    </table>
+    <!-- 基本属性ブロック end -->
+
+</div>
+<% end %>

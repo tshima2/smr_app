@@ -73,4 +73,25 @@ ImagePost.create!(image: File.open("#{Rails.root.to_s}/public/images_for_seed/#{
 ImagePost.create!(image: File.open("#{Rails.root.to_s}/public/images_for_seed/#{rand(1..7)}.jpg"), user_id: user04.id, site_id: site06.id)
 ImagePost.create!(image: File.open("#{Rails.root.to_s}/public/images_for_seed/#{rand(1..7)}.jpg"), user_id: user04.id, site_id: site06.id)
 
+# create Label
+_title="車庫"; label01=Label.create!(team_id: team02.id, title: _title)
+_title="事務所"; label02=Label.create!(team_id: team02.id, title: _title)
+_title="借地"; label03=Label.create!(team_id: team02.id, title: _title)
+_title="建築地"; label04=Label.create!(team_id: team02.id, title: _title)
+_title="S社"; label05=Label.create!(team_id: team03.id, title: _title)
+_title="A社"; label06=Label.create!(team_id: team03.id, title: _title)
+_title="T社"; label07=Label.create!(team_id: team03.id, title: _title)
 
+# create SiteLabelling
+SiteLabelling.create!(site_id: site01.id, label_id: label04.id)
+SiteLabelling.create!(site_id: site02.id, label_id: label03.id)
+SiteLabelling.create!(site_id: site03.id, label_id: label05.id)
+SiteLabelling.create!(site_id: site03.id, label_id: label07.id)
+SiteLabelling.create!(site_id: site04.id, label_id: label06.id)
+
+# create Tag
+site01.tag_list.add("#成田街道入口")
+site01.tag_list.add("#前原団地入口")
+site01.save
+site06.tag_list.add("#殿町三丁目")
+site06.save

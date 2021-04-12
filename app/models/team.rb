@@ -10,6 +10,7 @@ class Team < ApplicationRecord
   has_many :members, through: :assigns, source: :user
   has_many :sites, dependent: :destroy
   has_many :users, foreign_key: :keep_team_id
+  has_many :labels, dependent: :destroy
 
   mount_uploader :icon, ImageUploader
 
