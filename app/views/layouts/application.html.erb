@@ -10,6 +10,7 @@
   </head>
 
   <body>
+    <script src="https://kit.fontawesome.com/b02adf0581.js" crossorigin="anonymous"></script>
     <header>
     </header>
 
@@ -20,10 +21,14 @@
       <%= link_to "ログイン", new_user_session_path, class: "nav-item nav-link" %>
     <% end %>
 
-    <p id="notice"><%= notice %></p>        
-
+<!--    <p id="notice"><%= notice %></p>  -->  
+    <% flash.each do |key, value| %>    
+      <% key="info" if key=="notice" %>
+      <% key="danger" if key=="alert" %>
+      <%= content_tag :dev, value, class: "alert alert-#{key}" %>
+    <% end %>
+    
     <%= yield %>
-
     <%#= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   </body>

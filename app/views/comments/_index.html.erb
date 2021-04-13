@@ -2,16 +2,17 @@
 <% comments.each do |comment| %>
     <% if comment.id.present? %>
       <li class="col-auto">
-        <% unless URI.regexp.match(comment.content).nil? %>
-          <%= link_to comment.content, comment.content, target: :_blank, rel: 'noopener noreferrer' %>
-        <% else %>
-          <%= comment.content %>
-        <% end %>
-        [added by <%= comment.user.name %> at <%= comment.updated_at.to_s(:datetime_jp) %> ]
-        <%= link_to I18n.t('views.messages.delete_comment'), comment_path(comment.id), method: :delete, data: { confirm: 'Are you sure?'} %>
-	<div class="comment-content" id ="this_comment_<%= comment.id %>">
-	  <%= link_to I18n.t('views.messages.edit_comment'), edit_comment_path(comment.id), remote: true %>
-	</div>
+        <%= raw Rinku.auto_link(simple_format(comment.content)) %>
+
+	  <div>
+	    <p class="site_comments_menu_links">[added by <%= comment.user.name %> at <%= l comment.updated_at, format: :short %> ]</p>	
+	    <div class="site_comments_menu_links" id ="this_comment_<%= comment.id %>">
+	      <%= link_to I18n.t('views.labels.comment_edit'), edit_comment_path(comment.id), remote: true %>
+	    </div>
+	    <div class="site_comments_menu_links">	      
+	      <%= link_to I18n.t('views.labels.comment_delete'), comment_path(comment.id), method: :delete, data: { confirm: 'Are you sure?'} %>
+	    </div>
+	  </div>
       </li>
     <% end %>
   <% end %>

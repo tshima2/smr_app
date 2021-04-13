@@ -15,8 +15,8 @@
       <td><%= form.text_field :address, id: '' %></td>
     </tr>
     <tr>
+      <td align="right"><%= form.label :labels, I18n.t('views.labels.filter_select_label') %></td>
       <td>
-        <td align="right"><%= form.label :labels, I18n.t('views.labels.filter_select_label') %></td>
         <%= form.collection_check_boxes(:label_ids, Label.filter_team(current_user.keep_team_id), :id, :title) do |b| %>
           <%= b.label do %>
             <%= b.check_box %>

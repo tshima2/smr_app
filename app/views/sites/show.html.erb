@@ -6,34 +6,49 @@
     <h3>基本属性</h3>
     <!-- 基本属性ブロック start -->
     <section class="site_show_basic_block border border-info">
-      <div class="row">
-        <div class="col-auto font-weight-bold">ID</div>
-        <div class="col-auto"><%= @site.id %></div>
-      </div>
-      <div class="row">
-        <div class="col-auto font-weight-bold">名称</div>
-        <div class="col-auto"><%= @site.address %></div>
-      </div>
-      <div class="row">
-        <div class="col-auto font-weight-bold">ラベル</div>
-        <div class="col-auto">
-          <% @site.site_labellings.each do |labelling| %>
-            <span class="badge badge-pill badge-light mr-1 p-2"><%= labelling.label.title %></span>&nbsp;
-          <% end %>
-        </div>
-      </div>
-      <div class="row">  
-        <div class="col-auto font-weight-bold">メモ</div>
-        <div class="col-auto"><%= @site.name %></div>
-      </div>
-      <div class="row">
-        <div class="col-auto font-weight-bold">ハッシュタグ</div>
-        <div class="col-auto text-monospace">
-          <% @site.tag_list.each do |tag| %>
-            <strong><%= tag %></strong>
-          <% end %>
-        </div>
-      </div>
+      <table>
+        <tr>
+          <td align="right"><div class="font-weight-bold">ID：&nbsp;</div></td>
+          <td><div class=""><%= @site.id %></div></td>
+        </tr>
+
+        <tr>
+          <td align="right"><div class="font-weight-bold">名称：&nbsp;</div></td>
+          <td><div class=""><%= @site.name %></div></td>
+        </tr>
+
+        <tr>
+          <td align="right"><div class="font-weight-bold">住所：&nbsp;</div></td>
+          <td><div class=""><%= @site.address %></div></td>
+        </tr>
+
+        <tr>
+          <td align="right"><div class="font-weight-bold">ラベル：&nbsp;</div></td>
+          <td>
+          <div class="">
+            <% @site.site_labellings.each do |labelling| %>
+              <span class="badge badge-pill badge-light mr-1 p-2"><%= labelling.label.title %></span>&nbsp;
+            <% end %>          
+          </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td align="right"><div class="font-weight-bold">メモ：&nbsp;</div></td>
+          <td><div class=""><%= @site.memo %></div></td>
+        </tr>
+
+        <tr>
+          <td align="right"><div class="font-weight-bold">ハッシュタグ：&nbsp;</div></td>
+          <td>
+            <div class="text-monospace">
+              <% @site.tag_list.each do |tag| %>
+                <strong><%= tag %></strong>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      </table>
     </section>
     <!-- 基本属性ブロック end -->
 

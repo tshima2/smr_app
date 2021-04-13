@@ -1,5 +1,4 @@
 class LabelsController < ApplicationController
-  before_action :authenticate_user!,  only: [:index, :new, :create]
   before_action :set_label, only: [:show, :edit, :update, :destroy]
   def index
     @labels = Label.filter_team(current_user.keep_team_id)

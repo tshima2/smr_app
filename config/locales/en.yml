@@ -216,10 +216,11 @@ en:
   views:
     labels:
       filter_select_label: 'Select labels'
-      filter_input_hashtag: 'Input hash-tags'
-      filter_input_name: 'Input name'
-      filter_input_memo: 'Input memo'
-      filter_input_comment: 'Input comment'
+      filter_input_hashtag: 'Input part-of hash-tags'
+      filter_input_name: 'Input part-of name'
+      filter_input_address: 'Input part-of address'
+      filter_input_memo: 'Input part-of memo'
+      filter_input_comment: 'Input part-of comment'
       link_back_to_site_index: 'Back to site-index'
       link_site_show: 'Show site'
       link_site_new: 'New site'
@@ -235,9 +236,12 @@ en:
       site_memo: 'Memo'
       site_label: 'Labels'
       site_hashtag: 'Hashtags'
+      site_username: 'Username'      
       site_created_at: 'Created'
       site_updated_at: 'Updated'
       site_submit: 'Resistration'
+      comment_edit: 'Edit'
+      comment_delete: 'Delete'
     messages:
       create_agenda: 'Successfully created an agenda!'
       delete_agenda: 'Successfully deleted an agenda!'
@@ -299,9 +303,9 @@ en:
       invite: 'Invite'
       delegate: 'Delegate'      
     top:
-      line1: 'it is an application to share a specific issue (agenda) easily'
-      line2: 'for each member separately for each team or agenda'
-      line3: 'If you share information with slack etc., it will happen that important information will flow'
-      line4: 'and you will not be able to pick it up, so it is an internal application to avoid it'
+      line1: 'The purpose of this application is to accumulate and share information'
+      line2: 'about the site (location, site) in team units such as companies or colleagues.'
+      line3: 'If you are a team leader, start by creating a team and inviting members when you log-in for the first time.'
+      line4: 'Create Team'
     common:
       team: 'Team'

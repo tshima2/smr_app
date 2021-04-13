@@ -1,7 +1,8 @@
 <!-- ナビゲーションバー start -->
 <div class="smr_nav">
 <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">      
-  <a href="#" class="navbar-brand">メニュー</a>
+  <!-- <span class="navbar-brand">SmoothRunning - サイト情報共有</span> -->
+  <%= link_to "SmoothRunning - サイト情報共有", statics_top_path, class: "navbar-brand nav-link" %>  
   <button class="navbar-toggler" type="button"
           data-toggle="collapse"
           data-target="#navmenu1"
@@ -10,18 +11,34 @@
           aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
   <div class="collapse navbar-collapse" id="navmenu1">
     <div class="navbar-nav">
-      <%= link_to "チーム作成", new_team_path, class: "nav-item nav-link" %>
-      <%= link_to "マイページ", user_path, class: "nav-item nav-link" %>
+
+
       <div class="dropdown">
-        <a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown">チーム選択</a>
+        <a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown">マイチーム</a>
         <div class="dropdown-menu">
           <% (current_user.teams.blank? ? Team.where(id: 1): current_user.teams).each do |team| %>
-            <%= link_to team.name, team_path(team.id), class: 'dropdown-item' %>
-          <% end %>
+	    <% if current_user.keep_team_id == team.id %>
+	    <div class="dropdown-item">
+	      <span class="fa-div"><i class="fas fa-check-square"></i></span>
+	      <%= link_to team.name, team_path(team.id) %>	      
+	    </div>
+	    <% else %>
+	    <div class="dropdown-item">
+	      <span class="fa-div"><i class="far fa-square"></i></span>
+              <%= link_to team.name, team_path(team.id) %>	      
+	    </div>
+	    <% end %>
+            <% end %>
+
+	  <%= link_to "あたらしくチームを作る", new_team_path, class: "dropdown-item" %>	  	    
         </div>
-      </div>          
+      </div>
+
+      <%= link_to "マイページ", user_path, class: "nav-item nav-link" %>
+      
       <%= link_to "サイト一覧", team_sites_path(1), class: "nav-item nav-link" %>
       <% if current_user.id == current_user.keep_team.owner.id %>
         <%= link_to "ラベル管理", labels_path, class: "nav-item nav-link" %>

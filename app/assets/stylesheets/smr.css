@@ -79,3 +79,6 @@ html {
   color: black;
   text-decoration: none;
 }
+.site_comments_menu_links {
+    display: inline-block;
+}

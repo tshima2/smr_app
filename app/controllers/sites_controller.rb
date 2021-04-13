@@ -1,13 +1,12 @@
 class SitesController < ApplicationController
-  before_action  :authenticate_user!, only: [:index, :new, :create]
   before_action  :set_site, only: [:show, :edit, :update, :destroy]
-
   def index
     @sites = current_user.keep_team.sites
 
     if params[:q]
       @q = current_user.keep_team.sites.ransack(params[:q])
       @sites = @q.result
+      byebug
     else
       @q = Site.ransack(nil)
     end 
@@ -35,7 +34,6 @@ class SitesController < ApplicationController
   end
 
   def update
-    byebug
     if @site.update(site_params)
       redirect_to team_sites_path, notice: I18n.t('views.messages.update_site')
     else
@@ -58,21 +56,24 @@ class SitesController < ApplicationController
   end
 
   def show
+    check_specified_team
+   
     @comments = @site.comments
     @comment = @site.comments.build
     @image_posts = @site.image_posts
-  end  
+ end  
 
   private
   def site_params
     p = params.require(:site).permit(:team_id, :name, :address, :latitude, :longtitude, :memo, :tag_list, { label_ids: [] })
+    byebug
+    p[:tag_list] = p[:tag_list].split(/[[:space:]]/).select {|li| li.length > 0}
     p[:label_ids] = p[:label_ids].select { |li| li.length > 0 }
     return p
   end
 
   def set_site
     @site = Site.find(params[:id])
-    byebug
   end
 
   def search_params

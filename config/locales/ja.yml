@@ -206,8 +206,9 @@ ja:
   views:
     labels:
       filter_select_label: 'ラベルを選択'
-      filter_input_hashtag: 'ハッシュタグを入力'
+      filter_input_hashtag: 'ハッシュタグの一部を入力'
       filter_input_name: '名称の一部を入力'
+      filter_input_address: '住所の一部を入力'
       filter_input_memo: 'メモの一部を入力'
       filter_input_comment: 'コメントの一部を入力'
       link_back_to_site_index: 'サイト情報一覧に戻る'
@@ -225,9 +226,12 @@ ja:
       site_memo: 'メモ'
       site_label: 'ラベル'
       site_hashtag: 'ハッシュタグ'
+      site_username: '作成者'
       site_created_at: '作成日時'
       site_updated_at: '更新日時'
       site_submit: '登録'
+      comment_edit: '編集'
+      comment_delete: '削除'
     messages:
       create_agenda: 'アジェンダ作成に成功しました！'
       delete_agenda: 'アジェンダを削除しました！'
@@ -289,9 +293,9 @@ ja:
       invite: '招待'
       delegate: 'リーダ委譲'
     top:
-      line1: 'このアプリケーションは、チームごと、議題ごとに別れて'
-      line2: '特定のイシュー（議題）をメンバーで見やすく共有するためのアプリケーションです'
-      line3: 'slackなどで情報を共有してしまうと、ややもすると重要な情報が流れて拾えなくなるという'
-      line4: '事態が起こってしまうので、それを回避するための社内用アプリケーションです'
+      line1: '本アプリケーションは、会社などの組織単位、もしくは仲間内などのチーム単位で'
+      line2: 'サイト（場所、現場）の情報を蓄積し、共有することを目的としています。'
+      line3: 'チームリーダの方は、初回のログイン時にはまずチームを作成し、メンバーを招待するところから始めましょう。'
+      line4: 'チームを作成する'
     common:
       team: 'チーム'
