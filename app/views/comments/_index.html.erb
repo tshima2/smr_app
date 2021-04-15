@@ -1,19 +1,23 @@
-<ul class="row">
-<% comments.each do |comment| %>
+<div class="row">
+  <% comments.each do |comment| %>
     <% if comment.id.present? %>
-      <li class="col-auto">
-        <%= raw Rinku.auto_link(simple_format(comment.content)) %>
+	  <div class="col-auto">
+	  	<div class="site_show_comment_item p-1 m-1 border rounded bg-light">
+			<%= raw Rinku.auto_link(simple_format(comment.content)) %>
 
-	  <div>
-	    <p class="site_comments_menu_links">[added by <%= comment.user.name %> at <%= l comment.updated_at, format: :short %> ]</p>	
-	    <div class="site_comments_menu_links" id ="this_comment_<%= comment.id %>">
-	      <%= link_to I18n.t('views.labels.comment_edit'), edit_comment_path(comment.id), remote: true %>
-	    </div>
-	    <div class="site_comments_menu_links">	      
-	      <%= link_to I18n.t('views.labels.comment_delete'), comment_path(comment.id), method: :delete, data: { confirm: 'Are you sure?'} %>
-	    </div>
+			<div>
+				<p class="site_comments_menu_links">[added by <%= comment.user.name %> at <%= l comment.updated_at, format: :short %> ]</p>	
+				<% if(current_user.keep_team.owner_id == current_user.id || comment.user_id == current_user.id) %>
+				  <div class="site_comments_menu_links" id ="this_comment_<%= comment.id %>">
+				    <%= link_to I18n.t('views.labels.comment_edit'), edit_comment_path(comment.id), class: "btn-sm btn-info", remote: true %>
+				  </div>
+				  <div class="site_comments_menu_links">	      
+				    <%= link_to I18n.t('views.labels.comment_delete'), comment_path(comment.id), method: :delete, class: "btn-sm btn-info", data: { confirm: 'Are you sure?'} %>
+				  </div>
+				<% end %>
+			</div>
+	  	</div>
 	  </div>
-      </li>
     <% end %>
   <% end %>
-</ul>
+</div>

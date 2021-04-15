@@ -19,27 +19,27 @@
       <div class="dropdown">
         <a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown">マイチーム</a>
         <div class="dropdown-menu">
-          <% (current_user.teams.blank? ? Team.where(id: 1): current_user.teams).each do |team| %>
-	    <% if current_user.keep_team_id == team.id %>
-	    <div class="dropdown-item">
-	      <span class="fa-div"><i class="fas fa-check-square"></i></span>
-	      <%= link_to team.name, team_path(team.id) %>	      
-	    </div>
-	    <% else %>
-	    <div class="dropdown-item">
-	      <span class="fa-div"><i class="far fa-square"></i></span>
+          <% (current_user.teams.blank? ? Team.where(id: 1): current_user.teams.order(id: :asc)).each do |team| %>
+	    
+            <% if current_user.keep_team_id == team.id %>
+            <div class="dropdown-item">
+              <span class="fa-div"><i class="fas fa-check-square"></i></span>
               <%= link_to team.name, team_path(team.id) %>	      
-	    </div>
-	    <% end %>
+            </div>
+            <% else %>
+            <div class="dropdown-item">
+              <span class="fa-div"><i class="far fa-square"></i></span>
+                    <%= link_to team.name, team_path(team.id) %>	      
+            </div>
             <% end %>
+          <% end %>
 
-	  <%= link_to "あたらしくチームを作る", new_team_path, class: "dropdown-item" %>	  	    
+      	  <%= link_to "あたらしくチームを作る", new_team_path, class: "dropdown-item" %>	  	    
         </div>
       </div>
 
       <%= link_to "マイページ", user_path, class: "nav-item nav-link" %>
-      
-      <%= link_to "サイト一覧", team_sites_path(1), class: "nav-item nav-link" %>
+      <%= link_to "サイト情報", team_sites_path(1), class: "nav-item nav-link" %>
       <% if current_user.id == current_user.keep_team.owner.id %>
         <%= link_to "ラベル管理", labels_path, class: "nav-item nav-link" %>
       <% end %>

@@ -8,11 +8,12 @@
         <div class="row">
           <div class="col-md-12">
             <div>
-              <%= image_tag default_img(@team.icon_url), class: 'img' %><br>
+              <%= image_tag default_img(@team.icon_url), size: '150x150', class: 'img' %><br>
               <%= @team.name %>
             </div>
             <% if (current_user.id == @team.owner.id) %>
-              <%= link_to I18n.t('views.messages.edit_team'), edit_team_path(@team), class: 'btn btn-sm btn-success mt-3' %>
+              <%= link_to I18n.t('views.messages.edit_team'), edit_team_path(@team), class: 'btn btn-sm btn-info mt-3' %>
+              <%= link_to I18n.t('views.labels.label_index_top'), labels_path, class: 'btn btn-sm btn-info mt-3' %>
             <% end %>
           </div>
         </div>  
@@ -38,7 +39,7 @@
                 <tbody>
                   <% @team.assigns.each do |assign| %>
                     <tr>
-                      <td><%= image_tag 'default.jpg', size: '40x40' %></td>
+                      <td><%= image_tag default_img(assign.user.icon_url), size: '40x40' %></td>
                       <td><%= assign.user.name %>&nbsp;&lt;<%= assign.user.email %>&gt;</td>
                       <td>
 			                    <% if (current_user.id == @team.owner.id) || (current_user.id == assign.user_id) %>

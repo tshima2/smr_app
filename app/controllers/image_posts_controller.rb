@@ -11,7 +11,6 @@ class ImagePostsController < ApplicationController
     @image_post = @site.image_posts.build(image_post_params)
     @image_post.user_id = current_user.id
     
-    byebug
     if @image_post.save
       redirect_to team_site_path(@site.team.id, @site.id), notice: I18n.t('view.messages.create_image_post')
     else
@@ -27,7 +26,6 @@ class ImagePostsController < ApplicationController
 
   private
   def image_post_params
-    byebug
     params.require(:image_post).permit(:site_id, :image, :image_cache)
   end
 end

@@ -1,3 +1,4 @@
+<h2><%= I18n.t('views.labels.user_edit_top') %></h2>
 <%= form_with(model: @user, local: true, url: user_path ) do |form| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -21,7 +22,7 @@
     <%= form.hidden_field :icon_cache %>
   </div>
   <div>
-    <%= form.submit %>
+    <%= form.submit I18n.t('views.labels.user_edit_submit'), class: "btn btn-info" %>
   </div>
 
 <% end %>

@@ -32,12 +32,12 @@
       <td><%= form.text_field :memo, id: '' %></td>
     </tr>
     <tr>
-      <td align="right"><%= form.label :tag_list, I18n.t('views.labels.filter_input_hashtag') %></td>
+      <td align="right"><%= form.label :tag_list, I18n.t('views.labels.site_hashtag') %></td>
       <td><%= form.text_field :tag_list, id: '' %></td>
     </tr>
 
     <tr><td>
-        <%= form.submit I18n.t('views.labels.site_submit') %>
+        <%= form.submit I18n.t('views.labels.site_submit'), class: "btn btn-sm btn-success" %>
         </td>
     </tr>
     </table>

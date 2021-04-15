@@ -5,13 +5,13 @@ class SitesController < ApplicationController
 
     if params[:q]
       @q = current_user.keep_team.sites.ransack(params[:q])
-      @sites = @q.result
-      byebug
+      @q.combinator = "or" if(params["and_or"]=="1")
+      @sites = @q.result distinct: true
     else
       @q = Site.ransack(nil)
     end 
   
-    @sites = @sites.order(updated_at: :DESC)
+    @sites = @sites.order(updated_at: :DESC).page(params[:page]).per(20)
   end
     
   def new
@@ -73,11 +73,22 @@ class SitesController < ApplicationController
   end
 
   def set_site
-    @site = Site.find(params[:id])
+    begin
+      @site = Site.find(params[:id])
+    rescue
+      redirect_to statics_top_path, alert: I18n.t('views.messages.invalid_site_specified')
+    end
+  end
+
+  def check_specified_team
+    if !(current_user.teams.pluck(:team_id).include?(params[:team_id].to_i))
+      redirect_to statics_top_path, alert: I18n.t('views.messages.unauthorized_request')
+    end 
   end
 
   def search_params
     params.require(:q).permit!
   end
+
 
 end

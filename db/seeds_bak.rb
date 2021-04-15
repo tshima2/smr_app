@@ -48,35 +48,6 @@ site05=Site.create!(user_id: user03.id, team_id: team03.id, name: _name, address
 _name="小島新田公園"; _address="川崎区田町3-11-1"; _memo="memo06"
 site06=Site.create!(user_id: user04.id, team_id: team03.id, name: _name, address: _address, memo: _memo)
 
-require "csv"
-comments_header=[
-    "男性トイレ総数","男性トイレ数（小便器）","男性トイレ数（和式）","男性トイレ数（洋式）","女性トイレ総数",
-    "女性トイレ数（和式）","女性トイレ数（洋式）","男女共用トイレ総数","男女共用トイレ数（和式）","男女共用トイレ数（洋式）",
-    "多機能トイレ","車椅子使用者用トイレ有無","乳幼児用設備設置トイレ有無","オストメイト設置トイレ有無","利用開始時間",
-    "利用終了時間","利用可能時間特記事項","画像","画像_ライセンス","URL"]
-
-CSV.foreach('db/131130_public_toilet.csv', headers: true) do |row|
-    _site = user01.sites.build(team_id: team01.id, name: row["名称"], address: row["住所"], latitude: row["緯度"], longtitude: row["経度"])
-  
-    if _site.save
-        _contents = comments_header.map { |ch| "#{ch}: #{row[ch]}" if row[ch] && row[ch].length>0 }
-        _contents.compact.each do |_content|
-            _comment = _site.comments.build(content: _content, user_id: user01.id)
-            _comment.save!
-        end
-
-        if !(_la = Label.find_by(title: "多機能トイレ", team_id: _site.team_id))
-            _la = Label.create(title: "多機能トイレ", team_id: _site.team_id)
-        end
-        if(row["多機能トイレ"]=="有")
-            _labelling = _site.site_labellings.build(label_id: _la.id)
-            _labelling.save!
-        end 
-    end
-end
-    
-
-
 # create Comment
 _content = "https://www.google.com/maps/d/edit?mid=1kUIUniMq5Eghbk7jcKE0Wr8n1EobSGhs&usp=sharing"
 Comment.create!(user_id: user02.id, site_id: site01.id, content: _content)
