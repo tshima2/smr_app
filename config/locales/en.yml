@@ -215,12 +215,14 @@ en:
     pm: pm
   views:
     labels:
+      label_edit_top: 'Editing label'    
       label_index_top: 'Label index'
       label_index_title: 'Title'
       link_new_label:  'New label'
       link_show_label:  'Show'
       link_edit_label:  'Edit'
       link_destroy_label: 'Destroy'
+      link_label_index: 'Back to index'      
       new_label_top: 'New label'
       new_label_back: 'Back'
       new_label_submit: 'Create'
@@ -257,6 +259,8 @@ en:
       comment_edit: 'Edit'
       comment_delete: 'Delete'
     messages:
+      update_label: 'Successfully updated a label!'        
+      create_label: 'Successfully created a label!'    
       create_agenda: 'Successfully created an agenda!'
       delete_agenda: 'Successfully deleted an agenda!'
       failed_to_delete_agenda: 'Delete an agenda failed'
@@ -283,7 +287,7 @@ en:
       create_article: 'Create an article'
       comment_list: 'Comments'
       post_comment: 'Post a comment'
-      initial_assign: 'Your email address has been assigned to the DIVEINTOPOST team!'
+      initial_assign: 'Your email address has been assigned to the SmoothRunning team!'
       initial_password: 'Initial Password:'
       author: 'Author'
       delete_comment: 'Delete the comment'

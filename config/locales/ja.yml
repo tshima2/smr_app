@@ -205,16 +205,19 @@ ja:
     pm: 午後
   views:
     labels:
+      label_edit_top: 'ラベル編集'
       label_index_top: 'ラベル管理'
       label_index_title: 'タイトル'
       link_new_label:  '新しいラベル'
       link_show_label:  '参照'
       link_edit_label:  '編集'
       link_destroy_label: '削除'
+      link_label_index: '一覧に戻る'
       new_label_top: '新しいラベル'
       new_label_back: '戻る'
       new_label_submit: '登録する'
-      new_team_name: 'チーム名'
+      new_user_email: 'Eメール'
+      new_team_name: 'チーム名'      
       new_icon_name: 'アイコン'
       user_edit_top: 'プロフィールを編集する'
       user_edit_submit: '更新する'
@@ -247,6 +250,8 @@ ja:
       comment_edit: '編集'
       comment_delete: '削除'
     messages:
+      update_label: 'ラベルを更新しました！'        
+      create_label: 'ラベルを作成しました！'    
       create_agenda: 'アジェンダ作成に成功しました！'
       delete_agenda: 'アジェンダを削除しました！'
       failed_to_delete_agenda: 'アジェンダ削除に失敗しました！'
@@ -273,7 +278,7 @@ ja:
       create_article: '記事を作成する'
       comment_list: 'コメント一覧'
       post_comment: 'コメント投稿'
-      initial_assign: 'あなたのアドレスが、DIVEINTOPOSTのチームにアサインされました！'
+      initial_assign: 'あなたのアドレスが、SmoothRunningのチームにアサインされました！'
       initial_password: '初期パスワード:'
       author: '投稿者'
       delete_comment: 'コメントを削除する'
