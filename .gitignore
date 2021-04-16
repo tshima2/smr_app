@@ -37,3 +37,6 @@
 
 # kml files
 /public/maps
+
+# upload image
+/public/uploads
