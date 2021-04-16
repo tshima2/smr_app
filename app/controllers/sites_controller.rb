@@ -43,12 +43,12 @@ class SitesController < ApplicationController
   end
 
   def destroy
-=begin
+    site_name=@site.name
     emails = @site.team.members.pluck(:email)
     emails << @site.team.owner.email
-=end
+
     if @site.destroy
-#      SiteMailer.destroy_mail(emails, site_title).deliver
+      SiteMailer.destroy_mail(emails, site_name).deliver
       redirect_to team_sites_path, notice: I18n.t('views.messages.delete_site')
     else
       redirect_to team_sites_path, notice: I18n.t('views.messages.failed_to_delete_site')
