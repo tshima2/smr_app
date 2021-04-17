@@ -3,9 +3,8 @@ class AssignsController < ApplicationController
   before_action :user_exist?, only: [:create]
 
   def create
-    byebug
     team = Team.find(params[:team_id])
-    user = email_reliable?(assign_params) ? User.find_or_create_by_email(assign_params) : nil
+    user = email_reliable?(assign_params) ? User.find_by(email: assign_params) : nil
 
     if user
       team.invite_member(user)
