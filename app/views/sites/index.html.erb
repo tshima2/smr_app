@@ -75,18 +75,18 @@
       <%= link_to I18n.t('views.labels.link_site_new'), new_team_site_path(current_user.keep_team_id ) %>
     </div>
     <table class="table table-sm table-bordered table-resposive table-hover">
-<!--    <thead class="thead-dark">  -->
-      <thead class="thead-light">
+      <thead class="thead-dark">
+      <!-- <thead class="thead-light"> -->
       <tr>
-        <th><%= sort_link(@q, :id, I18n.t('views.labels.site_id'), {class: "site_index_sort_link"}) %></th>
-        <th><%= sort_link(@q, :name, I18n.t('views.labels.site_name'), {class: "site_index_sort_link"}) %></th>
-        <th><%= sort_link(@q, :address, I18n.t('views.labels.site_address'), {class: "site_index_sort_link"}) %></th>
+        <th><%= sort_link(@q, :id, I18n.t('views.labels.site_id'), {default_order: :desc}, {class: "site_index_sort_link"}) %></th>
+        <th><%= sort_link(@q, :name, I18n.t('views.labels.site_name'), {default_order: :desc}, {class: "site_index_sort_link"}) %></th>
+        <th><%= sort_link(@q, :address, I18n.t('views.labels.site_address'), {default_order: :desc}, {class: "site_index_sort_link"}) %></th>
         <th><%= I18n.t('views.labels.site_label') %></th>
-        <th><%= sort_link(@q, :memo, I18n.t('views.labels.site_memo'), {class: "site_index_sort_link"}) %></th>
+        <th><%= sort_link(@q, :memo, I18n.t('views.labels.site_memo'), {default_order: :desc}, {class: "site_index_sort_link"}) %></th>
         <th><%= I18n.t('views.labels.site_hashtag') %></th>
-        <th><%= sort_link(@q, :user_name, I18n.t('views.labels.site_username'), {class: "site_index_sort_link"}) %></th>
-        <th><%= sort_link(@q, :created_at, I18n.t('views.labels.site_created_at', default_order: :desc), {class: "site_index_sort_link"}) %></th>
-        <th><%= sort_link(@q, :updated_at, I18n.t('views.labels.site_updated_at', default_order: :desc), {class: "site_index_sort_link"}) %></th>
+        <th><%= sort_link(@q, :user_name, I18n.t('views.labels.site_username'), {default_order: :desc}, {class: "site_index_sort_link"}) %></th>
+        <th><%= sort_link(@q, :created_at, I18n.t('views.labels.site_created_at'), {default_order: :desc}, {class: "site_index_sort_link"}) %></th>
+        <th><%= sort_link(@q, :updated_at, I18n.t('views.labels.site_updated_at'), {default_order: :desc}, {class: "site_index_sort_link"}) %></th>
         <th></th><th></th>
       </tr>
     </thead>
