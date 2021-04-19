@@ -11,6 +11,6 @@
   <% end %>
 
   <div class="field">
-    <%= form.text_field(:content, id: "comment_content_#{site.id}") %><%= form.submit value='更新' %>
+    <%= form.text_field(:content, id: "comment_content_#{site.id}") %><%= form.submit value='更新', class: "btn btn-sm btn-info" %>
   </div>
 <% end %>
