@@ -66,7 +66,6 @@ class SitesController < ApplicationController
   private
   def site_params
     p = params.require(:site).permit(:team_id, :name, :address, :latitude, :longtitude, :memo, :tag_list, { label_ids: [] })
-    byebug
     p[:tag_list] = p[:tag_list].split(/[[:space:]]/).select {|li| li.length > 0}
     p[:label_ids] = p[:label_ids].select { |li| li.length > 0 }
     return p
