@@ -19,9 +19,9 @@ user04=User.create!(name: _name, email: _email, password: _pass, keep_team_id:  
 # create Team
 _name = "DefaultTeam"
 team01=Team.create!(name: _name, owner_id: user01.id)
-_name = "Teamタツキ"
+_name = "T輸送"
 team02=Team.create!(name: _name, owner_id: user02.id)
-_name = "Team山陽"
+_name = "S重機"
 team03=Team.create!(name: _name, owner_id: user03.id)
 
 # create Assign
@@ -78,7 +78,7 @@ end
 
 
 # create Comment
-_content = "https://www.google.com/maps/d/edit?mid=1kUIUniMq5Eghbk7jcKE0Wr8n1EobSGhs&usp=sharing"
+_content = "Googleマイマップ案内図→　https://www.google.com/maps/d/edit?mid=1kUIUniMq5Eghbk7jcKE0Wr8n1EobSGhs&usp=sharing"
 Comment.create!(user_id: user02.id, site_id: site01.id, content: _content)
 _content="現場入口が狭いので気をつけて"
 Comment.create!(user_id: user02.id, site_id: site01.id, content: _content)
@@ -119,6 +119,8 @@ SiteLabelling.create!(site_id: site03.id, label_id: label07.id)
 SiteLabelling.create!(site_id: site04.id, label_id: label06.id)
 
 # create Tag
+site01.tag_list.add("#R357")
+site01.tag_list.add("#R298")
 site01.tag_list.add("#成田街道入口")
 site01.tag_list.add("#前原団地入口")
 site01.save
