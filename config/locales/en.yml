@@ -215,6 +215,13 @@ en:
     pm: pm
   views:
     labels:
+      link_menu_app_name: 'SmoothRunning - SiteInformation SharingTool'
+      link_menu_my_team: 'My team'
+      link_menu_new_team: 'New tean'
+      link_menu_mypage: 'My page'
+      link_menu_site_index: 'Site index'
+      link_menu_manage_label: 'Label management'
+      link_menu_logout: 'Log out'
       label_edit_top: 'Editing label'    
       label_index_top: 'Label index'
       label_index_title: 'Title'
@@ -241,9 +248,15 @@ en:
       link_site_new: 'New site'
       site_index: 'Site index'
       site_index_index: 'Index'
+      site_index_edit: 'Edit'
+      site_index_delete: 'Delete'
       site_filter_cond: 'Filter condition'
       site_filter: 'Do filter'      
       site_show: 'Show site detail'
+      site_show_basic_attributes_block: 'Basic attributes'
+      site_show_map_block: 'Map'
+      site_show_comments_block: 'Comments'
+      site_show_images_block: 'Images'
       site_new: 'New site'
       site_edit: 'Edit site'
       site_id: 'ID'      
@@ -321,6 +334,7 @@ en:
       invite: 'Invite'
       delegate: 'Delegate'      
     top:
+      welcome: 'Welcome to SmoothRunning Site Information Sharing Tool! '    
       line1: 'The purpose of this application is to accumulate and share information'
       line2: 'about the site (location, site) in team units such as companies or colleagues.'
       line3: 'If you are a team leader, start by creating a team and inviting members when you log-in for the first time.'

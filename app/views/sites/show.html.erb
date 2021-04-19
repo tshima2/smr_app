@@ -3,27 +3,27 @@
 
   <div class="container-fluid">
 
-    <h4 class="font-weight-bold">基本属性</h4>
+    <h4 class="font-weight-bold"><%= I18n.t('views.labels.site_show_basic_attributes_block') %></h4>
     <!-- 基本属性ブロック start -->
     <section class="site_show_basic_block border border-info">
       <table>
         <tr>
-          <td align="right"><div class="font-weight-bold">ID：&nbsp;</div></td>
+          <td align="right"><div class="font-weight-bold"><%= I18n.t('views.labels.site_id') %>：&nbsp;</div></td>
           <td><div class="site_show_basic_item"><%= @site.id %></div></td>
         </tr>
 
         <tr>
-          <td align="right"><div class="font-weight-bold">名称：&nbsp;</div></td>
+          <td align="right"><div class="font-weight-bold"><%= I18n.t('views.labels.site_name') %>：&nbsp;</div></td>
           <td><div class="site_show_basic_item"><%= @site.name %></div></td>
         </tr>
 
         <tr>
-          <td align="right"><div class="font-weight-bold">住所：&nbsp;</div></td>
+          <td align="right"><div class="font-weight-bold"><%= I18n.t('views.labels.site_address') %>：&nbsp;</div></td>
           <td><div class="site_show_basic_item"><%= @site.address %></div></td>
         </tr>
 
         <tr>
-          <td align="right"><div class="font-weight-bold">ラベル：&nbsp;</div></td>
+          <td align="right"><div class="font-weight-bold"><%= I18n.t('views.labels.site_label') %>：&nbsp;</div></td>
           <td>
           <div class="site_show_basic_item">
             <% @site.site_labellings.each do |labelling| %>
@@ -34,12 +34,12 @@
         </tr>
 
         <tr>
-          <td align="right"><div class="font-weight-bold">メモ：&nbsp;</div></td>
+          <td align="right"><div class="font-weight-bold"><%= I18n.t('views.labels.site_memo') %>：&nbsp;</div></td>
           <td><div class="site_show_basic_item"><%= @site.memo %></div></td>
         </tr>
 
         <tr>
-          <td align="right"><div class="font-weight-bold">ハッシュタグ：&nbsp;</div></td>
+          <td align="right"><div class="font-weight-bold"><%= I18n.t('views.labels.site_hashtag') %>：&nbsp;</div></td>
           <td>
             <div class="site_show_basic_item text-monospace">
               <% @site.tag_list.each do |tag| %>
@@ -53,7 +53,7 @@
     <!-- 基本属性ブロック end -->
 
     <!-- mapブロック start -->
-    <h4 class="font-weight-bold">マップ</h4>
+    <h4 class="font-weight-bold"><%= I18n.t('views.labels.site_show_map_block') %></h4>
     <section class="site_show_map_block">  
       <div class="row">
         <div class="col-12">
@@ -67,7 +67,7 @@
     <!-- mapブロック end -->
 
     <!-- コメントブロック start -->
-    <h4 class="font-weight-bold">コメント一覧</h4>
+    <h4 class="font-weight-bold"><%= I18n.t('views.labels.site_show_comments_block') %></h4>
     <section class="site_show_comment_block border border-info">
 
       <div id="comments_area">
@@ -82,7 +82,7 @@
     <!-- コメントブロック end -->
 
     <!-- 画像ブロック start -->
-    <h4 class="font-weight-bold">画像一覧</h4>                  
+    <h4 class="font-weight-bold"><%= I18n.t('views.labels.site_show_images_block') %></h4>
     <section class="site_show_image_block">
       <div class="row">
         <% @image_posts.each do |post| %>

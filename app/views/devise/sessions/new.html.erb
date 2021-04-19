@@ -1,35 +1,36 @@
 <div class="session_new_box">
+  
   <div class="session_new_box-inner">
+  
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <h1>ログイン</h1>
+      <h1><%= I18n.t('devise.sessions.new.sign_in') %></h1>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
       <div class="session_new_box-email">
-        <%= f.label :email, "Eメール" %><br />
+        <%= f.label :email, I18n.t('activerecord.attributes.user.email') %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       </div>
       <div class="session_new_box-password">
         <div class="session_new_a-row">
           <div class="session_new_column-left">
-            <%= f.label :password, "パスワード" %>
-          </div>
-          <div class="session_new_column-right">
-            <%= link_to "パスワードを忘れた場合", new_user_password_path %>
+            <%= f.label :password, I18n.t('activerecord.attributes.user.password') %>
           </div>
         </div>
         <%= f.password_field :password, autocomplete: "current-password" %>
       </div>
+
       <div class="session_new_box-login">
-        <%= f.submit "ログイン" %>
+        <%= f.submit I18n.t('devise.sessions.new.sign_in'), class: "btn btn-info", id: "user_login_submit" %>
         <% if devise_mapping.rememberable? %>
           <div class="session_new_remember">
             <%= f.check_box :remember_me %>
-            <%= f.label :remember, "ログインしたままにする" %>
+            <%= f.label :remember, I18n.t('activerecord.attributes.user.remember_me') %>
           </div>
         <% end %>
       </div>
     <% end %>
 
-    <div class="session_new_box-newusr">
-      <%= link_to "アカウントを作成", new_user_registration_path %>
-    </div>
+    <%= render "devise/shared/links" %>
   </div>
+
 </div>

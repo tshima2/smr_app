@@ -1,8 +1,7 @@
 <!-- ナビゲーションバー start -->
 <div class="smr_nav">
 <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">      
-  <!-- <span class="navbar-brand">SmoothRunning - サイト情報共有</span> -->
-  <%= link_to "SmoothRunning - サイト情報共有", statics_top_path, class: "navbar-brand nav-link" %>  
+  <%= link_to I18n.t('views.labels.link_menu_app_name'), statics_top_path, class: "navbar-brand nav-link" %>  
   <button class="navbar-toggler" type="button"
           data-toggle="collapse"
           data-target="#navmenu1"
@@ -17,7 +16,7 @@
 
 
       <div class="dropdown">
-        <a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown">マイチーム</a>
+        <a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown" id="link_myteam_dropdown"><%= I18n.t('views.labels.link_menu_my_team') %></a>
         <div class="dropdown-menu">
           <% (current_user.teams.blank? ? Team.where(id: 1): current_user.teams.order(id: :asc)).each do |team| %>
 	    
@@ -34,16 +33,16 @@
             <% end %>
           <% end %>
 
-      	  <%= link_to "あたらしくチームを作る", new_team_path, class: "dropdown-item" %>	  	    
+      	  <%= link_to I18n.t('views.labels.link_menu_new_team'), new_team_path, class: "dropdown-item" %>	  	    
         </div>
       </div>
 
-      <%= link_to "マイページ", user_path, class: "nav-item nav-link" %>
-      <%= link_to "サイト情報", team_sites_path(1), class: "nav-item nav-link" %>
+      <%= link_to I18n.t('views.labels.link_menu_mypage'), user_path, class: "nav-item nav-link" %>
+      <%= link_to I18n.t('views.labels.link_menu_site_index'), team_sites_path(1), class: "nav-item nav-link", id: "link_site_index_navitem" %>
       <% if current_user.id == current_user.keep_team.owner.id %>
-        <%= link_to "ラベル管理", labels_path, class: "nav-item nav-link" %>
+        <%= link_to I18n.t('views.labels.link_menu_manage_label'), labels_path, class: "nav-item nav-link" %>
       <% end %>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-item nav-link" %>
+      <%= link_to I18n.t('views.labels.link_menu_logout'), destroy_user_session_path, method: :delete, class: "nav-item nav-link", id: "link_menu_logout" %>
     </div>
   </div>
 </nav>

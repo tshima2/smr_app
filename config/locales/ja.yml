@@ -205,6 +205,13 @@ ja:
     pm: 午後
   views:
     labels:
+      link_menu_app_name: 'SmoothRunning - サイト情報共有ツール'
+      link_menu_my_team: 'マイチーム'
+      link_menu_new_team: 'あたらしくチームを作る'
+      link_menu_mypage: 'マイページ'
+      link_menu_site_index: 'サイト情報'
+      link_menu_manage_label: 'ラベル管理'
+      link_menu_logout: 'ログアウト'
       label_edit_top: 'ラベル編集'
       label_index_top: 'ラベル管理'
       label_index_title: 'タイトル'
@@ -232,9 +239,15 @@ ja:
       link_site_new: '新規作成'
       site_index: 'サイト情報'
       site_index_index: '一覧'
+      site_index_edit: '編集'
+      site_index_delete: '削除'
       site_filter_cond: 'フィルタ'
       site_filter: '絞り込み'
       site_show: 'サイト情報詳細'
+      site_show_basic_attributes_block: '基本属性'
+      site_show_map_block: 'マップ'
+      site_show_comments_block: 'コメント'
+      site_show_images_block: '画像'
       site_new: '新しいサイト情報'
       site_edit: 'サイト情報の編集'
       site_id: 'サイトID'
@@ -312,6 +325,7 @@ ja:
       invite: '招待'
       delegate: 'リーダ委譲'
     top:
+      welcome: 'SmoothRunning サイト情報共有ツールへようこそ！'
       line1: '本アプリケーションは、会社などの組織単位、もしくは仲間内などのチーム単位で'
       line2: 'サイト（場所、現場）の情報を蓄積し、共有することを目的としています。'
       line3: 'チームリーダの方は、初回のログイン時にはまずチームを作成し、メンバーを招待するところから始めましょう。'
