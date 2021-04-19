@@ -13,7 +13,12 @@ class ApplicationController < ActionController::Base
 
   private
   def set_working_team
-    @working_team = current_user.keep_team_id ? Team.find(current_user.keep_team_id) : Team.first
+    begin
+      @working_team = current_user.keep_team_id ? Team.find(current_user.keep_team_id) : Team.first
+    rescue ActiveRecord::RecordNotFound
+      @working_team = Team.first
+      current_user.keep_team_id=Team.first.id
+    end
   end
 
   def init_team
