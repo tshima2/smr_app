@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
+# https://diver.diveintocode.jp/curriculums/464
+# ruby '2.6.5'
 
 #Core
 gem 'rails', '~> 5.2.5'
