@@ -18,25 +18,31 @@ class LabelsController < ApplicationController
     @label=Label.new(label_params)
     @label.team_id = current_user.keep_team_id
     if @label.save
-        redirect_to @label, notice: I18n.t('views.messages.create_label')
+      flash[:notice]=I18n.t('views.messages.create_label')
+      redirect_to @label
     else
-        redirect_to @label, notice: I18n.t('views.messages.failed_create_label')
+      flash[:alert]=I18n.t('views.messages.failed_create_label')
+      redirect_to @label
     end        
   end
 
   def update
     if @label.update(label_params)
-        redirect_to @label, notice: I18n.t('views.messages.update_label')
+      flash[:notice]=I18n.t('views.messages.update_label')
+      redirect_to @label
     else
-        redirect_to @label, notice: I18n.t('views.messages.failed_update_label')
+      flash[:alert]=I18n.t('views.messages.failed_update_label')
+      redirect_to @label
     end
   end
 
   def destroy
     if @label.destroy
-        redirect_to labels_path, notice: I18n.t('views.messages.delete_label')
+      flash[:notice]=I18n.t('views.messages.delete_label')
+      redirect_to labels_path
     else
-        redirect_to labels_path, notice: I18n.t('views.messages.failed_delete_label')
+      flash[:alert]=I18n.t('views.messages.failed_delete_label')
+      redirect_to labels_path
     end 
   end
 

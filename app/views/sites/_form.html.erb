@@ -2,7 +2,7 @@
 <%= form_with(model: site,  url: choose_new_or_edit, local: true) do |form| %>
 
 <div class="container_article border border-dark">
-    <h3>基本属性</h3>
+    <h3><%= I18n.t('views.labels.site_show_basic_attributes_block') %></h3>
 
     <!-- 基本属性ブロック start -->
     <table>

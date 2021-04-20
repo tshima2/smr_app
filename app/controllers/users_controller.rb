@@ -6,8 +6,10 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
-      redirect_to user_path, notice: I18n.t('views.messages.update_profile')
+      flash[:notice]=I18n.t('views.messages.update_profile')
+      redirect_to user_path
     else
+      flash[:alert]=I18n.t('views.messages.failed_update_profile')
       render 'edit'
     end
   end
