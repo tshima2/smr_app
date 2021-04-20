@@ -1,0 +1,2 @@
+$("#notice_comment_<%= @comment.id %>").replaceWith("<%= j render 'comments/edit_error', comment: @comment %>");
+$("#notice").html("<div class='alert alert-danger'><%= j flash[:alert] %></div>");
