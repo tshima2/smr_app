@@ -21,6 +21,11 @@ RSpec.describe Label, type: :model do
         label=Label.create(title: _title)
         expect(label).not_to be_valid
       end
+      it 'タイトルが32文字より長い' do
+        _title=""; 130.times.each { _title += (('a'..'z').to_a.sample) }
+        label=Label.create(title: _title)
+        expect(label).not_to be_valid
+      end
     end
 
     describe 'スコープのテスト' do

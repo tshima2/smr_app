@@ -17,8 +17,18 @@ RSpec.describe Comment, type: :model do
         comment = Comment.create(content: _content, user_id: @user.id, site_id: @site.id)
         expect(comment).not_to be_valid
       end
+      it 'コンテンツが1024文字より長いと作成できない' do
+        _content=""; 1025.times.each { _content += (('a'..'z').to_a.sample) }
+        comment = Comment.create(content: _content, user_id: @user.id, site_id: @site.id)
+        expect(comment).not_to be_valid
+      end
       it 'コンテンツが空だと更新できない' do
         _content=""
+        @comment.update(content: _content)
+        expect(@comment).not_to be_valid
+      end
+      it 'コンテンツが1024文字より長いと更新できない' do
+        _content=""; 1025.times.each { _content += (('a'..'z').to_a.sample) }
         @comment.update(content: _content)
         expect(@comment).not_to be_valid
       end
