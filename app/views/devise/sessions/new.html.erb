@@ -3,7 +3,8 @@
   <div class="session_new_box-inner">
   
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <h1><%= I18n.t('devise.sessions.new.sign_in') %></h1>
+      <h4>[<%= I18n.t('views.labels.link_menu_app_name') %>]</h4><br>
+      <h4><%= I18n.t('devise.sessions.new.sign_in') %></h4>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="session_new_box-email">
