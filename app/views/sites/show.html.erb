@@ -13,6 +13,18 @@
         </tr>
 
         <tr>
+          <td align="right"><div class="font-weight-bold"><%= I18n.t('views.labels.site_url') %>：&nbsp;</div></td>
+          <td>
+            <div class="site_show_basic_item">
+              <div id="request_url">
+                <%= request.url %>&nbsp;&nbsp;
+                <a href="javascript:void(0)" onclick="site_link_copy()"><i class="fa fa-clipboard" aria-hidden="true"></i></a>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
           <td align="right"><div class="font-weight-bold"><%= I18n.t('views.labels.site_name') %>：&nbsp;</div></td>
           <td><div class="site_show_basic_item"><%= @site.name %></div></td>
         </tr>

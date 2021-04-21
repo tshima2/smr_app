@@ -253,6 +253,7 @@ ja:
       site_new: '新しいサイト情報'
       site_edit: 'サイト情報の編集'
       site_id: 'サイトID'
+      site_url: 'URL'
       site_name: '名称'
       site_address: '住所'
       site_memo: 'メモ'
