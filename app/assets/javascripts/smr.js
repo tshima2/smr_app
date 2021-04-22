@@ -17,7 +17,8 @@ $(function () {
        $(form).find(":radio").filter("[data-default]").prop("checked", true);
     }
 });
-    
+
+
 function site_link_copy(){
   let divTag = document.getElementById('request_url');
   let range = document.createRange();
@@ -25,8 +26,8 @@ function site_link_copy(){
   let selection = document.getSelection();
   selection.removeAllRanges();
   selection.addRange(range);
-
   document.execCommand('copy');
-  alert('サイトURLをクリップボードにコピーしました');
+  alert('copied this site URL to clipboard.');
   selection.removeAllRanges();
 };
+
