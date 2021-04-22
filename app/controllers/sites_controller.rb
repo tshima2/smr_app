@@ -23,9 +23,10 @@ class SitesController < ApplicationController
     @site.team_id ||= current_user.keep_team_id
 
     if @site.save
-        redirect_to team_sites_path, notice: I18n.t('views.messages.create_site')
+      flash[:notice]=I18n.t('views.messages.create_site')
+      redirect_to team_sites_path
     else
-      flash[:notice]=I18n.t('views.messages.failed_create_site')
+      flash[:alert]=I18n.t('views.messages.failed_create_site')
       render :new
     end 
   end
@@ -35,9 +36,10 @@ class SitesController < ApplicationController
 
   def update
     if @site.update(site_params)
+      flash[:notice]=I18n.t('views.messages.update_site')
       redirect_to team_sites_path, notice: I18n.t('views.messages.update_site')
     else
-      flash[:notice]=I18n.t('views.messages.failed_update_site')
+      flash[:alert]=I18n.t('views.messages.failed_update_site')
       render :edit
     end 
   end
@@ -49,9 +51,11 @@ class SitesController < ApplicationController
 
     if @site.destroy
       SiteMailer.destroy_mail(emails, site_name).deliver
-      redirect_to team_sites_path, notice: I18n.t('views.messages.delete_site')
+      flash[:notice]=I18n.t('views.messages.delete_site')
+      redirect_to team_sites_path
     else
-      redirect_to team_sites_path, notice: I18n.t('views.messages.failed_to_delete_site')
+      flash[:alert]=I18n.t('views.messages.failed_to_delete_site')
+      redirect_to team_sites_path
     end
   end
 
@@ -75,13 +79,15 @@ class SitesController < ApplicationController
     begin
       @site = Site.find(params[:id])
     rescue
-      redirect_to statics_top_path, alert: I18n.t('views.messages.invalid_site_specified')
+      flash[:alert]=I18n.t('views.messages.invalid_site_specified')
+      redirect_to statics_top_path
     end
   end
 
   def check_specified_team
     if !(current_user.teams.pluck(:team_id).include?(params[:team_id].to_i))
-      redirect_to statics_top_path, alert: I18n.t('views.messages.unauthorized_request')
+      flash[:alert]=I18n.t('views.messages.unauthorized_request')
+      redirect_to statics_top_path
     end 
   end
 

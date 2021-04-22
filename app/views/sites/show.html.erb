@@ -13,6 +13,18 @@
         </tr>
 
         <tr>
+          <td align="right"><div class="font-weight-bold"><%= I18n.t('views.labels.site_url') %>：&nbsp;</div></td>
+          <td>
+            <div class="site_show_basic_item">
+              <div id="request_url">
+                <%= request.url %>&nbsp;&nbsp;
+                <a href="javascript:void(0)" onclick="site_link_copy()"><i class="fa fa-clipboard" aria-hidden="true"></i></a>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
           <td align="right"><div class="font-weight-bold"><%= I18n.t('views.labels.site_name') %>：&nbsp;</div></td>
           <td><div class="site_show_basic_item"><%= @site.name %></div></td>
         </tr>
@@ -91,7 +103,7 @@
               <%= image_tag(post.image_url, class:'site_show_image') %>
               <% if (current_user.id == post.user_id) || (current_user.id == current_user.keep_team.owner_id) %>
                 <div class="site_show_menu">
-                  <%= link_to '×', image_post_path(id: post.id), method: :delete, data: {confirm: 'Are you sure?'} %>
+                  <%= link_to '×', image_post_path(id: post.id), method: :delete, data: {confirm: I18n.t('views.messages.really_want_to_delete') } %>
                 </div>
               <% end %>
             </div>
@@ -101,7 +113,7 @@
 
       <div class="row">
         <div class="col-auto">
-          <%= link_to '画像を追加する', new_team_site_image_post_path(@site.team.id, @site.id) %>
+          <%= link_to I18n.t('views.labels.link_add_image'), new_team_site_image_post_path(@site.team.id, @site.id) %>
         </div>
         <div class="col-auto">
           <%= link_to I18n.t('views.labels.link_back_to_site_index'), team_sites_path %>  

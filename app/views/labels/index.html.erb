@@ -15,7 +15,7 @@
         <td><span class="badge badge-info"><%= label.title %></span></td>
         <td><%= link_to I18n.t('views.labels.link_show_label'), label %></td>
         <td><%= link_to I18n.t('views.labels.link_edit_label'), edit_label_path(label) %></td>
-        <td><%= link_to I18n.t('views.labels.link_destroy_label'), label, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to I18n.t('views.labels.link_destroy_label'), label, method: :delete, data: { confirm: I18n.t('views.messages.really_want_to_delete') } %></td>
       </tr>
     <% end %>
   </tbody>

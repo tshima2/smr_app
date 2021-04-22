@@ -14,7 +14,8 @@
     <% end %>
 
     <div class="field">
-      <%= form.text_field(:content, placeholder: "コメント入力..") %><%= form.submit value='追加', class: "btn btn-sm btn-success" %> 
+      <%= form.text_field(:content, placeholder: I18n.t('views.messages.input_comment'), size: "32") %>
+      <%= form.submit value: I18n.t('views.labels.add_comment'), class: "btn btn-sm btn-success" %> 
     </div>  
   <% end %>
 

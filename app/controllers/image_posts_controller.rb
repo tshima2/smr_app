@@ -12,9 +12,11 @@ class ImagePostsController < ApplicationController
     @image_post.user_id = current_user.id
     
     if @image_post.save
-      redirect_to team_site_path(@site.team.id, @site.id), notice: I18n.t('view.messages.create_image_post')
+      flash[:notice]=I18n.t('views.messages.create_image_post')
+      redirect_to team_site_path(@site.team.id, @site.id) 
     else
-      redirect_to team_site_path(@site.team.id, @site.id), notice: I18n.t('view.messages.failed_create_image_post')
+      flash[:alert]=I18n.t('views.messages.failed_create_image_post')
+      redirect_to team_site_path(@site.team.id, @site.id)
     end
   end
 

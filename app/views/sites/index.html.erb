@@ -61,7 +61,7 @@
         </td><td><BR></td><td><BR></td>
         <td align="right">
           <%= form.submit I18n.t('views.labels.site_filter'), class:"btn btn-sm btn-info" %>
-          <button name="action" value="clear" type="button" class="clear-button btn btn-sm btn-warning">クリア</button> 
+          <button name="action" value="clear" type="button" class="clear-button btn btn-sm btn-warning"><%= I18n.t('views.labels.filter_clear') %></button> 
         </td>
       </tr>
 
@@ -71,7 +71,7 @@
 
  <!-- <h4><%#= I18n.t('views.labels.site_index_index') %></h4> -->
   <div class="site_index_index">
-    <div class="text-right">
+    <div class="text-left">
       <%= link_to I18n.t('views.labels.link_site_new'), new_team_site_path(current_user.keep_team_id ) %>
     </div>
     <table class="table table-sm table-bordered table-resposive table-hover">
@@ -114,12 +114,12 @@
         <td><%= l site.updated_at, format: :short %></td>
         <td>
           <% if(current_user.keep_team.owner_id == current_user.id || site.user_id == current_user.id) %>
-            <%= link_to '編集', edit_team_site_path(site.team.id, site.id), class: "btn btn-sm btn-info", id: "link_edit_#{site.id}" %>
+            <%= link_to I18n.t('views.labels.site_index_edit'), edit_team_site_path(site.team.id, site.id), class: "btn btn-sm btn-info", id: "link_edit_#{site.id}" %>
           <% end %>
         </td>
         <td>
           <% if(current_user.keep_team.owner_id == current_user.id || site.user_id == current_user.id) %>
-            <%= link_to '削除', team_site_path(site.team.id, site.id), method: :delete,  data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger", id: "link_delete_#{site.id}" %>
+            <%= link_to I18n.t('views.labels.site_index_delete'), team_site_path(site.team.id, site.id), method: :delete,  data: { confirm: I18n.t('views.messages.really_want_to_delete') }, class: "btn btn-sm btn-danger", id: "link_delete_#{site.id}" %>
           <% end %>
         </td>
       </tr>

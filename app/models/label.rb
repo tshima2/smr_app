@@ -1,6 +1,6 @@
 class Label < ApplicationRecord
-  validates :title, presence: true
-  
+  validates :title, presence: true, length: {maximum: 32}
+
   belongs_to :team
   has_many :site_labellings, dependent: :destroy, foreign_key: 'label_id'
   has_many :sites, through: :site_labellings, source: :site
