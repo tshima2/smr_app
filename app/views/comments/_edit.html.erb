@@ -12,6 +12,6 @@
 
   <div class="field">
     <%= form.text_field(:content, id: "comment_content_#{site.id}", size: "32") %>
-    <%= form.submit value: I18n.t('views.labels.edit_comment'), class: "btn btn-sm btn-info" %>
+    <%= form.submit value: I18n.t('views.labels.edit_comment'), class: "btn btn-sm btn-info", id: "comment_submit_#{site.id}" %>
   </div>
 <% end %>
