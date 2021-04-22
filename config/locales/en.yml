@@ -279,6 +279,8 @@ en:
       add_comment: 'Add'
       edit_comment: 'Edit'
     messages:
+      unauthorized_request: 'Unauthorized request.'
+      invalid_site_specified: 'Specified site is not exist.'
       create_site: 'Successfully create a site!'
       failed_create_site: 'Failed to create a site.'
       update_site: 'Successfully update a site!'
