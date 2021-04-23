@@ -1,21 +1,21 @@
-.registration_new_box * {
+.session_new_box * {
   margin: 0px;
   padding: 0px;
   text-decoration: none;
 }
-.registration_new_box {
+.session_new_box {
   width: 350px;
-  height: 600px;
+  height: 400px;
   margin: 60px auto 0;
   border-radius: 4px;
   border: 1px #ddd solid;
 }
 
-.registration_new_box-inner {
+.session_new_box-inner {
   padding: 20px 26px;
 }
 
-.registration_new_box h1 {
+.session_new_box h1 {
   font-weight: 400;
   font-size: 28px;
   line-height: 1.2;
@@ -24,22 +24,22 @@
   color: #111111;
 }
 
-.registration_new_box-email {
+.session_new_box-email {
   margin-bottom: 13px;
 }
 
-.registration_new_box-password {
+.session_new_box-password {
   margin-bottom: 22px;
 }
 
-.registration_new_box-email label, .registration_new_box-password label {
+.session_new_box-email label, .session_new_box-password label {
   font-weight: 700;
   font-size: 13px;
   padding-left: 2px;
   padding-bottom: 2px;
 }
 
-.registration_new_box-email input[type="email"], .registration_new_box-password input[type="password"] {
+.session_new_box-email input[type="email"], .session_new_box-password input[type="password"] {
   border-style: none;
   box-sizing: border-box;
   width: 100%;
@@ -50,14 +50,14 @@
   padding: 0 7px;
 }
 
-.registration_new_box-name label {
+.session_new_box-name label {
   font-weight: 700;
   font-size: 13px;
   padding-left: 2px;
   padding-bottom: 2px;
 }
 
-.registration_new_box-name input[type="text"] {
+.session_new_box-name input[type="text"] {
   border-style: none;
   box-sizing: border-box;
   width: 100%;
@@ -69,23 +69,23 @@
   margin-bottom: 10px;
 }
 
-.registration_new_column-left {
+.session_new_column-left {
   float: left;
 }
 
-.registration_new_column-right {
+.session_new_column-right {
   float: right;
 }
 
-.registration_new_box-password a {
+.session_new_box-password a {
   font-size: 13px;
 }
 
-.registration_new_box-login {
+.session_new_box-login {
   margin-bottom: 26px;
 }
 
-.registration_new_box-login input[type="submit"] {
+.session_new_box-login input[type="submit"] {
   border-style: none;
   width: 100%;
   height: 31px;
@@ -94,35 +94,35 @@
   /* border: 1px #a88734 solid; */
 }
 
-.registration_new_box-login input[type="submit"]:hover {
+.session_new_box-login input[type="submit"]:hover {
   cursor: pointer;
   background: #f0c14b;
 }
 
-.registration_new_legal-text {
+.session_new_legal-text {
   margin-top: 18px;
   font-size: 12px;
 }
 
-.registration_new_remember {
+.session_new_remember {
   font-size: 13px;
   margin-top: 18px;
   padding-left: 3px;
 }
 
-.registration_new_box-newusr p {
+.session_new_box-newusr p {
   text-align: center;
   font-size: 12px;
   color: #767676;
   margin-bottom: 14px;
 }
 
-.registration_new_box-newusr p span {
+.session_new_box-newusr p span {
   text-decoration: line-through;
   text-decoration-color: #e7e7e7;
 }
 
-.registration_new_box-newusr a {
+.session_new_box-newusr a {
   display: block;
   width: 100%;
   height: 31px;
@@ -135,6 +135,6 @@
   border: 1px #a2a6ac solid;
 }
 
-.registration_new_box-newusr a:hover {
+.session_new_box-newusr a:hover {
   background: #e7e9ec;
 }
