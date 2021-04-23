@@ -1,6 +1,6 @@
-<div class="session_new_box">
+<div class="registration_new_box">
   
-  <div class="session_new_box-inner">
+  <div class="registration_new_box-inner">
 
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -8,17 +8,17 @@
   <h4><%= I18n.t('devise.registrations.new.sign_up') %></h4>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="session_new_box-email">
+  <div class="registration_new_box-email">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-  <div class="session_new_box-name">
+  <div class="registration_new_box-name">
     <%= f.label :name %><br />
     <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
   </div>
   
-  <div class="session_new_box-password">
+  <div class="registration_new_box-password">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -26,12 +26,12 @@
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
 
-  <div class="session_new_box-password">
+  <div class="registration_new_box-password">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
-  <div class="session_new_box-login">
+  <div class="registration_new_box-login">
     <%= f.submit I18n.t('devise.registrations.new.sign_up'), class: "btn btn-info", id: "new_user_submit" %>
   </div>
 <% end %>

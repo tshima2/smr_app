@@ -1,6 +1,7 @@
 class SitesController < ApplicationController
   before_action  :set_site, only: [:show, :edit, :update, :destroy]
   def index
+    check_specified_team
     @sites = current_user.keep_team.sites
 
     if params[:q]
@@ -32,6 +33,10 @@ class SitesController < ApplicationController
   end
 
   def edit
+    if !(site_creator_or_team_owner?)
+      flash[:alert]=I18n.t('views.messages.unauthorized_request')
+      redirect_to statics_top_path
+    end
   end
 
   def update
@@ -45,6 +50,11 @@ class SitesController < ApplicationController
   end
 
   def destroy
+    if !(site_creator_or_team_owner?)
+      flash[:alert]=I18n.t('views.messages.unauthorized_request')
+      redirect_to statics_top_path
+    end
+
     site_name=@site.name
     emails = @site.team.members.pluck(:email)
     emails << @site.team.owner.email
@@ -84,8 +94,16 @@ class SitesController < ApplicationController
     end
   end
 
+  def site_creator_or_team_owner?
+    ((current_user.id == @site.user_id) || (current_user.id == @site.team.owner.id)) ? true : false
+  end
+
+  def belong?(_team_id)
+    current_user.teams.pluck(:team_id).include?(_team_id) ? true : false
+  end
+
   def check_specified_team
-    if !(current_user.teams.pluck(:team_id).include?(params[:team_id].to_i))
+    if !(belong?(params[:team_id].to_i))
       flash[:alert]=I18n.t('views.messages.unauthorized_request')
       redirect_to statics_top_path
     end 
