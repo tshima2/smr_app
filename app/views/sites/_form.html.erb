@@ -44,7 +44,14 @@
     </tr>
     <tr>
       <td align="right"><%= form.label :tag_list, I18n.t('views.labels.site_hashtag') %></td>
-      <td><%= form.text_field :tag_list, id: '' %></td>
+      <td>
+        <%= form.text_field :tag_list, value: @tag_strings %>
+        <% if @site.present? %>
+          <%= link_to "KML読込...", new_placemark_path(site_id: @site.id), class: "btn-sm btn-info" %>
+        <% else %>
+          <%= link_to "KML読込...", new_placemark_path, class: "btn-sm btn-info" %>
+        <% end %>
+      </td>
     </tr>
 
     <tr><td>

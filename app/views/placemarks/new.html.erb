@@ -1,0 +1,16 @@
+<%= form_tag placemarks_path, multipart: true do %>
+  <label>KML読込み</label>
+  <div class="row">
+    <input type="hidden" name="site_id" value="<%= @site.id if @site.present? %>">
+  </div>
+  <div class="row">
+    <div class="col-sm-2 m-1 p-1 ">
+      <%= file_field_tag :file %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 m-1 p-1">
+      <%= submit_tag '送信', class: 'btn btn-info' %>
+    </div>
+  </div>
+<% end %>

@@ -16,6 +16,9 @@ class SitesController < ApplicationController
     
   def new
     @site = current_user.sites.build(team_id: current_user.keep_team_id)
+    if(params[:tag_strings])
+      @tag_strings=params[:tag_strings]
+    end
   end
 
   def create
@@ -32,6 +35,9 @@ class SitesController < ApplicationController
   end
 
   def edit
+    if(params[:tag_strings])
+      @tag_strings=params[:tag_strings]
+    end
   end
 
   def update
