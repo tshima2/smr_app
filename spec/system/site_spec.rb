@@ -166,6 +166,51 @@ RSpec.describe 'サイト機能のテスト', type: :system do
       expect(page).to have_content @site01.memo
     end
 
+    it 'チームオーナは他者作成サイト編集画面のURLを貼ることにより遷移し編集できること' do
+      #Sign in 画面に遷移
+      visit new_user_session_path
+      sleep(0.1)
+      expect(page).to have_content I18n.t('devise.sessions.new.sign_in')
+       
+      #default_ownerがEメール, パスワードを打ち込み, "ログイン"ボタン押下
+      fill_in "user_email", with: @default_owner.email
+      fill_in "user_password", with: 'passwd'
+      click_on "user_login_submit"
+      sleep(0.1)
+
+      #second_user作成のサイトid:5の編集画面をvisit
+      visit edit_team_site_path(team_id: @site05.team_id, id: @site05.id)
+      sleep(0.1)
+
+      #サイトid:5の編集画面に遷移していることを確認
+      expect(page).to have_content I18n.t('views.labels.site_edit')
+      inputs=all('.container_article input')
+      names = inputs.select {|i| i[:name]=="site[name]"}; expect(names[0][:value]).to eq @site05.name
+      addresses = inputs.select {|i| i[:name]=="site[address]"}; expect(addresses[0][:value]).to eq @site05.address
+      memos = inputs.select {|i| i[:name]=="site[memo]"}; expect(memos[0][:value]).to eq @site05.memo
+    end
+
+    it 'チームオーナ以外は他者作成サイト編集画面のURLを貼っても遷移せず編集できないこと' do
+      #Sign in 画面に遷移
+      visit new_user_session_path
+      sleep(0.1)
+      expect(page).to have_content I18n.t('devise.sessions.new.sign_in')
+       
+      #second_userがEメール, パスワードを打ち込み, "ログイン"ボタン押下
+      fill_in "user_email", with: @second_user.email
+      fill_in "user_password", with: 'passwd'
+      click_on "user_login_submit"
+      sleep(0.1)
+
+      #default_owner作成のサイトid:1の編集画面をvisit
+      visit edit_team_site_path(team_id: @site01.team_id, id: @site01.id)
+      sleep(0.1)
+
+      #トップ画面に遷移しエラーメッセージが表示されていることを確認
+      expect(page).to have_content I18n.t('views.top.welcome')
+      expect(page).to have_content I18n.t('views.messages.unauthorized_request')
+    end
+
     it '一覧画面の新規作成リンククリックで新規作成ページに遷移し、サイトの作成ができること' do
       #Sign in 画面に遷移
       visit new_user_session_path

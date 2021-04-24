@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
+      sign_in(current_user, bypass: true)
       flash[:notice]=I18n.t('views.messages.update_profile')
       redirect_to user_path
     else
@@ -20,7 +21,7 @@ class UsersController < ApplicationController
    private
 
   def user_params
-    params.require(:user).permit(:email, :icon, :name, :keep_team_id)
+    params.require(:user).permit(:email, :password, :password_confirmation, :icon, :icon_cache, :name, :keep_team_id)
   end
 end
   

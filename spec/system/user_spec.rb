@@ -273,6 +273,8 @@ RSpec.describe 'ユーザ登録/ログイン機能のテスト', type: :system d
 
       expect(page).to have_content 'プロフィールを編集する'
       fill_in "user[name]", with: 'default_owner_99'
+      fill_in "user[password]", with: 'passwd'
+      fill_in "user[password_confirmation]", with: 'passwd'
       click_on "更新する"
       sleep(0.1)
 
@@ -312,6 +314,8 @@ RSpec.describe 'ユーザ登録/ログイン機能のテスト', type: :system d
       expect(page).to have_content 'プロフィールを編集する'
       _name=""; 130.times.each { _name += (('a'..'z').to_a.sample) }
       fill_in "user[name]", with: _name
+      fill_in "user[password]", with: 'passwd'
+      fill_in "user[password_confirmation]", with: 'passwd'
       click_on "更新する"
       sleep(0.1)
 
@@ -350,6 +354,8 @@ RSpec.describe 'ユーザ登録/ログイン機能のテスト', type: :system d
 
       expect(page).to have_content 'プロフィールを編集する'
       fill_in "user[email]", with: 'default_owner_99@example.com'
+      fill_in "user[password]", with: 'passwd'
+      fill_in "user[password_confirmation]", with: 'passwd'
       click_on "更新する"
       sleep(0.1)
 
@@ -389,6 +395,8 @@ RSpec.describe 'ユーザ登録/ログイン機能のテスト', type: :system d
       expect(page).to have_content 'プロフィールを編集する'
       _email=""; 130.times.each { _email += (('a'..'z').to_a.sample) } ; _email += "@example.com"
       fill_in "user[email]", with: _email
+      fill_in "user[password]", with: 'passwd'
+      fill_in "user[password_confirmation]", with: 'passwd'
       click_on "更新する"
       sleep(0.1)
 
@@ -426,6 +434,8 @@ RSpec.describe 'ユーザ登録/ログイン機能のテスト', type: :system d
       sleep(0.1)
       expect(page).to have_content 'プロフィールを編集する'
 
+      fill_in "user[password]", with: 'passwd'
+      fill_in "user[password_confirmation]", with: 'passwd'
       image_path = File.join(Rails.root, "spec/factories/images/shima.PNG")
       find('#input_icon').set(image_path)
       click_on "更新する"
@@ -434,5 +444,59 @@ RSpec.describe 'ユーザ登録/ログイン機能のテスト', type: :system d
       expect(page).to have_content I18n.t('views.messages.update_profile')
       expect(page).to have_selector("img[src$='shima.PNG']")
     end
+
+    it 'プロフィール編集でパスワードが更新できること' do
+      #Sign in 画面に遷移
+      visit new_user_session_path
+      sleep(0.1)
+      expect(page).to have_content I18n.t('devise.sessions.new.sign_in')
+      
+      #Eメール, パスワードを打ち込み, "ログイン"ボタン押下
+      fill_in "user_email", with: 'default_owner@example.com'
+      fill_in "user_password", with: 'passwd'
+      click_on "user_login_submit"
+      sleep(0.1)
+      
+      #トップページに遷移し, "ログインしました。"が表示されていることを確認
+      expect(page).to have_content 'ログインしました。'
+
+      #マイページ画面をリクエスト
+      visit user_path
+      sleep(0.1)
+
+      #マイページ画面に遷移していることを確認
+      expect(page).to have_content @default_owner.name
+      expect(page).to have_content @default_owner.email
+      expect(page).to have_content I18n.t('views.messages.team_you_belong_to')
+      @default_owner.teams.each { |t| expect(page).to have_content t.name }    
+    
+      #プロフィールを編集ボタン押下
+      click_link "プロフィールを編集"
+      sleep(0.1)
+
+      expect(page).to have_content 'プロフィールを編集する'
+      fill_in "user[name]", with: 'default_owner_99'
+      fill_in "user[password]", with: 'passwd_change'
+      fill_in "user[password_confirmation]", with: 'passwd_change'
+      click_on "更新する"
+      sleep(0.1)
+
+      expect(page).to have_content "プロフィールを編集しました！"
+      expect(page).to have_content 'default_owner_99'
+
+      #ログアウトメニューをクリック
+      click_link I18n.t('views.labels.link_menu_logout')
+      sleep(0.1)
+ 
+      #遷移したログインページで変更したパスワードでログイン
+      fill_in "user_email", with: 'default_owner@example.com'
+      fill_in "user_password", with: 'passwd_change'
+      click_on "user_login_submit"
+      sleep(0.1)
+      
+      #トップページに遷移し, "ログインしました。"が表示されていることを確認
+      expect(page).to have_content 'ログインしました。'
+    end
+
   end
 end 
