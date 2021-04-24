@@ -1,0 +1,41 @@
+<h3>以下の内容で、送信する。</h3>
+<%= form_with(model: @site, url: choose_new_or_edit, local: true) do |form| %>
+  <%= form.hidden_field :name %>
+  <%= form.hidden_field :address %>
+  <%= form.hidden_field :label_ids %>
+  <%= form.hidden_field :memo %>
+  <%= form.hidden_field :tag_list %>
+
+  <table>
+    <tr>
+      <td align="right"><%= form.label I18n.t('views.labels.site_name') %></td>      
+      <td><%= @site.name %></td>      
+    </tr>
+    <tr>
+      <td align="right"><%= form.label I18n.t('views.labels.site_address') %></td>
+      <td><%= @site.address %></td>            
+    </tr>
+    <tr>
+      <td align="right"><%= form.label I18n.t('views.labels.filter_select_label') %></td>
+      <td>
+	<%= @site.labels.each do |label| %>
+	<span class='badge badge-pill badge-light'><%= label.text %></span>
+	<%  end %>
+      </td>
+    </tr>
+    <tr>
+      <td align="right"><%= form.label I18n.t('views.labels.site_memo') %></td>
+      <td><%= @site.memo %></td>            
+    </tr>
+    <tr>
+      <td align="right"><%= form.label I18n.t('views.labels.site_hashtag') %></td>
+      <td><%= @site.tag_list %></td>
+    </tr>
+    <tr>
+      <td>
+	<%= form.submit I18n.t('views.labels.site_submit'), class: "btn btn-sm btn-success" %>	
+      </td>
+    </tr>
+  </table>
+
+<% end %>
