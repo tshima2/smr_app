@@ -1,6 +1,6 @@
 
 <article class="container_article">
-  <h1><%= I18n.t('views.labels.site_index') %></h1>
+  <h1><%= I18n.t('views.labels.site_index') %> @<%= current_user.keep_team.name %></h1>
  
   <!-- <h4><%#= I18n.t('views.labels.site_filter_cond') %></h4> -->
   <div class="site_index_search_condition border border-dark">
