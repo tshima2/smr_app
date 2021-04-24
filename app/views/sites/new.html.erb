@@ -1,4 +1,5 @@
-
-<h1><%= I18n.t('views.labels.site_new') %></h1>
-<%= render 'sites/form', site: @site %>
-<%= link_to I18n.t('views.labels.link_back_to_site_index'), team_sites_path %>
+<article class="container_article">
+  <h1><%= I18n.t('views.labels.site_new') %></h1>
+  <%= render 'sites/form', site: @site %>
+  <%= link_to I18n.t('views.labels.link_back_to_site_index'), team_sites_path %>
+</article>
