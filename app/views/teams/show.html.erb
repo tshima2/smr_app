@@ -60,6 +60,7 @@
         </div>
         <!-- /.row -->
 
+        <% if current_user.id == @team.owner.id %>
         <div class="row">
           <div class="col-md-12">
             <div>  
@@ -75,6 +76,7 @@
             </div>
           </div>      
         </div>      
+        <% end %>
 
       </div>
       <!-- /.card-body -->

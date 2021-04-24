@@ -22,7 +22,10 @@
   <div class="form-group">
     <%= form.label :icon, I18n.t('views.labels.new_icon_name') %><br>
     <%= form.file_field :icon %>
-    <%= form.hidden_field :icon_cache %>
+    <%#= form.hidden_field :icon_cache %>
+    <div>
+      <%= image_tag(@team.icon.url) if @team.icon && @team.icon.url %>
+    </div>
   </div>
 
   <div class="form-group">

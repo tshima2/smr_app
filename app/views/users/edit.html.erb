@@ -1,3 +1,5 @@
+<article class="container_article">
+
 <h2><%= I18n.t('views.labels.user_edit_top') %></h2>
 <%= form_with(model: @user, local: true, url: user_path ) do |form| %>
   <% if @user.errors.any? %>
@@ -12,21 +14,69 @@
     </div>
   <% end %>
 
-  <div>
+<table>
+<tr>
+  <td align="right">
     <%= form.label :name %>
+  </td>
+  <td>
     <%= form.text_field :name %>
-  </div>
-  <div>
+  </td>
+</tr>
+
+<tr>
+  <td align="right">
     <%= form.label :email %>
+  </td>
+  <td>
     <%= form.text_field :email %>
-  </div>
-  <div>
-    <%= form.label :image %>
+  </td>
+</tr>
+
+<tr>
+  <td align="right">
+    <%= form.label :password %>
+  </td>
+  <td>
+    <%= form.password_field :password %>
+  </td>
+</tr>
+
+<tr>
+  <td align="right">
+    <%= form.label :password_confirmation %>
+  </td>
+  <td>
+    <%= form.password_field :password_confirmation %>
+  </td>
+</tr>
+
+<tr>
+  <td align="right">
+    <%= form.label :icon %>
+  </td>
+  <td>
     <%= form.file_field :icon, id: "input_icon" %>
-    <%= form.hidden_field :icon_cache %>
-  </div>
-  <div>
+    <%#= form.hidden_field :icon_cache %>
+  </td>
+</tr>
+
+<tr>
+  <td colspan=2>
+    <%= image_tag(@user.icon.url) if @user.icon && @user.icon.url %>
+  </td>
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <td colspan=2>
     <%= form.submit I18n.t('views.labels.user_edit_submit'), class: "btn btn-info" %>
-  </div>
+  </td>
+  <td>
+  </td>
+</tr>
+</table>
 
 <% end %>
+</article>
