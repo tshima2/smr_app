@@ -13,7 +13,12 @@ class TeamsController < ApplicationController
     @team = Team.new
   end
 
-  def edit;  end
+  def edit
+    if !(team_owner?)
+      flash[:alert]=I18n.t('views.messages.unauthorized_request')
+      redirect_to statics_top_path
+    end
+  end
 
   def delegate
     @team.owner_id = params[:owner_id]
@@ -57,12 +62,15 @@ class TeamsController < ApplicationController
   end
 
   private
-
   def set_team
     @team = Team.find(params[:id])
   end
 
   def team_params
     params.fetch(:team, {}).permit %i[name icon icon_cache owner_id keep_team_id]
+  end
+
+  def team_owner?
+    (current_user.id == @team.owner_id) ? true : false
   end
 end
