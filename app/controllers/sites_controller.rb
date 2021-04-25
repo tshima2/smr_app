@@ -14,7 +14,7 @@ class SitesController < ApplicationController
   
     @sites = @sites.order(updated_at: :DESC).page(params[:page]).per(20)
   end
-    
+
   def new
     @site = current_user.sites.build(team_id: current_user.keep_team_id)
   end
@@ -29,7 +29,7 @@ class SitesController < ApplicationController
     else
       flash[:alert]=I18n.t('views.messages.failed_create_site')
       render :new
-    end 
+    end
   end
 
   def edit
@@ -37,6 +37,11 @@ class SitesController < ApplicationController
       flash[:alert]=I18n.t('views.messages.unauthorized_request')
       redirect_to statics_top_path
     end
+  end
+
+  def confirm
+    byebug
+    @site = Site.new(site_params)
   end
 
   def update

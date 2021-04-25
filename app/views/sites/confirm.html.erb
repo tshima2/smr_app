@@ -1,3 +1,4 @@
+<% byebug %>
 <h3>以下の内容で、送信する。</h3>
 <%= form_with(model: @site, url: choose_new_or_edit, local: true) do |form| %>
   <%= form.hidden_field :name %>

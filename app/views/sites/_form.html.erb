@@ -1,5 +1,5 @@
-
-<%= form_with(model: site,  url: choose_new_or_edit, local: true) do |form| %>
+<% byebug %>
+<%= form_with(model: site,  url: confirm_team_sites_path(site.team_id), local: true) do |form| %>
 
 <div class="container_article border border-dark">
     <h3><%= I18n.t('views.labels.site_show_basic_attributes_block') %></h3>
@@ -19,11 +19,11 @@
     <table>
     <tr>
       <td align="right"><%= form.label I18n.t('views.labels.site_name') %></td>
-      <td><%= form.text_field :name, id: '' %></td>
+      <td><%= form.text_field :name, id: '', size: 48, class: "m-1 p-1" %></td>
     </tr>
     <tr>
       <td align="right"><%= form.label I18n.t('views.labels.site_address') %></td>
-      <td><%= form.text_field :address, id: '' %></td>
+      <td><%= form.text_field :address, id: '', size: 48, class: "m-1 p-1" %></td>
     </tr>
     <tr>
       <td align="right"><%= form.label :labels, I18n.t('views.labels.filter_select_label') %></td>
@@ -40,12 +40,16 @@
     </tr>
     <tr>
       <td align="right"><%= form.label I18n.t('views.labels.site_memo') %></td>
-      <td><%= form.text_field :memo, id: '' %></td>
+      <td><%= form.text_field :memo, id: '', size: 48, class: "m-1 p-1" %></td>
     </tr>
     <tr>
       <td align="right"><%= form.label :tag_list, I18n.t('views.labels.site_hashtag') %></td>
-      <td><%= form.text_field :tag_list, id: '' %></td>
+      <td><%= form.text_field :tag_list, id: '', size: 48, class: "m-1 p-1" %></td>
     </tr>
+    <tr>
+      <td align="right"><%= I18n.t('views.labels.load_kml') %></td>
+      <td><%= file_field_tag :file, class: "p-1" %></td>
+    </tr>    
 
     <tr><td>
         <%= form.submit I18n.t('views.labels.site_submit'), class: "btn btn-sm btn-success" %>
