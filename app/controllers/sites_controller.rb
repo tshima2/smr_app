@@ -23,13 +23,17 @@ class SitesController < ApplicationController
     @site = current_user.sites.build(site_params)
     @site.team_id ||= current_user.keep_team_id
 
-    if @site.save
-      flash[:notice]=I18n.t('views.messages.create_site')
-      redirect_to team_sites_path
-    else
-      flash[:alert]=I18n.t('views.messages.failed_create_site')
-      render :new
-    end
+#    if params[:back]
+#      render :new
+#    else
+      if @site.save
+        flash[:notice]=I18n.t('views.messages.create_site')
+        redirect_to team_sites_path
+      else
+        flash[:alert]=I18n.t('views.messages.failed_create_site')
+        render :new
+      end
+#    end
   end
 
   def edit
@@ -40,8 +44,21 @@ class SitesController < ApplicationController
   end
 
   def confirm
-    byebug
     @site = Site.new(site_params)
+
+    if params[:file].present?
+      require "rexml/document"
+      kml = REXML::Document.new(File.new(params[:file].path).read)
+      kml_h = Hash.from_xml(kml.to_s)
+    
+      @tags_str=[]; @comments_str=[]
+      placemarks = kml_h["kml"]["Document"]["Folder"]["Placemark"]
+      placemarks.each do |ha|
+        mark = KmlPlaceMark.new(ha["name"], ha["description"], ha["Point"]["coordinates"])
+        @tags_str << mark.to_tag
+        @comments_str << mark.to_comment
+      end
+    end
   end
 
   def update
@@ -84,9 +101,13 @@ class SitesController < ApplicationController
 
   private
   def site_params
-    p = params.require(:site).permit(:team_id, :name, :address, :latitude, :longtitude, :memo, :tag_list, { label_ids: [] })
+    p = params.require(:site).permit(:team_id, :name, :address, :latitude, :longtitude, :memo, :tag_list, { label_ids: [] }, { comments_str: [] }, { comments: [] })
     p[:tag_list] = p[:tag_list].split(/[[:space:]]/).select {|li| li.length > 0}
     p[:label_ids] = p[:label_ids].select { |li| li.length > 0 }
+    if p[:comments_str] && p[:comments_str].length > 0
+      p[:comments] = p[:comments_str].map { |cs| Comment.new(content: cs, user_id: current_user.id) }
+      p.delete(:comments_str)
+    end
     return p
   end
 
@@ -118,5 +139,21 @@ class SitesController < ApplicationController
     params.require(:q).permit!
   end
 
+  class KmlPlaceMark
+    attr_accessor :name, :description, :coorinates
+    def initialize(_name, _description, _coordinates)
+      @name = _name.strip if _name.present?
+      @description = _description.strip if _description.present?
+      @coordinates = _coordinates.strip if _coordinates.present?
+    end
+
+    def to_tag
+      "##{@name}"
+    end
+
+    def to_comment
+      "[#{@name}]:#{@description}"
+    end
+  end 
 
 end

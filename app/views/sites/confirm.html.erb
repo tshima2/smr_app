@@ -1,42 +1,76 @@
-<% byebug %>
-<h3>以下の内容で、送信する。</h3>
+<article class="container_article">
+<h1><%== I18n.t('views.labels.new_site_params_confirm') %></h1>
 <%= form_with(model: @site, url: choose_new_or_edit, local: true) do |form| %>
+
   <%= form.hidden_field :name %>
   <%= form.hidden_field :address %>
-  <%= form.hidden_field :label_ids %>
+<%#= form.hidden_field :label_ids %>
   <%= form.hidden_field :memo %>
-  <%= form.hidden_field :tag_list %>
+  <%= form.hidden_field :tag_list, value: @site.tag_list+@tags_str %>
 
-  <table>
+  <table border=1 bgcolor="whitesmoke">
     <tr>
-      <td align="right"><%= form.label I18n.t('views.labels.site_name') %></td>      
+      <td align="right"><%= form.label I18n.t('views.labels.site_name'), class: "font-weight-bolder m-1 p-1" %></td>      
       <td><%= @site.name %></td>      
     </tr>
     <tr>
-      <td align="right"><%= form.label I18n.t('views.labels.site_address') %></td>
+      <td align="right"><%= form.label I18n.t('views.labels.site_address'), class: "font-weight-bolder m-1 p-1" %></td>
       <td><%= @site.address %></td>            
     </tr>
+
     <tr>
-      <td align="right"><%= form.label I18n.t('views.labels.filter_select_label') %></td>
+      <td align="right"><%= form.label I18n.t('views.labels.filter_select_label'), class: "font-weight-bolder m-1 p-1" %></td>
+
+<!--
       <td>
-	<%= @site.labels.each do |label| %>
-	<span class='badge badge-pill badge-light'><%= label.text %></span>
-	<%  end %>
+	<%# @site.labels.each do |la| %>
+	<span class='badge badge-pill badge-light'><%#= la.title %></span>
+	<%# end %>
       </td>
+-->
+<td>
+        <%= form.collection_check_boxes(:label_ids, Label.filter_team(current_user.keep_team_id), :id, :title) do |b| %>
+          <%= b.label class: 'sites-confirm__labels--label' do %>
+            <%= b.check_box %>
+            <span class='badge badge-pill badge-light'>
+              <%= b.text %>
+            </span>
+          <% end %>
+        <% end %>
+</td>
+
     </tr>
+
     <tr>
-      <td align="right"><%= form.label I18n.t('views.labels.site_memo') %></td>
+      <td align="right"><%= form.label I18n.t('views.labels.site_memo'), class: "font-weight-bolder m-1 p-1" %></td>
       <td><%= @site.memo %></td>            
     </tr>
     <tr>
-      <td align="right"><%= form.label I18n.t('views.labels.site_hashtag') %></td>
-      <td><%= @site.tag_list %></td>
+      <td align="right"><%= form.label I18n.t('views.labels.site_hashtag'), class: "font-weight-bolder m-1 p-1" %></td>
+      <td><%= @site.tag_list %>&nbsp;<div class="text-success"><%= @tags_str.join(" ") if @tags_str.present? %></div></td>
     </tr>
+    <tr>
+      <td align="right"><%= form.label I18n.t('views.labels.site_comments'), class: "font-weight-bolder m-1 p-1" %></td>
+      <td>
+        <% if @comments_str.present? %>
+          <% @comments_str.each do |s| %>
+            <%= raw("<div class='text-success'>#{s}</div><br>") %>
+            <%= form.hidden_field :comments_str, value: s, multiple: true %>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+
+  <table>
     <tr>
       <td>
 	<%= form.submit I18n.t('views.labels.site_submit'), class: "btn btn-sm btn-success" %>	
+	<%#= form.submit I18n.t('views.labels.link_back'), name: "back", class: "btn btn-sm btn-warning" %>	
+	<%= link_to I18n.t('views.labels.link_back'), :back, class: "btn btn-sm btn-warning" %>	
       </td>
     </tr>
   </table>
 
 <% end %>
+</article>

@@ -1,5 +1,4 @@
-<% byebug %>
-<%= form_with(model: site,  url: confirm_team_sites_path(site.team_id), local: true) do |form| %>
+<%= form_with(model: site,  url: confirm_team_sites_path(site.team_id), multipart: true, local: true) do |form| %>
 
 <div class="container_article border border-dark">
     <h3><%= I18n.t('views.labels.site_show_basic_attributes_block') %></h3>
@@ -16,6 +15,10 @@
     <% end %>
 
     <!-- 基本属性ブロック start -->
+    <% if site.present? %>
+      <input type="hidden" name="id" value="<%= site.id%>">
+    <% end %>
+  
     <table>
     <tr>
       <td align="right"><%= form.label I18n.t('views.labels.site_name') %></td>

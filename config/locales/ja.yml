@@ -205,6 +205,7 @@ ja:
     pm: 午後
   views:
     labels:
+      load_kml: 'KMLファイル..'
       link_menu_app_name: 'SmoothRunning - サイト情報共有ツール'
       link_menu_my_team: 'マイチーム'
       link_menu_new_team: 'あたらしくチームを作る'
@@ -220,6 +221,7 @@ ja:
       link_edit_label:  '編集'
       link_destroy_label: '削除'
       link_label_index: '一覧に戻る'
+      link_back: '戻る'
       new_label_top: '新しいラベル'
       new_label_back: '戻る'
       new_label_submit: '登録する'
@@ -259,6 +261,7 @@ ja:
       site_memo: 'メモ'
       site_label: 'ラベル'
       site_hashtag: 'ハッシュタグ'
+      site_comments: 'コメント'
       site_username: '作成者'
       site_created_at: '作成日時'
       site_updated_at: '更新日時'
