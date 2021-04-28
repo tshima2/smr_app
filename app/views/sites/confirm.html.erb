@@ -1,6 +1,6 @@
 <article class="container_article">
-<h1><%== I18n.t('views.labels.new_site_params_confirm') %></h1>
-<%= form_with(model: @site, url: choose_new_or_edit, local: true) do |form| %>
+<h1><%== I18n.t('views.labels.site_new_params_confirm') %></h1>
+<%= form_with(model: @site, url: choose_new_or_edit, local: true, method: choose_method ) do |form| %>
 
   <%= form.hidden_field :name %>
   <%= form.hidden_field :address %>
@@ -49,25 +49,34 @@
       <td align="right"><%= form.label I18n.t('views.labels.site_hashtag'), class: "font-weight-bolder m-1 p-1" %></td>
       <td><%= @site.tag_list %>&nbsp;<div class="text-success"><%= @tags_str.join(" ") if @tags_str.present? %></div></td>
     </tr>
-    <tr>
-      <td align="right"><%= form.label I18n.t('views.labels.site_comments'), class: "font-weight-bolder m-1 p-1" %></td>
-      <td>
-        <% if @comments_str.present? %>
-          <% @comments_str.each do |s| %>
-            <%= raw("<div class='text-success'>#{s}</div><br>") %>
-            <%= form.hidden_field :comments_str, value: s, multiple: true %>
+
+    <% if @comments_str.present? %>
+      <tr>
+        <td align="right"><%= form.label I18n.t('views.labels.site_comments'), class: "font-weight-bolder m-1 p-1" %></td>
+        <td>
+          <% if @site.comments.present? %>
+            <% @site.comments.each do |sc| %>
+              <%= raw("<div class='text-dark'>#{sc.content}</div><br>") %>
+              <%= form.hidden_field :comments_str, value: sc.content, multiple: true %>
+            <% end %>
           <% end %>
-        <% end %>
-      </td>
-    </tr>
+          <% if @comments_str.present? %>
+            <% @comments_str.each do |cs| %>
+              <%= raw("<div class='text-success'>#{cs}</div><br>") %>
+              <%= form.hidden_field :comments_str, value: cs, multiple: true %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+
   </table>
 
   <table>
     <tr>
       <td>
 	<%= form.submit I18n.t('views.labels.site_submit'), class: "btn btn-sm btn-success" %>	
-	<%#= form.submit I18n.t('views.labels.link_back'), name: "back", class: "btn btn-sm btn-warning" %>	
-	<%= link_to I18n.t('views.labels.link_back'), :back, class: "btn btn-sm btn-warning" %>	
+	<%= form.submit I18n.t('views.labels.link_back'), name: "back", class: "btn btn-sm btn-warning" %>
       </td>
     </tr>
   </table>

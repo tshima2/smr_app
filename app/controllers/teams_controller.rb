@@ -34,6 +34,7 @@ class TeamsController < ApplicationController
   end
 
   def create
+    # @team = current_user.teams.new(team_params)
     @team = Team.new(team_params)
     @team.owner = current_user
     if @team.save

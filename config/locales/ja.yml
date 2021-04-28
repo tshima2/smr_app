@@ -253,6 +253,7 @@ ja:
       site_show_comments_block: 'コメント'
       site_show_images_block: '画像'
       site_new: '新しいサイト情報'
+      site_new_params_confirm:  '入力確認'
       site_edit: 'サイト情報の編集'
       site_id: 'サイトID'
       site_url: 'URL'

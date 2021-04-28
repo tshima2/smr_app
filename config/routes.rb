@@ -24,6 +24,9 @@ Rails.application.routes.draw do
       collection do
         post :confirm
       end
+      member do
+        post :confirm_edit
+      end
       resources :comments, shallow: true
       resources :image_posts, shallow: true
       get 'search'

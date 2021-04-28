@@ -23,7 +23,7 @@ class ImagePostsController < ApplicationController
   def destroy
     @image_post = ImagePost.find(params[:id])
     @image_post.destroy
-    redirect_to team_site_path(@image_post.site.team.id, @image_post.site.id), notice: I18n.t('views.messages.delete_image_post')
+    redirect_to team_site_path(@image_post.site.team.id, @image_post.site.id, anchor: "images"), notice: I18n.t('views.messages.delete_image_post')
   end   
 
   private

@@ -261,6 +261,7 @@ en:
       site_show_comments_block: 'Comments'
       site_show_images_block: 'Images'
       site_new: 'New site'
+      site_new_params_confirm: 'Confirm'
       site_edit: 'Edit site'
       site_id: 'ID'
       site_url: 'Url'

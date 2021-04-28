@@ -19,13 +19,19 @@ class SitesController < ApplicationController
     @site = current_user.sites.build(team_id: current_user.keep_team_id)
   end
 
+  def confirm
+    @site = Site.new(site_params)    
+    #load_kml(params[:file].path) if params[:file].present?
+    load_kml(params[:file].path) if params[:file].present?
+  end
+
   def create
     @site = current_user.sites.build(site_params)
     @site.team_id ||= current_user.keep_team_id
 
-#    if params[:back]
-#      render :new
-#    else
+    if params[:back]
+      render :new
+    else
       if @site.save
         flash[:notice]=I18n.t('views.messages.create_site')
         redirect_to team_sites_path
@@ -33,7 +39,7 @@ class SitesController < ApplicationController
         flash[:alert]=I18n.t('views.messages.failed_create_site')
         render :new
       end
-#    end
+    end
   end
 
   def edit
@@ -43,31 +49,23 @@ class SitesController < ApplicationController
     end
   end
 
-  def confirm
-    @site = Site.new(site_params)
-
-    if params[:file].present?
-      require "rexml/document"
-      kml = REXML::Document.new(File.new(params[:file].path).read)
-      kml_h = Hash.from_xml(kml.to_s)
-    
-      @tags_str=[]; @comments_str=[]
-      placemarks = kml_h["kml"]["Document"]["Folder"]["Placemark"]
-      placemarks.each do |ha|
-        mark = KmlPlaceMark.new(ha["name"], ha["description"], ha["Point"]["coordinates"])
-        @tags_str << mark.to_tag
-        @comments_str << mark.to_comment
-      end
-    end
+  def confirm_edit
+    @site=Site.new(site_params)
+    load_kml(params[:file].path) if params[:file].present?
+    render "confirm"
   end
 
   def update
-    if @site.update(site_params)
-      flash[:notice]=I18n.t('views.messages.update_site')
-      redirect_to team_sites_path, notice: I18n.t('views.messages.update_site')
-    else
-      flash[:alert]=I18n.t('views.messages.failed_update_site')
+    if params[:back]
       render :edit
+    else
+      if @site.update(site_params)
+        flash[:notice]=I18n.t('views.messages.update_site')
+        redirect_to team_sites_path, notice: I18n.t('views.messages.update_site')
+      else
+        flash[:alert]=I18n.t('views.messages.failed_update_site')
+        render :edit
+      end
     end 
   end
 
@@ -112,11 +110,9 @@ class SitesController < ApplicationController
   end
 
   def set_site
-    begin
-      @site = Site.find(params[:id])
-    rescue
-      flash[:alert]=I18n.t('views.messages.invalid_site_specified')
-      redirect_to statics_top_path
+    if !(@site = Site.find_by(id: params[:id]))
+        flash[:alert]=I18n.t('views.messages.invalid_site_specified')
+        redirect_to statics_top_path
     end
   end
 
@@ -139,8 +135,27 @@ class SitesController < ApplicationController
     params.require(:q).permit!
   end
 
+  def load_kml(_path)
+    begin
+      require "rexml/document"
+      kml = REXML::Document.new(File.new(_path).read)
+      placemarks = REXML::XPath.match(kml, '//Placemark')
+      placemarks_ha = placemarks.map { |elem| Hash.from_xml(elem.to_s) }  
+
+      @tags_str=[]; @comments_str=[]
+      placemarks_ha.each do |elem|
+        ha = elem["Placemark"]
+        mark = KmlPlaceMark.new(ha["name"], ha["description"], (ha.has_key?("Point") ? ha["Point"]["coordinates"] : nil))
+        @tags_str << mark.to_tag      
+        @comments_str << mark.to_comment
+      end
+    rescue
+      flash.now[:info]=I18n.t('views.messages.unexpected_file_format')
+    end 
+  end
+
   class KmlPlaceMark
-    attr_accessor :name, :description, :coorinates
+    #attr_accessor :name, :description, :coorinates
     def initialize(_name, _description, _coordinates)
       @name = _name.strip if _name.present?
       @description = _description.strip if _description.present?
