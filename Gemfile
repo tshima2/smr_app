@@ -82,5 +82,7 @@ group :development, :test do
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano3-unicorn'
-  # 以下省略
+  gem 'ed25519'
+  gem 'bcrypt_pbkdf'
 end
+
