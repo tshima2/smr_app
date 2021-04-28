@@ -5,6 +5,7 @@
 
     <h4 class="font-weight-bold"><%= I18n.t('views.labels.site_show_basic_attributes_block') %></h4>
     <!-- 基本属性ブロック start -->
+    <a name="basics"></a>
     <section class="site_show_basic_block border border-info">
       <table>
         <tr>
@@ -66,6 +67,7 @@
 
     <!-- mapブロック start -->
     <h4 class="font-weight-bold"><%= I18n.t('views.labels.site_show_map_block') %></h4>
+    <a name="maps"></a>
     <section class="site_show_map_block">  
       <div class="row">
         <div class="col-12">
@@ -80,6 +82,7 @@
 
     <!-- コメントブロック start -->
     <h4 class="font-weight-bold"><%= I18n.t('views.labels.site_show_comments_block') %></h4>
+    <a name="comments"></a>
     <section class="site_show_comment_block border border-info">
 
       <div id="comments_area">
@@ -95,6 +98,7 @@
 
     <!-- 画像ブロック start -->
     <h4 class="font-weight-bold"><%= I18n.t('views.labels.site_show_images_block') %></h4>
+    <a name="images"></a>
     <section class="site_show_image_block">
       <div class="row">
         <% @image_posts.each do |post| %>

@@ -21,6 +21,12 @@ Rails.application.routes.draw do
     end
     resources :assigns, only: %w(create destroy)
     resources :sites do
+      collection do
+        post :confirm
+      end
+      member do
+        post :confirm_edit
+      end
       resources :comments, shallow: true
       resources :image_posts, shallow: true
       get 'search'

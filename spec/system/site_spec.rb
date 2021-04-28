@@ -296,6 +296,10 @@ RSpec.describe 'サイト機能のテスト', type: :system do
       fill_in "site[memo]", with: _memo
       click_on "commit"
       sleep(0.1)
+      
+      #遷移した確認画面にて登録ボタン押下
+      click_on I18n.t('views.labels.site_submit')
+      sleep(0.1)
 
       #新規作成画面でのエラー表示を確認
       expect(page).to have_content I18n.t('views.messages.failed_create_site')
@@ -340,6 +344,10 @@ RSpec.describe 'サイト機能のテスト', type: :system do
       fill_in "site[address]", with: _address
       fill_in "site[memo]", with: _memo
       click_on "commit"
+      sleep(0.1)
+
+      #遷移した確認画面にて登録ボタン押下
+      click_on I18n.t('views.labels.site_submit')
       sleep(0.1)
 
       #新規作成画面でのエラー表示を確認
@@ -387,6 +395,10 @@ RSpec.describe 'サイト機能のテスト', type: :system do
       click_on "commit"
       sleep(0.1)
     
+      #遷移した確認画面にて登録ボタン押下
+      click_on I18n.t('views.labels.site_submit')
+      sleep(0.1)
+
       #新規作成画面でのエラー表示を確認
       expect(page).to have_content I18n.t('views.messages.failed_create_site')
       expect(page).to have_content "Addressを入力してください"
@@ -433,6 +445,10 @@ RSpec.describe 'サイト機能のテスト', type: :system do
       click_on "commit"
       sleep(0.1)
     
+      #遷移した確認画面にて登録ボタン押下
+      click_on I18n.t('views.labels.site_submit')
+      sleep(0.1)
+
       #新規作成画面でのエラー表示を確認
       expect(page).to have_content I18n.t('views.messages.failed_create_site')
       expect(page).to have_content "Addressは255文字以内で入力してください"      
@@ -478,6 +494,10 @@ RSpec.describe 'サイト機能のテスト', type: :system do
       click_on "commit"
       sleep(0.1)
     
+      #遷移した確認画面にて登録ボタン押下
+      click_on I18n.t('views.labels.site_submit')
+      sleep(0.1)
+
       #新規作成画面でのエラー表示を確認
       expect(page).to have_content I18n.t('views.messages.failed_create_site')
       expect(page).to have_content "Memoは255文字以内で入力してください" 

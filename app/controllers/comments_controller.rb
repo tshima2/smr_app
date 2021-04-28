@@ -47,7 +47,7 @@ class CommentsController < ApplicationController
     _team_id = @comment.site.team_id
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to team_site_path(_team_id, _site_id), notice: I18n.t('views.messages.delete_comment') }
+      format.html { redirect_to team_site_path(_team_id, _site_id, anchor: "comments"), notice: I18n.t('views.messages.delete_comment') }
       format.json { head :no_content }
     end
   end
