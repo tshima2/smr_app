@@ -40,3 +40,6 @@
 
 # upload image
 /public/uploads
+
+# dotenv-rails
+.env
