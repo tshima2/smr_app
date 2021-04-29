@@ -5,13 +5,13 @@ class SitesController < ApplicationController
     @sites = current_user.keep_team.sites
 
     if params[:q]
-      @q = current_user.keep_team.sites.ransack(params[:q])
+      @q = current_user.keep_team.sites.ransack(search_params)
       @q.combinator = "or" if(params["and_or"]=="1")
       @sites = @q.result distinct: true
     else
       @q = Site.ransack(nil)
-    end 
-  
+    end
+
     @sites = @sites.order(updated_at: :DESC).page(params[:page]).per(20)
   end
 
@@ -20,8 +20,7 @@ class SitesController < ApplicationController
   end
 
   def confirm
-    @site = Site.new(site_params)    
-    #load_kml(params[:file].path) if params[:file].present?
+    @site = Site.new(site_params)
     load_kml(params[:file].path) if params[:file].present?
   end
 
@@ -51,6 +50,9 @@ class SitesController < ApplicationController
 
   def confirm_edit
     @site=Site.new(site_params)
+    if (Site.find(params[:id]))
+      @site.comments = Site.find(params[:id]).comments
+    end
     load_kml(params[:file].path) if params[:file].present?
     render "confirm"
   end
@@ -66,7 +68,7 @@ class SitesController < ApplicationController
         flash[:alert]=I18n.t('views.messages.failed_update_site')
         render :edit
       end
-    end 
+    end
   end
 
   def destroy
@@ -91,7 +93,7 @@ class SitesController < ApplicationController
 
   def show
     check_specified_team
-   
+
     @comments = @site.comments
     @comment = @site.comments.build
     @image_posts = @site.image_posts
@@ -128,11 +130,16 @@ class SitesController < ApplicationController
     if !(belong?(params[:team_id].to_i))
       flash[:alert]=I18n.t('views.messages.unauthorized_request')
       redirect_to statics_top_path
-    end 
+    end
   end
 
   def search_params
-    params.require(:q).permit!
+    sp = params.require(:q).permit!
+    if sp[:tags_name_cont] && sp[:tags_name_cont].length > 0
+      sp[:tags_name_cont_any] = sp[:tags_name_cont].split(/[[:space:]]/).select {|val| val.length > 0}
+      sp.delete(:tags_name_cont)
+    end
+    return sp
   end
 
   def load_kml(_path)
@@ -146,12 +153,12 @@ class SitesController < ApplicationController
       placemarks_ha.each do |elem|
         ha = elem["Placemark"]
         mark = KmlPlaceMark.new(ha["name"], ha["description"], (ha.has_key?("Point") ? ha["Point"]["coordinates"] : nil))
-        @tags_str << mark.to_tag      
+        @tags_str << mark.to_tag
         @comments_str << mark.to_comment
       end
     rescue
       flash.now[:info]=I18n.t('views.messages.unexpected_file_format')
-    end 
+    end
   end
 
   class KmlPlaceMark
@@ -169,6 +176,6 @@ class SitesController < ApplicationController
     def to_comment
       "[#{@name}]:#{@description}"
     end
-  end 
+  end
 
 end

@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # create User
+=begin
 _name = "test01"; _email= "test01@example.com"; _pass="passwd"; _keep_team_id = 1
 user01=User.create!(name: _name, email: _email, password: _pass, keep_team_id:  _keep_team_id)
 _name = "test02"; _email= "test02@example.com"; _pass="passwd"; _keep_team_id = 1
@@ -14,6 +15,15 @@ user02=User.create!(name: _name, email: _email, password: _pass, keep_team_id:  
 _name = "test03"; _email= "test03@example.com"; _pass="passwd"; _keep_team_id = 1
 user03=User.create!(name: _name, email: _email, password: _pass, keep_team_id:  _keep_team_id)
 _name = "test04"; _email= "test04@example.com"; _pass="passwd"; _keep_team_id = 1
+user04=User.create!(name: _name, email: _email, password: _pass, keep_team_id:  _keep_team_id)
+=end
+_name = "system"; _email= "system@smoothrunning.com"; _pass="system"; _keep_team_id = 1
+user01=User.create!(name: _name, email: _email, password: _pass, keep_team_id:  _keep_team_id)
+_name = Faker::Name.unique.name; _email= Faker::Internet.email; _pass="passwd"; _keep_team_id = 1
+user02=User.create!(name: _name, email: _email, password: _pass, keep_team_id:  _keep_team_id)
+_name = Faker::Name.unique.name; _email= Faker::Internet.email; _pass="passwd"; _keep_team_id = 1
+user03=User.create!(name: _name, email: _email, password: _pass, keep_team_id:  _keep_team_id)
+_name = "島 達郎"; _email= "shima.tatsurou@gmail.com"; _pass="tshima"; _keep_team_id = 1
 user04=User.create!(name: _name, email: _email, password: _pass, keep_team_id:  _keep_team_id)
 
 # create Team
@@ -121,8 +131,6 @@ SiteLabelling.create!(site_id: site04.id, label_id: label06.id)
 # create Tag
 site01.tag_list.add("#R357")
 site01.tag_list.add("#R298")
-site01.tag_list.add("#成田街道入口")
-site01.tag_list.add("#前原団地入口")
 site01.save
 site06.tag_list.add("#殿町三丁目")
 site06.save
