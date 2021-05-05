@@ -212,6 +212,8 @@ ja:
       link_menu_mypage: 'マイページ'
       link_menu_site_index: 'サイト情報'
       link_menu_manage_label: 'ラベル管理'
+      link_menu_signup: 'アカウント登録'
+      link_menu_login: 'ログイン'
       link_menu_logout: 'ログアウト'
       label_edit_top: 'ラベル編集'
       label_index_top: 'ラベル管理'

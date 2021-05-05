@@ -1,0 +1,23 @@
+<!-- ナビゲーションバー start -->
+<div class="smr_nav">
+<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">      
+  <%= link_to I18n.t('views.labels.link_menu_app_name'), root_path, class: "navbar-brand nav-link" %>  
+  <button class="navbar-toggler" type="button"
+          data-toggle="collapse"
+          data-target="#navmenu1"
+          aria-controls="navmenu1"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navmenu1">
+    <div class="navbar-nav">
+      <%= link_to I18n.t('views.labels.link_menu_site_index'), team_sites_path(1), class: "nav-item nav-link", id: "link_site_index_navitem" %>
+      <%= link_to I18n.t('views.labels.link_menu_signup'), new_user_registration_path, class: "nav-item nav-link", id: "link_menu_signup" %>
+      <%= link_to I18n.t('views.labels.link_menu_login'), new_user_session_path, class: "nav-item nav-link", id: "link_menu_login" %>
+    </div>
+  </div>
+</nav>
+</div>
+<!-- ナビゲーションバー end -->
