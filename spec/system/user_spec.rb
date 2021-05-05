@@ -116,9 +116,9 @@ RSpec.describe 'ユーザ登録/ログイン機能のテスト', type: :system d
       click_link I18n.t('views.labels.link_menu_logout')
       sleep(0.1)
  
-      #ログインページに遷移し, "ログイン"が表示されていることを確認
-      expect(page).to have_content 'アカウント登録もしくはログインしてください。'
+      #メニューに"ログイン", メッセージに"ログアウトしました"が表示されていることを確認
       expect(page).to have_content 'ログイン'
+      expect(page).to have_content 'ログアウトしました'
     end
 
     it '未ログイン状態で、Eメールとパスワードが合っていないとログインできないこと' do
@@ -488,6 +488,10 @@ RSpec.describe 'ユーザ登録/ログイン機能のテスト', type: :system d
       click_link I18n.t('views.labels.link_menu_logout')
       sleep(0.1)
  
+      #サイト一覧画面をリクエスト
+      visit team_sites_path(team_id: @default_team.id)
+      sleep(0.1)
+      
       #遷移したログインページで変更したパスワードでログイン
       fill_in "user_email", with: 'default_owner@example.com'
       fill_in "user_password", with: 'passwd_change'
