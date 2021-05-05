@@ -31,6 +31,14 @@
       </div>
     <% end %>
 
+    <div class="session_new_box-login">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |g| %>
+        <%= g.hidden_field :email, value:"guest@smoothrunning.com" %>
+        <%= g.hidden_field :password, value:"9760632280502371" %>
+        <%= g.submit I18n.t('devise.sessions.new.guest_sign_in'), class: "btn btn-warning", id: "guest_user_login_submit" %>
+      <% end %>
+    </div>
+
     <%= render "devise/shared/links" %>
   </div>
 

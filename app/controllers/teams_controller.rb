@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  before_action :check_guest_user, only: %i[new edit destroy]
   before_action :set_team, only: %i[show edit update destroy delegate]
   def index
     @teams = Team.all

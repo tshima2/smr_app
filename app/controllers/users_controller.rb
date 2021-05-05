@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action  :check_guest_user, only: [:edit]
+
   def edit
     @user = current_user
   end

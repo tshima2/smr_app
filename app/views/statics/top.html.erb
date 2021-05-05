@@ -6,8 +6,10 @@
   <%= I18n.t('views.top.line3') %><br>
 </P>
 <br>
-<p>
-  <%= link_to I18n.t('views.messages.team_build2'), new_team_path %>
-</p>
+
+<% if user_signed_in? %>
+  <p><%= link_to I18n.t('views.messages.team_build2'), new_team_path %></p>
+<% end %>
+
 <%= image_tag 'truck.jpg', width: "50%" %>
 </article>

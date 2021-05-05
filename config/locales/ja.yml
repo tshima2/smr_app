@@ -277,6 +277,7 @@ ja:
       add_comment: '追加'
       edit_comment: '更新'
     messages:
+      guest_can_only_allowed_viewing: 'ゲストユーザは閲覧のみ可能です.'
       unauthorized_request: '許可されていないリクエストが発行されました.'
       invalid_site_specified: '指定されたサイトは存在しません.'
       create_site: 'サイト情報を作成しました!'

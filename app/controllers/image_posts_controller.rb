@@ -1,4 +1,6 @@
 class ImagePostsController < ApplicationController
+  before_action  :check_guest_user, only: [:new, :destroy]
+
   def new
     @site = Site.find(params[:site_id])
     @team = @site.team
