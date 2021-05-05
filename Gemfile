@@ -23,6 +23,7 @@ gem 'bootstrap4-kaminari-views'
 gem 'rinku'
 gem 'ransack'
 gem 'acts-as-taggable-on', '~> 7.0'
+gem 'faker'
 
 #Backend
 # Use ActiveModel has_secure_password
@@ -38,7 +39,7 @@ gem 'devise'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'faker'
+  #gem 'faker'
   gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'

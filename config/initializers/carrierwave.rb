@@ -20,5 +20,8 @@ CarrierWave.configure do |config|
     when 'development'
       config.fog_directory = 'smr-development'
       config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/smr-development'
+    when 'test'
+      config.fog_directory = 'smr-development'
+      config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/smr-development'
   end
 end
