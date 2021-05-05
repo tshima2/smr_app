@@ -1,4 +1,5 @@
 class AssignsController < ApplicationController
+  before_action :check_guest_user, only: [:create, :destroy]
   before_action :email_exist?, only: [:create]
   before_action :user_exist?, only: [:create]
 

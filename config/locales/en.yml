@@ -284,6 +284,7 @@ en:
       add_comment: 'Add'
       edit_comment: 'Edit'
     messages:
+      guest_can_only_allowed_viewing: 'Guest user can only allowed viewing.'
       unauthorized_request: 'Unauthorized request.'
       invalid_site_specified: 'Specified site is not exist.'
       create_site: 'Successfully create a site!'

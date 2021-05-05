@@ -15,6 +15,13 @@ class ApplicationController < ActionController::Base
     (controller_name == "statics" && action_name == "top")? true : false
   end
 
+  def check_guest_user
+    if current_user.guest?
+      flash[:alert] = I18n.t('views.messages.guest_can_only_allowed_viewing')
+      redirect_to request.referer 
+    end 
+  end
+
   def set_working_team
     begin
       @working_team = current_user.keep_team_id ? Team.find(current_user.keep_team_id) : Team.first

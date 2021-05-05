@@ -10,7 +10,9 @@
               <%= image_tag default_img(@user.icon_url), size: '120x120', class: 'img' %><br>
               <%= @user.name %>&nbsp;&lt;<%= @user.email %>&gt;
             </div>
-            <%= link_to I18n.t('views.messages.edit_profile') , edit_user_path, class: 'btn btn-sm btn-info mt-3' %>
+            <% unless current_user.guest? %>
+              <%= link_to I18n.t('views.messages.edit_profile') , edit_user_path, class: 'btn btn-sm btn-info mt-3' %>
+            <% end %>
           </div>
         </div>
 

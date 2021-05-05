@@ -1,5 +1,7 @@
 class SitesController < ApplicationController
+  before_action  :check_guest_user, only: [:new, :edit, :destroy]
   before_action  :set_site, only: [:show, :edit, :update, :destroy]
+
   def index
     #check_specified_team
     @sites = current_user.keep_team.sites

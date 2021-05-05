@@ -9,9 +9,9 @@ Rails.application.routes.draw do
 
   resource :user
 
-  #get 'statics/top'
   #get 'sites/index'
   #root to: "sites#index"
+  get 'statics/top'
   root to: 'statics#top'
 
   resources :teams do
