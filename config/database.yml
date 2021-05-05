@@ -83,3 +83,4 @@ production:
   database: smr_app_production
   username: smr_app
   password: <%= ENV['SMR_APP_DATABASE_PASSWORD'] %>
+  template: template0
