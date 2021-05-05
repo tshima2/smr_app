@@ -9,8 +9,7 @@ Rails.application.routes.draw do
 
   resource :user
 
-  get 'statics/top'
-
+  #get 'statics/top'
   #get 'sites/index'
   #root to: "sites#index"
   root to: 'statics#top'

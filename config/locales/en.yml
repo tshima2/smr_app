@@ -221,6 +221,8 @@ en:
       link_menu_mypage: 'My page'
       link_menu_site_index: 'Site index'
       link_menu_manage_label: 'Label management'
+      link_menu_signup: 'Sign up'
+      link_menu_login: 'Log in'
       link_menu_logout: 'Log out'
       label_edit_top: 'Editing label'    
       label_index_top: 'Label index'

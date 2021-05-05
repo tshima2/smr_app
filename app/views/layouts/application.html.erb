@@ -17,6 +17,8 @@
 
     <% if user_signed_in? %>
       <%= render 'shared/layout/menu' %>
+    <% else %>
+      <%= render 'shared/layout/menu2' %>
     <% end %>
 
     <div id="notice">
