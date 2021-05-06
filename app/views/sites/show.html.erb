@@ -3,7 +3,10 @@
 
   <div class="container-fluid">
 
-    <h4 class="font-weight-bold"><%= I18n.t('views.labels.site_show_basic_attributes_block') %></h4>
+    <h4 class="font-weight-bold">
+      <i class="fa fa-info-circle" aria-hidden="true"></i>
+      <%= I18n.t('views.labels.site_show_basic_attributes_block') %>
+    </h4>
     <!-- 基本属性ブロック start -->
     <a name="basics"></a>
     <section class="site_show_basic_block border border-info">
@@ -19,7 +22,7 @@
             <div class="site_show_basic_item">
               <div id="request_url">
                 <%= request.url %>&nbsp;&nbsp;
-                <a href="javascript:void(0)" onclick="site_link_copy()"><i class="fa fa-clipboard" aria-hidden="true"></i></a>
+                <a href="javascript:void(0)" onclick="site_link_copy()"><i class="fa fa-clipboard fa-lg" aria-hidden="true"></i></a>
               </div>
             </div>
           </td>
@@ -66,7 +69,10 @@
     <!-- 基本属性ブロック end -->
 
     <!-- mapブロック start -->
-    <h4 class="font-weight-bold"><%= I18n.t('views.labels.site_show_map_block') %></h4>
+    <h4 class="font-weight-bold">
+      <i class="fa fa-map-marker" aria-hidden="true"></i>
+      <%= I18n.t('views.labels.site_show_map_block') %>
+    </h4>
     <a name="maps"></a>
     <section class="site_show_map_block">  
       <div class="row">
@@ -81,7 +87,11 @@
     <!-- mapブロック end -->
 
     <!-- コメントブロック start -->
-    <h4 class="font-weight-bold"><%= I18n.t('views.labels.site_show_comments_block') %></h4>
+    <h4 class="font-weight-bold">
+   <!--   <i class="fa fa-hand-o-right" aria-hidden="true"></i> -->
+      <i class="fa fa-commenting-o" aria-hidden="true"></i>
+      <%= I18n.t('views.labels.site_show_comments_block') %>
+    </h4>
     <a name="comments"></a>
     <section class="site_show_comment_block border border-info">
 
@@ -97,7 +107,10 @@
     <!-- コメントブロック end -->
 
     <!-- 画像ブロック start -->
-    <h4 class="font-weight-bold"><%= I18n.t('views.labels.site_show_images_block') %></h4>
+    <h4 class="font-weight-bold">
+      <i class="fa fa-picture-o" aria-hidden="true"></i>
+      <%= I18n.t('views.labels.site_show_images_block') %>
+    </h4>
     <a name="images"></a>
     <section class="site_show_image_block">
       <div class="row">

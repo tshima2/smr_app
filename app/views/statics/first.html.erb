@@ -1,0 +1,34 @@
+<article class="container_article">
+<h1><%= I18n.t('views.labels.statics_first_title') %></h1>
+
+<div class="card m-3" style="width:45rem;">
+  <div class="card-header"><span class="font-weight-bold"><i class="fas fa-info-circle fa-lg"></i>&nbsp;&nbsp;初期状態</span></div>
+  <div class="card-body">
+    本アプリの利用者は、初回のログイン時には「DefaultTeam」というチームに属します。<BR>
+    サイト情報（サンプル）：公衆トイレ一覧（渋谷区オープンデータ<BR>
+    https://www.city.shibuya.tokyo.jp/kusei/tokei/opendata/index1.html）を加工して作成
+  </div>
+</div>
+
+<div class="card m-3" style="width:45rem;">
+  <div class="card-header"><span class="font-weight-bold"><i class="fas fa-info-circle fa-lg"></i>&nbsp;&nbsp;あたらしくチームを作成する<span></div>
+  <div class="card-body">
+    「マイページ」メニューから自分の所属するチームを確認できます。チームリーダの方は、<BR>
+    「マイチーム」メニューからまずチームを作成し、メンバーを招待しましょう。<BR>
+    チーム作成後は「ラベル管理」メニューからサイト情報に付与可能なラベル<BR>
+    を作ることができます。ラベルの管理はチームリーダのみ可能です。
+  </div>
+</div>
+
+<div class="card m-3" style="width:45rem;">
+  <div class="card-header"><span class="font-weight-bold"><i class="fas fa-info-circle fa-lg"></i>&nbsp;&nbsp;自分のチームを確認したら</span></div>
+  <div class="card-body">
+    チームリーダからチームへの招待をうけた方には、システムからの通知メールが届きます。<BR>
+    確認の上、「マイチーム」メニューから自分が招待されたチームを選択してください。<BR>
+    選択後、「サイト情報」メニューから該当チームのサイト情報の閲覧・作業が可能と<BR>
+    なります。
+  </div>
+</div>
+
+<%= render 'link' %>
+</article>

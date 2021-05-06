@@ -115,11 +115,14 @@
         <td>
           <% if(current_user.keep_team.owner_id == current_user.id || site.user_id == current_user.id) %>
             <%= link_to I18n.t('views.labels.site_index_edit'), edit_team_site_path(site.team.id, site.id), class: "btn btn-sm btn-info", id: "link_edit_#{site.id}" %>
+            <%#= link_to raw("<i class=\"fa fa-pencil-square-o  fa-2x\" aria-hidden=\"true\"></i>"), edit_team_site_path(site.team.id, site.id), class: "btn-outline-info", id: "link_edit_#{site.id}" %>
+
           <% end %>
         </td>
         <td>
           <% if(current_user.keep_team.owner_id == current_user.id || site.user_id == current_user.id) %>
             <%= link_to I18n.t('views.labels.site_index_delete'), team_site_path(site.team.id, site.id), method: :delete,  data: { confirm: I18n.t('views.messages.really_want_to_delete') }, class: "btn btn-sm btn-danger", id: "link_delete_#{site.id}" %>
+            <%#= link_to raw("<i class=\"fa fa-trash fa-2x\" aria-hidden=\"true\"></i>"), team_site_path(site.team.id, site.id), method: :delete,  data: { confirm: I18n.t('views.messages.really_want_to_delete') }, class: "btn-outline-danger", id: "link_delete_#{site.id}" %>
           <% end %>
         </td>
       </tr>

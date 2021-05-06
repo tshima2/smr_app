@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :store_current_location, unless: :devise_controller?
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :authenticate_user!, unless: :statics_top?
+  before_action :authenticate_user!, unless: :under_statics_top?
   before_action :init_team, if: :user_signed_in?
   before_action :set_working_team, if: :user_signed_in?
 
@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  def statics_top?
-    (controller_name == "statics" && action_name == "top")? true : false
+  def under_statics_top?
+    (controller_name == "statics")? true : false
   end
 
   def check_guest_user
