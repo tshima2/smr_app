@@ -1,15 +1,44 @@
 <article class="container_article">
 <h1><%= I18n.t('views.top.welcome') %></h1>
-<P>
+<p>
   <%= I18n.t('views.top.line1') %><br>
   <%= I18n.t('views.top.line2') %><br>
   <%= I18n.t('views.top.line3') %><br>
-</P>
-<br>
+</p>
 
 <% if user_signed_in? %>
   <p><%= link_to I18n.t('views.messages.team_build2'), new_team_path %></p>
 <% end %>
 
-<%= image_tag 'truck.jpg', width: "50%" %>
+<%#= image_tag 'truck.jpg', width: "50%" %>
+
+
+<div class="card-deck" style="width:56rem">
+  <div class="card bg-light" style="width:24rem;">
+    <%= image_tag '462525.png', class: "card-img-top", alt: "Card image cap" %>
+    <div class="card-body">
+      <h3 class="card-title font-weight-bold">はじめてご利用になる方へ</h3>
+      <h6 class="card-subtitle text-monospace">・初期状態</h6>
+      <p class="card-text">
+        初回のログイン時には「DefaultTeam」というチームに属します。<BR>
+        サイト情報（サンプル）：公衆トイレ一覧（渋谷区オープンデータ)
+      <%= link_to raw("...&nbsp;<i class=\"fa fa-chevron-circle-right\" aria-hidden=\"true\"></i>"), statics_first_path, class: "card-link" %>
+      </p>
+     </div>
+  </div>
+
+  <div class="card bg-light" style="width:24rem;">
+    <%= image_tag 'truck.jpg', class: "card-img-top", alt: "Card image cap" %>
+    <div class="card-body">
+      <h3 class="card-title font-weight-bold">できること</h3>
+      <h6 class="card-subtitle">・サイト情報の登録</h6>
+      <p class="card-text">利用者は、自分の所属するチーム内に納品先や取引先などのサイト情報を登録し、
+      <%= link_to raw("...&nbsp;<i class=\"fa fa-chevron-circle-right\" aria-hidden=\"true\"></i>"), statics_functions_path, class: "card-link" %>
+      </p>
+    </div>
+  </div>
+</div>
+
+</div>
+
 </article>

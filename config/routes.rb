@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   #get 'sites/index'
   #root to: "sites#index"
   get 'statics/top'
+  get 'statics/first'
+  get 'statics/functions'
   root to: 'statics#top'
 
   resources :teams do

@@ -1,7 +1,7 @@
 <%= form_with(model: site,  url: choose_new_or_edit_confirm, method: :post, multipart: true, local: true) do |form| %>
 
 <div class="container_article border border-dark">
-    <h3><%= I18n.t('views.labels.site_show_basic_attributes_block') %></h3>
+    <h3><i class="fa fa-info-circle" aria-hidden="true"></i><%= I18n.t('views.labels.site_show_basic_attributes_block') %></h3>
 
     <% if site.errors.any? %>
       <div id="error_explanation">

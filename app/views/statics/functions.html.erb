@@ -1,0 +1,55 @@
+<article class="container_article">
+<h1><%= I18n.t('views.labels.statics_functions_title') %></h1>
+
+<div class="card m-3" style="width:40rem;">
+  <div class="card-header"><span class="font-weight-bold"><i class="fa fa-truck fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;サイト情報の登録</span></div>
+    <div class="card-body">
+      利用者は、自分の所属するチーム内に納品先や取引先などのサイト情報を登録し、<BR>
+      必要に応じて画像ファイルやURLリンク（現調報告書やGoogleマイマップなどを<BR>
+      想定）を紐付けることで、チーム内でサイト情報を管理・共有することができます。
+    </div>
+  </div>
+</div>
+
+<div class="card m-3" style="width:40rem;">
+  <div class="card-header"><span class="font-weight-bold"><i class="fa fa-truck fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;サイト情報へのコメント・画像追加</span></div>
+    <div class="card-body">
+      サイト情報には、チームメンバー全員がコメント形式での気づきや現場の写真を<BR>
+      追加できます。このことにより勘や経験に基づくさまざまな非定型情報の蓄積を<BR>
+      図ることが可能です。
+    </div>
+  </div>
+</div>
+
+<div class="card m-3" style="width:40rem;">
+  <div class="card-header"><span class="font-weight-bold"><i class="fa fa-truck fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;ハッシュタグとラベル</span></div>
+    <div class="card-body">
+      サイト情報に対し、経由地などを表現するためのハッシュタグ、さらに用途など<BR>
+      を表現するためのラベルを付加することで、関連するサイトを絞り込み検索により<BR>
+      参照することが可能です。
+    </div>
+  </div>
+</div>
+
+<div class="card m-3" style="width:40rem;">
+  <div class="card-header"><span class="font-weight-bold"><i class="fa fa-truck fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;共有範囲（チーム）の作成</span></div>
+    <div class="card-body">
+      システムにログインした利用者は、自分のチームを新規に作成し、アカウント<BR>
+      を持つメンバーをチームに招待することができます。チームを使用することで、<BR>
+      登録するサイト情報の共有範囲を設定することが可能です。
+    </div>
+  </div>
+</div>
+
+<div class="card m-3" style="width:40rem;">
+  <div class="card-header"><span class="font-weight-bold"><i class="fa fa-truck fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Google KMLファイルの情報活用</span></div>
+    <div class="card-body">
+      サイト作成時には、Googleマイマップなどから生成可能なKMLファイルの活用が<BR>
+      可能です。KMLファイルを読み込むと、経由地点の表題がハッシュタグ、説明が<BR>
+      コメントとして取り込まれるため、絞込み検索をおこなうことが可能となります。<BR>
+    </div>
+  </div>
+</div>
+
+<%= render 'link' %>
+</article>
