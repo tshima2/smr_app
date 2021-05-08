@@ -12,4 +12,6 @@ class Site < ApplicationRecord
 
   has_many :site_labellings, dependent: :destroy, foreign_key: 'site_id'
   has_many :labels, through: :site_labellings, source: :label
+
+  mount_uploader :kml, ImageUploader
 end

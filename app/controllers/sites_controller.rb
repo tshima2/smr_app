@@ -21,14 +21,17 @@ class SitesController < ApplicationController
     @site = current_user.sites.build(team_id: current_user.keep_team_id)
   end
 
-  def confirm
+  def confirm    
     @site = Site.new(site_params)
-    load_kml(params[:file].path) if params[:file].present?
+    #load_kml(params[:file].path) if params[:file].present?
+    load_kml(site_params["kml"].path) if site_params["kml"].present?
   end
 
   def create
     @site = current_user.sites.build(site_params)
     @site.team_id ||= current_user.keep_team_id
+
+    byebug
 
     if params[:back]
       render :new
@@ -55,7 +58,8 @@ class SitesController < ApplicationController
     if (Site.find(params[:id]))
       @site.comments = Site.find(params[:id]).comments
     end
-    load_kml(params[:file].path) if params[:file].present?
+    #load_kml(params[:file].path) if params[:file].present?
+    load_kml(site_params["kml"].path) if site_params["kml"].present?
     render "confirm"
   end
 
@@ -103,7 +107,7 @@ class SitesController < ApplicationController
 
   private
   def site_params
-    p = params.require(:site).permit(:team_id, :name, :address, :latitude, :longtitude, :memo, :tag_list, { label_ids: [] }, { comments_str: [] }, { comments: [] })
+    p = params.require(:site).permit(:team_id, :name, :address, :latitude, :longtitude, :memo, :kml, :kml_cache, :tag_list, { label_ids: [] }, { comments_str: [] }, { comments: [] })
     p[:tag_list] = p[:tag_list].split(/[[:space:]]/).select {|li| li.length > 0}
     p[:label_ids] = p[:label_ids].select { |li| li.length > 0 }
     if p[:comments_str] && p[:comments_str].length > 0

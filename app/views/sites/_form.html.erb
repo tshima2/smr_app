@@ -51,8 +51,10 @@
       <td><%= form.text_field :tag_list, id: '', size: 48, class: "m-1 p-1" %></td>
     </tr>
     <tr>
-      <td align="right"><%= I18n.t('views.labels.load_kml') %></td>
-      <td><%= file_field_tag :file, class: "p-1 btn-sm" %></td>
+<!--      <td align="right"><%#= I18n.t('views.labels.load_kml') %></td> -->
+<!--      <td><%#= file_field_tag :file, class: "p-1 btn-sm" %></td>  -->
+          <td align="right"><%= form.label :kml, I18n.t('views.labels.load_kml') %></td>
+          <td><%= form.file_field :kml, class: "p-1 btn-sm" %></td>
     </tr>    
 
     <tr><td>
