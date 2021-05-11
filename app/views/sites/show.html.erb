@@ -139,7 +139,9 @@
         <% @image_posts.each do |post| %>
           <div class="col-auto">
             <div class="site_show_menu_on_image m-1 p-1">
-              <%= image_tag(post.image_url, class:"site_show_image", alt: "#{File.basename(post.image.path, '.*')}" ) %>
+              <%= link_to post.image_url, "data-lightbox": post.image_url do %>
+                <%= image_tag(post.image_url, class:"site_show_image", alt: "#{File.basename(post.image.path, '.*')}" ) %>
+              <% end %>
               <% if (current_user.id == post.user_id) || (current_user.id == current_user.keep_team.owner_id) %>
                 <div class="site_show_menu">
                   <%= link_to '×', image_post_path(id: post.id), method: :delete, data: {confirm: I18n.t('views.messages.really_want_to_delete') } %>

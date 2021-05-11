@@ -43,3 +43,4 @@
 
 # dotenv-rails
 .env
+.env.production
