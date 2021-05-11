@@ -254,6 +254,7 @@ en:
       link_add_image: 'Add image'
       link_site_show: 'Show site'
       link_site_new: 'New site'
+      site_kml: 'Google KML file'
       site_index: 'Site index'
       site_index_index: 'Index'
       site_index_edit: 'Edit'

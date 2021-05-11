@@ -20,7 +20,8 @@ RSpec.describe Site, type: :model do
         site = Site.create(name: _name, address: _address, user_id: @user.id, team_id: @team.id)
         expect(site).not_to be_valid
       end
-      it 'サイト住所が空' do
+      # 住所が空でもサイトを登録させるよう変更
+      xit 'サイト住所が空' do
         _name="name"; _address="";
         site = Site.create(name: _name, address: _address, user_id: @user.id, team_id: @team.id)
         expect(site).not_to be_valid

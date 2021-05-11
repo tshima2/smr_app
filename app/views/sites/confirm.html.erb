@@ -6,12 +6,20 @@
   <%= form.hidden_field :address %>
 <%#= form.hidden_field :label_ids %>
   <%= form.hidden_field :memo %>
+  <%= form.hidden_field :kml %>
+  <%= form.hidden_field :kml_cache %>
   <%= form.hidden_field :tag_list, value: @site.tag_list+@tags_str %>
 
   <table border=1 bgcolor="whitesmoke">
     <tr>
       <td align="right"><%= form.label I18n.t('views.labels.site_name'), class: "font-weight-bolder m-1 p-1" %></td>      
-      <td><%= @site.name %></td>      
+      <td>
+        <% if @document_name.present? %>
+          <div class="text-success"><%= @document_name %></div>
+        <% else %>
+          <%= @site.name %>
+        <% end %>
+      </td>      
     </tr>
     <tr>
       <td align="right"><%= form.label I18n.t('views.labels.site_address'), class: "font-weight-bolder m-1 p-1" %></td>
@@ -43,11 +51,21 @@
 
     <tr>
       <td align="right"><%= form.label I18n.t('views.labels.site_memo'), class: "font-weight-bolder m-1 p-1" %></td>
-      <td><%= @site.memo %></td>            
+      <td>
+        <% if @document_description.present? %>
+          <div class="text-success"><%= @document_description %></div>
+        <% else %>
+          <%= @site.memo %>
+        <% end %>
+      </td>            
     </tr>
     <tr>
       <td align="right"><%= form.label I18n.t('views.labels.site_hashtag'), class: "font-weight-bolder m-1 p-1" %></td>
       <td><%= @site.tag_list %>&nbsp;<div class="text-success"><%= @tags_str.join(" ") if @tags_str.present? %></div></td>
+    </tr>
+    <tr>
+      <td align="right"><%= form.label I18n.t('views.labels.site_kml'), class: "font-weight-bolder m-1 p-1" %></td>
+      <td><%= @site.kml.path.split("/").last if @site.kml.path.present? %></td>
     </tr>
 
     <% if @comments_str.present? %>

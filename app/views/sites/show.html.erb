@@ -76,12 +76,34 @@
     <a name="maps"></a>
     <section class="site_show_map_block">  
       <div class="row">
-        <div class="col-12">
-          <iframe frameborder="0" 
-                    style="border:0; width: 300px; height: 200px" 
-                    src="https://maps.google.co.jp/maps?output=embed&q=<%= @site.address%>">
-          </iframe>
-        </div>
+
+        <% if @site.address.present? %>
+          <div class="col-auto">
+            <span class="text-monospace"><%= I18n.t('views.labels.site_address') %></span><BR>
+            <iframe frameborder="0" 
+                      style="border:0; width: 400px; height: 300px" 
+                      src="https://maps.google.co.jp/maps?output=embed&q=<%= @site.address%>">
+            </iframe>
+          </div>
+        <% end %>
+
+        <% if @points %>
+          <div class="col-auto">
+            <span class="text-monospace"><%= I18n.t('views.labels.site_kml') %></span><BR>
+            <div id="mapDiv" style="width:400px; height:300px;"></div>
+            <input name="arr_json_points" type="hidden" value="<%= @points %>" class="arr_json_points">
+            <script>
+              jQuery(function($) {
+                var arrJsonPoints=$('.arr_json_points').val();
+                var conf={
+                  points: JSON.parse(arrJsonPoints)
+                };
+                $.gmapSearch($, google, conf);
+              });
+            </script>
+          </div>
+        <% end %>
+
       </div>
     </section>
     <!-- mapブロック end -->
@@ -117,7 +139,7 @@
         <% @image_posts.each do |post| %>
           <div class="col-auto">
             <div class="site_show_menu_on_image m-1 p-1">
-              <%= image_tag(post.image_url, class:'site_show_image') %>
+              <%= image_tag(post.image_url, class:"site_show_image", alt: "#{File.basename(post.image.path, '.*')}" ) %>
               <% if (current_user.id == post.user_id) || (current_user.id == current_user.keep_team.owner_id) %>
                 <div class="site_show_menu">
                   <%= link_to '×', image_post_path(id: post.id), method: :delete, data: {confirm: I18n.t('views.messages.really_want_to_delete') } %>
