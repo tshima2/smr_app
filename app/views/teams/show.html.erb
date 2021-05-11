@@ -46,36 +46,38 @@
                 </tr>
               </table>
               
-              <h5>
-                <i class="fa fa-user-o" aria-hidden="true"></i>
-                <%= I18n.t('views.messages.team_members2') %>
-              </h5>
-              <table class="table">
-                <tbody>
-                  <% @team.assigns.each do |assign| %>
-                    <tr>
-                      <td><%= image_tag default_img(assign.user.icon_url), size: '40x40' %></td>
-                      <td>
-			                  <% if (current_user.id == assign.user_id) %>
-                          <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
-                        <% end %>
-                        <%= assign.user.name %>&nbsp;&lt;<%= assign.user.email %>&gt;
-                      </td>
-                      <td>
-			                    <% if (current_user.id == @team.owner.id) || (current_user.id == assign.user_id) %>
-			                      <%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %>
- 	                        <% end %>
-			
-			                    <% if (current_user.id == @team.owner.id) && (current_user.id != assign.user_id)  %>
-		                        <%= link_to I18n.t('views.button.delegate'), delegate_team_path(team_id: @team.id, owner_id: assign.user_id), method: :post, class: 'btn btn-sm btn-info' %>
- 	                        <% end %>
-		                  </td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
+              <% unless @team.id==1 %>
+                <h5>
+                  <i class="fa fa-user-o" aria-hidden="true"></i>
+                  <%= I18n.t('views.messages.team_members2') %>
+                </h5>
+                <table class="table">
+                  <tbody>
+                    <% @team.assigns.each do |assign| %>
+                      <tr>
+                        <td><%= image_tag default_img(assign.user.icon_url), size: '40x40' %></td>
+                        <td>
+                          <% if (current_user.id == assign.user_id) %>
+                            <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
+                          <% end %>
+                          <%= assign.user.name %>&nbsp;&lt;<%= assign.user.email %>&gt;
+                        </td>
+                        <td>
+                            <% if (current_user.id == @team.owner.id) || (current_user.id == assign.user_id) %>
+                              <%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %>
+                            <% end %>
+        
+                            <% if (current_user.id == @team.owner.id) && (current_user.id != assign.user_id)  %>
+                              <%= link_to I18n.t('views.button.delegate'), delegate_team_path(team_id: @team.id, owner_id: assign.user_id), method: :post, class: 'btn btn-sm btn-info' %>
+                            <% end %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              <% end %>
 
+            </div>
           </div>
         </div>
         <!-- /.row -->
