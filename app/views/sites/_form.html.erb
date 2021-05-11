@@ -1,7 +1,10 @@
 <%= form_with(model: site,  url: choose_new_or_edit_confirm, method: :post, multipart: true, local: true) do |form| %>
 
 <div class="container_article border border-dark">
-    <h3><i class="fa fa-info-circle" aria-hidden="true"></i><%= I18n.t('views.labels.site_show_basic_attributes_block') %></h3>
+    <h3>
+      <i class="fa fa-info-circle" aria-hidden="true"></i></i>&nbsp;
+      <%= I18n.t('views.labels.site_show_basic_attributes_block') %>
+    </h3>
 
     <% if site.errors.any? %>
       <div id="error_explanation">
@@ -51,10 +54,12 @@
       <td><%= form.text_field :tag_list, id: '', size: 48, class: "m-1 p-1" %></td>
     </tr>
     <tr>
-<!--      <td align="right"><%#= I18n.t('views.labels.load_kml') %></td> -->
-<!--      <td><%#= file_field_tag :file, class: "p-1 btn-sm" %></td>  -->
-          <td align="right"><%= form.label :kml, I18n.t('views.labels.load_kml') %></td>
-          <td><%= form.file_field :kml, class: "p-1 btn-sm" %></td>
+      <td align="right"><%= form.label :kml, I18n.t('views.labels.site_kml') %></td>
+      <td>
+        <%= site.kml.path.split("/").last if site.kml.path %><BR>
+        <%= form.file_field :kml, class: "p-1 btn-sm" %>
+        <%= form.hidden_field :kml_cache %>
+      </td>
     </tr>    
 
     <tr><td>

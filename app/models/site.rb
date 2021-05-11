@@ -2,7 +2,7 @@ class Site < ApplicationRecord
   acts_as_taggable
 
   validates :name, presence: true, length: {maximum: 128}
-  validates :address, presence: true, length: {maximum: 255}
+  validates :address, length: {maximum: 255}
   validates :memo, length: {maximum: 255}
 
   has_many :comments, dependent: :destroy

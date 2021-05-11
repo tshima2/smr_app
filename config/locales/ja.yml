@@ -205,7 +205,6 @@ ja:
     pm: 午後
   views:
     labels:
-      load_kml: 'KMLファイル..'
       link_menu_app_name: 'SmoothRunning - サイト情報共有ツール'
       link_menu_my_team: 'マイチーム'
       link_menu_new_team: 'あたらしくチームを作る'
@@ -246,6 +245,7 @@ ja:
       link_add_image: '画像を追加する'
       link_site_show: '詳細'      
       link_site_new: '新規作成'
+      site_kml: 'Google KMLファイル'
       site_index: 'サイト情報'
       site_index_index: '一覧'
       site_index_edit: '編集'

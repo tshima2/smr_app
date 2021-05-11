@@ -23,15 +23,15 @@ class SitesController < ApplicationController
 
   def confirm    
     @site = Site.new(site_params)
-    #load_kml(params[:file].path) if params[:file].present?
     load_kml(site_params["kml"].path) if site_params["kml"].present?
+
+    @site.name = @document_name unless @site.name.present?
+    @site.memo = @document_description unless @site.memo.present?
   end
 
   def create
     @site = current_user.sites.build(site_params)
     @site.team_id ||= current_user.keep_team_id
-
-    byebug
 
     if params[:back]
       render :new
@@ -40,7 +40,7 @@ class SitesController < ApplicationController
         flash[:notice]=I18n.t('views.messages.create_site')
         redirect_to team_sites_path
       else
-        flash[:alert]=I18n.t('views.messages.failed_create_site')
+        flash.now[:alert]=I18n.t('views.messages.failed_create_site')
         render :new
       end
     end
@@ -54,12 +54,16 @@ class SitesController < ApplicationController
   end
 
   def confirm_edit
-    @site=Site.new(site_params)
-    if (Site.find(params[:id]))
-      @site.comments = Site.find(params[:id]).comments
+    @site=Site.new(site_params)   
+    if (stored_site = Site.find(params[:id]))
+      @site.comments = stored_site.comments
+      @site.kml = stored_site.kml unless @site.kml.url
     end
-    #load_kml(params[:file].path) if params[:file].present?
+
     load_kml(site_params["kml"].path) if site_params["kml"].present?
+    @site.name = @document_name if @document_name.present?
+    @site.memo = @document_description if @document_description.present?
+      
     render "confirm"
   end
 
@@ -69,9 +73,9 @@ class SitesController < ApplicationController
     else
       if @site.update(site_params)
         flash[:notice]=I18n.t('views.messages.update_site')
-        redirect_to team_sites_path, notice: I18n.t('views.messages.update_site')
+        redirect_to team_sites_path
       else
-        flash[:alert]=I18n.t('views.messages.failed_update_site')
+        flash.now[:alert]=I18n.t('views.messages.failed_update_site')
         render :edit
       end
     end
@@ -103,7 +107,61 @@ class SitesController < ApplicationController
     @comments = @site.comments
     @comment = @site.comments.build
     @image_posts = @site.image_posts
- end  
+
+    if(@site.kml.url)
+      require "open-uri"
+      require "rexml/document"
+      #require "json/pure"     
+      io = OpenURI.open_uri(@site.kml.url)
+      kml = REXML::Document.new(io.read)
+      placemarks = REXML::XPath.match(kml, '//Placemark')
+
+=begin
+      _points << ["<h1>東京</h1><p>人が多い</p>", 35.681391, 139.766103]
+      _points << ["大阪", 34.702398, 135.495188]
+      _points << ["札幌", 43.068612, 141.350768]
+      @points = _points.to_json
+=end
+
+@points =
+        placemarks.map do |elem|
+          elem_ha = Hash.from_xml(elem.to_s)
+          ha = elem_ha["Placemark"]
+          if ha["Point"]
+            coordinates = ha["Point"]["coordinates"].split(",").map {|s| s.to_f}
+            coordinates.unshift("<h5><strong>\##{ha["name"]}</strong></h5><span>#{ha["description"]}</span>")
+          end
+        end.compact.to_json 
+
+=begin      
+      _points = []; _line_strings = []; _polygons=[]
+      placemarks.each do |elem|
+        elem_ha = Hash.from_xml(elem.to_s)
+        ha = elem_ha["Placemark"]
+        if ha["Point"]
+          coordinates = ha["Point"]["coordinates"].split(",").map {|s| s.to_f}
+          coordinates.unshift("<h5><strong>\##{ha["name"]}</strong></h5><span>#{ha["description"]}</span>")
+          _points << coordinates
+        elsif ha["LineString"]
+          coordinates = ha["LineString"]["coordinates"].split(",").map {|s| s.to_f}
+          coordinates.unshift("<h5><strong>\##{ha["name"]}</strong></h5><span>#{ha["description"]}</span>")
+          _line_strings << coordinates
+        elsif ha["Polygon"]
+          extrude = ha["Polygon"]["extrude"]
+          altitudeMode = ha["Polygon"]["altitudeMode"]
+          outer_coordinates = ha["Polygon"]["outerBoundaryIs"]["LinearRing"]["coordinates"].split(",").map {|s| s.to_f}
+          outer_coordinates.unshift(altitudeMode)
+          outer_coordinates.unshift(extrude)
+          outer_coordinates.unshift("<h5><strong>\##{ha["name"]}</strong></h5><span>#{ha["description"]}</span>")
+          _polygons << coordinates
+        end
+      end 
+      @points = _points.compact.to_json
+      @line_strings = _line_strings.compact.to_json
+      @polygons = _polygons.compact.to_json
+=end
+    end
+  end
 
   private
   def site_params
@@ -152,9 +210,12 @@ class SitesController < ApplicationController
     begin
       require "rexml/document"
       kml = REXML::Document.new(File.new(_path).read)
+      @document_name = REXML::XPath.match(kml, '//Document/name')[0].text
+      @document_description = REXML::XPath.match(kml, '//Document/description')[0].text
+
       placemarks = REXML::XPath.match(kml, '//Placemark')
       placemarks_ha = placemarks.map { |elem| Hash.from_xml(elem.to_s) }  
-
+      
       @tags_str=[]; @comments_str=[]
       placemarks_ha.each do |elem|
         ha = elem["Placemark"]
@@ -180,7 +241,7 @@ class SitesController < ApplicationController
     end
 
     def to_comment
-      "[#{@name}]:#{@description}"
+      "[\##{@name}]:#{@description}"
     end
   end
 

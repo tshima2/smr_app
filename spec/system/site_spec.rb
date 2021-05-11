@@ -355,7 +355,8 @@ RSpec.describe 'サイト機能のテスト', type: :system do
       expect(page).to have_content "Nameは128文字以内で入力してください"  
     end
 
-    it '新規作成で住所が空だと作成できないこと' do
+    # 住所が空でもサイトを登録させるよう変更
+    xit '新規作成で住所が空だと作成できないこと' do
       #Sign in 画面に遷移
       visit new_user_session_path
       sleep(0.1)
@@ -594,7 +595,7 @@ RSpec.describe 'サイト機能のテスト', type: :system do
       expect(links[1][:href]).not_to have_content "comments/#{@comment02.id}"
     end
 
-    it '1024文字以上のコメントを入力すると追加できないこと' do
+    it '4096文字以上のコメントを入力すると追加できないこと' do
       #Sign in 画面に遷移
       visit new_user_session_path
       sleep(0.1)
@@ -628,7 +629,7 @@ RSpec.describe 'サイト機能のテスト', type: :system do
       expect(page).to have_content I18n.t('views.labels.site_show')
 
       #遷移先詳細画面でコメントを入力し追加ボタン押下
-      _comment=""; 1025.times.each { _comment += (('a'..'z').to_a.sample) }
+      _comment=""; 5000.times.each { _comment += (('a'..'z').to_a.sample) }
       fill_in "comment[content]", with: _comment
       click_on "commit"
       sleep(0.1)
