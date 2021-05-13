@@ -10,11 +10,11 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         # format.html { redirect_to team_site_path(@site.team_id, @site.id) }
-        flash[:notice] = I18n.t('views.messages.post_comment')
+        flash.now[:notice] = I18n.t('views.messages.post_comment')
         format.js { render :index }
       else
-        flash[:alert] = I18n.t('views.messages.failed_to_post_comment')
-        format.html { redirect_to team_site_path(@site.team_id, @site.id), alert: I18n.t('views.messages.failed_to_post_comment') }
+        flash.now[:alert] = I18n.t('views.messages.failed_to_post_comment')
+        format.html { redirect_to team_site_path(@site.team_id, @site.id) }
       end
     end
   end
