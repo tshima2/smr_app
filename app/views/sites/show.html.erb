@@ -92,11 +92,14 @@
             <span class="text-monospace"><%= I18n.t('views.labels.site_kml') %></span><BR>
             <div id="mapDiv" style="width:400px; height:300px;"></div>
             <input name="arr_json_points" type="hidden" value="<%= @points %>" class="arr_json_points">
+            <input name="arr_json_lines" type="hidden" value="<%= @line_strings %>" class="arr_json_lines">
             <script>
               jQuery(function($) {
                 var arrJsonPoints=$('.arr_json_points').val();
+                var arrJsonLines=$('.arr_json_lines').val();
                 var conf={
-                  points: JSON.parse(arrJsonPoints)
+                  points: JSON.parse(arrJsonPoints),
+                  lines: JSON.parse(arrJsonLines)
                 };
                 $.gmapSearch($, google, conf);
               });

@@ -123,6 +123,7 @@ class SitesController < ApplicationController
       @points = _points.to_json
 =end
 
+=begin
 @points =
         placemarks.map do |elem|
           elem_ha = Hash.from_xml(elem.to_s)
@@ -130,36 +131,44 @@ class SitesController < ApplicationController
           if ha["Point"]
             coordinates = ha["Point"]["coordinates"].split(",").map {|s| s.to_f}
             coordinates.unshift("<h5><strong>\##{ha["name"]}</strong></h5><span>#{ha["description"]}</span>")
+            coordinates.unshift("\##{ha["name"]}")
           end
         end.compact.to_json 
-
-=begin      
-      _points = []; _line_strings = []; _polygons=[]
+=end
+      
+      _points = []; _line_strings = [] #; _polygons=[]
       placemarks.each do |elem|
         elem_ha = Hash.from_xml(elem.to_s)
         ha = elem_ha["Placemark"]
         if ha["Point"]
-          coordinates = ha["Point"]["coordinates"].split(",").map {|s| s.to_f}
+          coordinates = 
+            ha["Point"]["coordinates"].split(/[,|\n|\t]/).map do |s|
+              s.present? ? s.to_f : nil
+            end.compact
           coordinates.unshift("<h5><strong>\##{ha["name"]}</strong></h5><span>#{ha["description"]}</span>")
+          coordinates.unshift("\##{ha["name"]}")
           _points << coordinates
         elsif ha["LineString"]
-          coordinates = ha["LineString"]["coordinates"].split(",").map {|s| s.to_f}
+          coordinates = 
+            ha["LineString"]["coordinates"].split(/[,|\n|\t]/).map do |s|  
+              s.present? ? s.to_f : nil
+            end.compact
           coordinates.unshift("<h5><strong>\##{ha["name"]}</strong></h5><span>#{ha["description"]}</span>")
+          coordinates.unshift("\##{ha["name"]}")
           _line_strings << coordinates
-        elsif ha["Polygon"]
-          extrude = ha["Polygon"]["extrude"]
-          altitudeMode = ha["Polygon"]["altitudeMode"]
-          outer_coordinates = ha["Polygon"]["outerBoundaryIs"]["LinearRing"]["coordinates"].split(",").map {|s| s.to_f}
-          outer_coordinates.unshift(altitudeMode)
-          outer_coordinates.unshift(extrude)
-          outer_coordinates.unshift("<h5><strong>\##{ha["name"]}</strong></h5><span>#{ha["description"]}</span>")
-          _polygons << coordinates
+          #elsif ha["Polygon"]
+          #     extrude = ha["Polygon"]["extrude"]
+          #     altitudeMode = ha["Polygon"]["altitudeMode"]
+          #     outer_coordinates = ha["Polygon"]["outerBoundaryIs"]["LinearRing"]["coordinates"].split(",").map {|s| s.to_f}
+          #     outer_coordinates.unshift(altitudeMode)
+          #     outer_coordinates.unshift(extrude)
+          #     outer_coordinates.unshift("<h5><strong>\##{ha["name"]}</strong></h5><span>#{ha["description"]}</span>")
+          #     _polygons << coordinates
         end
       end 
-      @points = _points.compact.to_json
-      @line_strings = _line_strings.compact.to_json
-      @polygons = _polygons.compact.to_json
-=end
+      @points = _points.to_json
+      @line_strings = _line_strings.to_json
+      #@polygons = _polygons.compact.to_json
     end
   end
 
