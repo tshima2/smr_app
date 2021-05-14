@@ -272,6 +272,7 @@ ja:
       site_created_at: '作成日時'
       site_updated_at: '更新日時'
       site_submit: '登録'
+      site_remove_kml: '削除'
       comment_edit: '編集'
       comment_delete: '削除'
       create_image_post: '新しい画像'
@@ -282,6 +283,8 @@ ja:
       statics_first_title: 'はじめてご利用の方へ'
       statics_functions_title: 'できること'
     messages:
+      no_placemark_in_kml: 'Placemark要素が存在しません'
+      unexpected_file_format: 'ファイル形式が正しくありません'
       guest_can_only_allowed_viewing: 'ゲストユーザは閲覧のみ可能です.'
       unauthorized_request: '許可されていないリクエストが発行されました.'
       invalid_site_specified: '指定されたサイトは存在しません.'

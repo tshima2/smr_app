@@ -23,7 +23,12 @@ class SitesController < ApplicationController
 
   def confirm    
     @site = Site.new(site_params)
-    load_kml(site_params["kml"].path) if site_params["kml"].present?
+    if site_params["kml"].present?
+      if !(load_kml(site_params["kml"].path) )  
+        @site.kml=nil
+        params["site"]["kml"]=nil
+      end 
+    end
 
     @site.name = @document_name unless @site.name.present?
     @site.memo = @document_description unless @site.memo.present?
@@ -60,7 +65,12 @@ class SitesController < ApplicationController
       @site.kml = stored_site.kml unless @site.kml.url
     end
 
-    load_kml(site_params["kml"].path) if site_params["kml"].present?
+    if site_params["kml"].present?
+      if !(load_kml(site_params["kml"].path) )  
+        @site.kml=nil
+        params["site"]["kml"]=nil
+      end 
+    end 
     @site.name = @document_name if @document_name.present?
     @site.memo = @document_description if @document_description.present?
       
@@ -165,7 +175,7 @@ class SitesController < ApplicationController
 
   private
   def site_params
-    p = params.require(:site).permit(:team_id, :name, :address, :latitude, :longtitude, :memo, :kml, :kml_cache, :tag_list, { label_ids: [] }, { comments_str: [] }, { comments: [] })
+    p = params.require(:site).permit(:team_id, :name, :address, :latitude, :longtitude, :memo, :kml, :kml_cache, :remove_kml, :tag_list, { label_ids: [] }, { comments_str: [] }, { comments: [] })
     p[:tag_list] = p[:tag_list].split(/[[:space:]]/).select {|li| li.length > 0}
     p[:label_ids] = p[:label_ids].select { |li| li.length > 0 }
     if p[:comments_str] && p[:comments_str].length > 0
@@ -211,8 +221,12 @@ class SitesController < ApplicationController
       require "rexml/document"
       kml = REXML::Document.new(File.new(_path).read)
 
-      @document_name = elems_name[0].text if (elems_name=REXML::XPath.match(kml, '//Document/name').length) > 0
-      @document_description = elems_description[0].text[0] if (elems_description=REXML::XPath.match(kml, '//Document/description').length) > 0
+      if (elems_name=REXML::XPath.match(kml, '//Document/name')).length > 0
+        @document_name = elems_name[0].text
+      end
+      if (elems_description=REXML::XPath.match(kml, '//Document/description')).length > 0
+        @document_description = elems_description[0].text
+      end
 
       if (elems_placemark = REXML::XPath.match(kml, '//Placemark')).length > 0
         hashes_placemark = elems_placemark.map { |elem| Hash.from_xml(elem.to_s) }  
@@ -224,9 +238,14 @@ class SitesController < ApplicationController
           @tags_str << mark.to_tag
           @comments_str << mark.to_comment
         end
+        return true
+      else
+        flash.now[:alert]=I18n.t('views.messages.no_placemark_in_kml')
+        return false
       end
-    rescue
-      flash.now[:info]=I18n.t('views.messages.unexpected_file_format')
+    rescue REXML::ParseException => ex
+      flash.now[:alert]=I18n.t('views.messages.unexpected_file_format')
+      return false
     end
   end
 

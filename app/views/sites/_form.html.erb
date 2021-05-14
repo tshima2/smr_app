@@ -54,10 +54,14 @@
       <td><%= form.text_field :tag_list, id: '', size: 48, class: "m-1 p-1" %></td>
     </tr>
     <tr>
-      <td align="right"><%= form.label :kml, I18n.t('views.labels.site_kml') %></td>
+      <td align="right">
+        <%= form.label :kml, I18n.t('views.labels.site_kml') %><BR>
+        <%#= button_tag raw("<i class=\"fas fa-2x fa-trash-alt\"></i>"), type: "reset", class: "btn btn-sm" %>
+      </td>
       <td>
-        <%= site.kml.path.split("/").last if site.kml.path %><BR>
-        <%= form.file_field :kml, class: "p-1 btn-sm" %>
+        <%= site.kml.path.split("/").last if site.kml.path %>        
+        <%= form.file_field :kml, class: "p-1 btn-sm" %><BR>
+        <%= form.check_box :remove_kml %><%= I18n.t('views.labels.site_remove_kml')%>        
         <%= form.hidden_field :kml_cache %>
       </td>
     </tr>    

@@ -281,6 +281,7 @@ en:
       site_created_at: 'Created'
       site_updated_at: 'Updated'
       site_submit: 'Resistration'
+      site_remove_kml: 'Remove'
       comment_edit: 'Edit'
       comment_delete: 'Delete'
       comment_list: 'Comments'
@@ -290,6 +291,8 @@ en:
       statics_first_title: 'For first-time users'
       statics_functions_title: 'What you can do with this application'
     messages:
+      no_placemark_in_kml: 'Placemark element does not exist.'
+      unexpected_file_format: 'Unexpected file format.'
       guest_can_only_allowed_viewing: 'Guest user can only allowed viewing.'
       unauthorized_request: 'Unauthorized request.'
       invalid_site_specified: 'Specified site is not exist.'
