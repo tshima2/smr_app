@@ -23,7 +23,12 @@ class SitesController < ApplicationController
 
   def confirm    
     @site = Site.new(site_params)
-    load_kml(site_params["kml"].path) if site_params["kml"].present?
+    if site_params["kml"].present?
+      if !(load_kml(site_params["kml"].path) )  
+        @site.kml=nil
+        params["site"]["kml"]=nil
+      end 
+    end
 
     @site.name = @document_name unless @site.name.present?
     @site.memo = @document_description unless @site.memo.present?
@@ -60,7 +65,12 @@ class SitesController < ApplicationController
       @site.kml = stored_site.kml unless @site.kml.url
     end
 
-    load_kml(site_params["kml"].path) if site_params["kml"].present?
+    if site_params["kml"].present?
+      if !(load_kml(site_params["kml"].path) )  
+        @site.kml=nil
+        params["site"]["kml"]=nil
+      end 
+    end 
     @site.name = @document_name if @document_name.present?
     @site.memo = @document_description if @document_description.present?
       
@@ -114,7 +124,7 @@ class SitesController < ApplicationController
       #require "json/pure"     
       io = OpenURI.open_uri(@site.kml.url)
       kml = REXML::Document.new(io.read)
-      placemarks = REXML::XPath.match(kml, '//Placemark')
+      elems_placemark = REXML::XPath.match(kml, '//Placemark')
 
 =begin
       _points << ["<h1>東京</h1><p>人が多い</p>", 35.681391, 139.766103]
@@ -122,22 +132,9 @@ class SitesController < ApplicationController
       _points << ["札幌", 43.068612, 141.350768]
       @points = _points.to_json
 =end
-
-=begin
-@points =
-        placemarks.map do |elem|
-          elem_ha = Hash.from_xml(elem.to_s)
-          ha = elem_ha["Placemark"]
-          if ha["Point"]
-            coordinates = ha["Point"]["coordinates"].split(",").map {|s| s.to_f}
-            coordinates.unshift("<h5><strong>\##{ha["name"]}</strong></h5><span>#{ha["description"]}</span>")
-            coordinates.unshift("\##{ha["name"]}")
-          end
-        end.compact.to_json 
-=end
       
-      _points = []; _line_strings = [] #; _polygons=[]
-      placemarks.each do |elem|
+      _points = []; _line_strings = [] ; _polygons=[]
+      elems_placemark.each do |elem|
         elem_ha = Hash.from_xml(elem.to_s)
         ha = elem_ha["Placemark"]
         if ha["Point"]
@@ -156,25 +153,29 @@ class SitesController < ApplicationController
           coordinates.unshift("<h5><strong>\##{ha["name"]}</strong></h5><span>#{ha["description"]}</span>")
           coordinates.unshift("\##{ha["name"]}")
           _line_strings << coordinates
-          #elsif ha["Polygon"]
-          #     extrude = ha["Polygon"]["extrude"]
-          #     altitudeMode = ha["Polygon"]["altitudeMode"]
-          #     outer_coordinates = ha["Polygon"]["outerBoundaryIs"]["LinearRing"]["coordinates"].split(",").map {|s| s.to_f}
-          #     outer_coordinates.unshift(altitudeMode)
-          #     outer_coordinates.unshift(extrude)
-          #     outer_coordinates.unshift("<h5><strong>\##{ha["name"]}</strong></h5><span>#{ha["description"]}</span>")
-          #     _polygons << coordinates
+        elsif ha["Polygon"]
+          extrude = ha["Polygon"]["extrude"]
+          altitudeMode = ha["Polygon"]["altitudeMode"]
+          outer_coordinates = 
+            ha["Polygon"]["outerBoundaryIs"]["LinearRing"]["coordinates"].split(/[,|\n|\t]/).map do |s|
+              s.present? ?  s.to_f : nil
+            end.compact
+          outer_coordinates.unshift(altitudeMode)
+          #outer_coordinates.unshift(extrude)
+          outer_coordinates.unshift("<h5><strong>\##{ha["name"]}</strong></h5><span>#{ha["description"]}</span>")
+          _polygons << outer_coordinates
         end
       end 
+
       @points = _points.to_json
       @line_strings = _line_strings.to_json
-      #@polygons = _polygons.compact.to_json
+      @polygons = _polygons.compact.to_json
     end
   end
 
   private
   def site_params
-    p = params.require(:site).permit(:team_id, :name, :address, :latitude, :longtitude, :memo, :kml, :kml_cache, :tag_list, { label_ids: [] }, { comments_str: [] }, { comments: [] })
+    p = params.require(:site).permit(:team_id, :name, :address, :latitude, :longtitude, :memo, :kml, :kml_cache, :remove_kml, :tag_list, { label_ids: [] }, { comments_str: [] }, { comments: [] })
     p[:tag_list] = p[:tag_list].split(/[[:space:]]/).select {|li| li.length > 0}
     p[:label_ids] = p[:label_ids].select { |li| li.length > 0 }
     if p[:comments_str] && p[:comments_str].length > 0
@@ -219,21 +220,32 @@ class SitesController < ApplicationController
     begin
       require "rexml/document"
       kml = REXML::Document.new(File.new(_path).read)
-      @document_name = REXML::XPath.match(kml, '//Document/name')[0].text
-      @document_description = REXML::XPath.match(kml, '//Document/description')[0].text
 
-      placemarks = REXML::XPath.match(kml, '//Placemark')
-      placemarks_ha = placemarks.map { |elem| Hash.from_xml(elem.to_s) }  
-      
-      @tags_str=[]; @comments_str=[]
-      placemarks_ha.each do |elem|
-        ha = elem["Placemark"]
-        mark = KmlPlaceMark.new(ha["name"], ha["description"], (ha.has_key?("Point") ? ha["Point"]["coordinates"] : nil))
-        @tags_str << mark.to_tag
-        @comments_str << mark.to_comment
+      if (elems_name=REXML::XPath.match(kml, '//Document/name')).length > 0
+        @document_name = elems_name[0].text
       end
-    rescue
-      flash.now[:info]=I18n.t('views.messages.unexpected_file_format')
+      if (elems_description=REXML::XPath.match(kml, '//Document/description')).length > 0
+        @document_description = elems_description[0].text
+      end
+
+      if (elems_placemark = REXML::XPath.match(kml, '//Placemark')).length > 0
+        hashes_placemark = elems_placemark.map { |elem| Hash.from_xml(elem.to_s) }  
+        
+        @tags_str=[]; @comments_str=[]
+        hashes_placemark.each do |elem|
+          ha = elem["Placemark"]
+          mark = KmlPlaceMark.new(ha["name"], ha["description"], (ha.has_key?("Point") ? ha["Point"]["coordinates"] : nil))
+          @tags_str << mark.to_tag
+          @comments_str << mark.to_comment
+        end
+        return true
+      else
+        flash.now[:alert]=I18n.t('views.messages.no_placemark_in_kml')
+        return false
+      end
+    rescue REXML::ParseException => ex
+      flash.now[:alert]=I18n.t('views.messages.unexpected_file_format')
+      return false
     end
   end
 
