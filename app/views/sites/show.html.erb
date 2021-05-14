@@ -93,13 +93,16 @@
             <div id="mapDiv" style="width:400px; height:300px;"></div>
             <input name="arr_json_points" type="hidden" value="<%= @points %>" class="arr_json_points">
             <input name="arr_json_lines" type="hidden" value="<%= @line_strings %>" class="arr_json_lines">
+            <input name="arr_json_polygons" type="hidden" value="<%= @polygons %>" class="arr_json_polygons">
             <script>
               jQuery(function($) {
                 var arrJsonPoints=$('.arr_json_points').val();
                 var arrJsonLines=$('.arr_json_lines').val();
+                var arrJsonPolygons=$('.arr_json_polygons').val();
                 var conf={
                   points: JSON.parse(arrJsonPoints),
-                  lines: JSON.parse(arrJsonLines)
+                  lines: JSON.parse(arrJsonLines),
+                  polygons: JSON.parse(arrJsonPolygons)
                 };
                 $.gmapSearch($, google, conf);
               });
