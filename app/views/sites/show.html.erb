@@ -129,7 +129,7 @@
       </div>
     
       <!-- コメント入力欄 -->
-      <%= render partial: 'comments/form', locals: { comment: @comment, site: @site } %>
+      <%= render partial: 'comments/form', locals: { comment: @comment, site: @site } if @comments.length < POSTMAXSIZE::COMMENT %>
 
     </section>
     <!-- コメントブロック end -->
@@ -160,7 +160,7 @@
 
       <div class="row">
         <div class="col-auto">
-          <%= link_to I18n.t('views.labels.link_add_image'), new_team_site_image_post_path(@site.team.id, @site.id) %>
+          <%= link_to I18n.t('views.labels.link_add_image'), new_team_site_image_post_path(@site.team.id, @site.id) if @image_posts.length < POSTMAXSIZE::IMAGEPOST%>
         </div>
         <div class="col-auto">
           <%= link_to I18n.t('views.labels.link_back_to_site_index'), team_sites_path %>  

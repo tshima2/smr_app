@@ -1,0 +1,4 @@
+module POSTMAXSIZE
+    COMMENT=128
+    IMAGEPOST=128
+end
