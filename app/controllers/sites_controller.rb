@@ -2,12 +2,12 @@ class SitesController < ApplicationController
   before_action  :check_guest_user, only: [:new, :edit, :destroy]
   before_action  :set_site, only: [:show, :edit, :update, :destroy]
 
-  def index
+  def index    
     #check_specified_team
-    @sites = current_user.keep_team.sites
+    @sites = current_user.keep_team.sites.includes([:site_labellings, :taggings, :user])
 
     if params[:q]
-      @q = current_user.keep_team.sites.ransack(search_params)
+      @q = current_user.keep_team.sites.includes([:site_labellings, :taggings, :user]).ransack(search_params)
       @q.combinator = "or" if(params["and_or"]=="1")
       @sites = @q.result distinct: true
     else
@@ -114,7 +114,7 @@ class SitesController < ApplicationController
   def show
     check_specified_team
 
-    @comments = @site.comments
+    @comments = @site.comments.includes([:user])
     @comment = @site.comments.build
     @image_posts = @site.image_posts
 
@@ -220,7 +220,7 @@ class SitesController < ApplicationController
     begin
       require "rexml/document"
       kml = REXML::Document.new(File.new(_path).read)
-
+            
       if (elems_name=REXML::XPath.match(kml, '//Document/name')).length > 0
         @document_name = elems_name[0].text
       end
@@ -244,7 +244,7 @@ class SitesController < ApplicationController
         return false
       end
     rescue REXML::ParseException => ex
-      flash.now[:alert]=I18n.t('views.messages.unexpected_file_format')
+      flash.now[:alert]="#{I18n.t('views.messages.unexpected_file_format')}  (#{ex.message})"
       return false
     end
   end

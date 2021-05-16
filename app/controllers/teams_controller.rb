@@ -7,6 +7,7 @@ class TeamsController < ApplicationController
 
   def show
     @working_team = @team
+    @assigns = @team.assigns.includes([:user])
     change_keep_team(current_user, @team)
   end
 
