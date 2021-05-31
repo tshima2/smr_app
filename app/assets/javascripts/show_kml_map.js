@@ -1,4 +1,14 @@
-jQuery.gmapSearch = function ($, google, conf) {
+jQuery.initMap = function ($, google, conf) {
+	var clicklat, clicklon;
+
+	//initialize clickmenu
+	$("#site_show_clickmenu").menu();
+	$("#site_show_clickmenu").hover(function(e) {
+	}, function(e) {
+		$("#site_show_clickmenu").css('display', 'none');
+	});
+
+	//initialize kml-map
 	var infoWindow,
 		ns = google.maps,
 		mapOptions = {
@@ -34,6 +44,7 @@ jQuery.gmapSearch = function ($, google, conf) {
 				obj_marker = new ns.Marker({
 					position: myLatlng,
 					title: String(point[0]),
+					animation: ns.Animation.DROP,
 					icon: `/map_icons/number_${index+1}.png`,
 					map: map
 				});
@@ -133,4 +144,102 @@ jQuery.gmapSearch = function ($, google, conf) {
 		map.setCenter(new ns.LatLng(center2, center1));
 		map.fitBounds(bounds);
 	}
+
+	//map click-events
+	ns.event.addListener(map, 'click', function(event){
+		$("#site_show_clickmenu").css('display', 'inline');
+		$("#site_show_clickmenu").css('top', event.pixel.y-5+300);
+		$("#site_show_clickmenu").css('left', event.pixel.x-5);
+		clicklat = event.latLng.lat();
+		clicklon = event.latLng.lng();
+		
+		console.log("lat: "+String(clicklat))
+		console.log("lon: "+String(clicklon))
+	});
+
+	//click-menu(1) events
+	$("#li_show_waitingpoints_u1").click(function(event){
+		RetrieveWaitingPoints(1000, event);
+	});
+
+	//click-menu(5) events ajax comm
+	$("#li_show_waitingpoints_u5").click(function(event){
+		RetrieveWaitingPoints(5000, event);
+	});
+
+	//waiting-points retrieve request
+	function RetrieveWaitingPoints(dist, event)	{
+		//$("#comm_result").text("通信中...");
+		$.ajax({
+			url: 'http://192.168.0.22:3000/api/v1/retrieve_waiting_points',
+			type: 'GET',
+			dataType: 'json',
+			data: 'dist='+String(dist)+'&lat='+String(clicklat)+'&lon='+String(clicklon),
+			scriptCharset: 'utf-8',
+			timeout: 5000,
+			success: function(data){
+				console.log(data);
+				//$("#comm_result").text(data["status"]+": "+data["message"]);
+				drawWaitingPoints(data["data"]);
+			},
+			error: function(data){
+				//$("#comm_result").text(data["status"]+": "+data["message"]);
+				alert(data["status"]+": "+data["message"]);
+				console.log(data);
+			}
+		});
+
+		/*
+		var request = new XMLHttpRequest();
+		var url = 'http://192.168.0.22:3000/api/v1/retrieve_waiting_points';
+		url += '?dist=' + String(dist);
+		url += '&lat=' + String(clicklat);
+		url += '&lon=' + String(clicklon);
+		request.open('GET', url);
+		request.responseType = 'json';
+	 
+		request.onload = function () {
+		  var data = this.response;
+		  console.log(data);
+		};
+
+		request.send();
+		*/
+	}
+
+	//draw waiting-points
+	function drawWaitingPoints(datas){
+		if(datas.length>0){
+			var center_lat=0, center_lon=0, coord_count=0;	
+			datas.forEach(function (data, index) {
+				center_lat += data["lat"];
+				center_lon += data["lon"];
+				coord_count++;
+	
+				var myLatlng;
+				var obj_marker;
+				myLatlng = new ns.LatLng(data["lon"], data["lat"]),
+					obj_marker = new ns.Marker({
+						position: myLatlng,
+						title: data["name"],
+						animation: ns.Animation.DROP,
+						map: map
+					});
+	
+				bounds.extend(myLatlng);
+				ns.event.addListener(obj_marker, 'click', function () {
+					if (!infoWindow) {
+						infoWindow  = new ns.InfoWindow();
+					}
+					infoWindow.setContent(data["name"]);
+					infoWindow.open(map, obj_marker);
+				});
+			});
+			center_lat /= coord_count;
+			center_lon /= coord_count;
+			map.setCenter(new ns.LatLng(center_lat, center_lon));
+			map.fitBounds(bounds);
+		}
+	}
+	
 };

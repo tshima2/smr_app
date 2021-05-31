@@ -46,3 +46,6 @@
 .env.production
 .env.development
 .env.test
+
+# VSCode workspace file
+workspace.code-workspace
