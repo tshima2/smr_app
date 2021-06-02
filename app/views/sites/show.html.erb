@@ -79,7 +79,7 @@
 
         <% if @site.kml.present? %>
           <div class="col-auto">
-            <span class="text-monospace"><%= I18n.t('views.labels.site_kml') %></span>&nbsp;&nbsp;<div id="comm_result"></div><BR>
+            <span class="text-monospace"><%= I18n.t('views.labels.site_kml') %></span><BR>
             <div id="mapDiv" style="width:600px; height:300px;"></div>
             <input name="arr_json_points" type="hidden" value="<%= @points %>" class="arr_json_points">
             <input name="arr_json_lines" type="hidden" value="<%= @line_strings %>" class="arr_json_lines">
@@ -113,26 +113,12 @@
 		      <li>
             <div id="li_add_waitingpoint">
 				      <!-- <img alt="" src="image/add1.png" width="15px" /> 待機可能地点の追加 -->
-              <i class="far fa-plus-square"></i>&nbsp;待機可能地点に追加
+              <i class="fa fa-location-arrow"></i>&nbsp;待機可能地点リストに追加
       			</div>
           </li>
     	  </ul>
-      </div>
-      
-      <script>
-        jQuery(function($) {               
-          var arrJsonPoints=$('.arr_json_points').val();
-          var arrJsonLines=$('.arr_json_lines').val();
-          var arrJsonPolygons=$('.arr_json_polygons').val();
-          var conf={
-            points: JSON.parse(arrJsonPoints),
-            lines: JSON.parse(arrJsonLines),
-            polygons: JSON.parse(arrJsonPolygons)
-          };
-          $.initMap($, google, conf);
-        });
-      </script>
-    
+        
+      </div>    
     </section>
     <!-- mapブロック end -->
 
