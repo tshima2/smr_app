@@ -4,6 +4,7 @@ var drawd_waiting_points=[];
 
 // main function
 $(function(){
+  var tid=$('.col-auto__hidden__tid').val();
   var arrJsonPoints=$('.arr_json_points').val();
   var arrJsonLines=$('.arr_json_lines').val();
   var arrJsonPolygons=$('.arr_json_polygons').val();
@@ -12,11 +13,11 @@ $(function(){
     lines: JSON.parse(arrJsonLines),
     polygons: JSON.parse(arrJsonPolygons)
   };
-  $.initMap($, conf);
+  $.initMap($, tid, conf);
 });
 
 // draw map from kml
-jQuery.initMap = function ($, conf) {
+jQuery.initMap = function ($, tid, conf) {
   console.log("INFO : initMap() start")
 
   //initialize clickmenu
@@ -46,7 +47,7 @@ jQuery.initMap = function ($, conf) {
   
   POLY_COLORS=['#006400', '#8b0000', '#00008b', '#8B008B', '#FF8C00', '#556b2f', '#483D8B', '#00ced1'];
 
-  //draw points
+  //draw points from kml
   if(points.length>0){
     var center1=0, center2=0, center3=0, coord_count=0;  
     points.forEach(function (point, index) {
@@ -82,7 +83,7 @@ jQuery.initMap = function ($, conf) {
     map.fitBounds(bounds);
   }
 
-  //draw lineStrings
+  //draw lineStrings from kml
   if(lines.length>0){
     center1=center2=coord_count=0;
     lines.forEach(function (line, index) {
@@ -122,7 +123,7 @@ jQuery.initMap = function ($, conf) {
     map.fitBounds(bounds);
   }
 
-  //draw polygons
+  //draw polygons from kml
   if(polygons.length>0){
     center1=center2=coord_count=0;
     polygons.forEach(function (polygon, index) {
@@ -160,7 +161,6 @@ jQuery.initMap = function ($, conf) {
     center1 /= coord_count; 
     map.setCenter(new google.maps.LatLng(center2, center1));
     map.fitBounds(bounds);
-
   }
 
   //map click-events
@@ -177,51 +177,95 @@ jQuery.initMap = function ($, conf) {
 
   //click-menu(1) events
   $("#li_show_waitingpoints_u1").click(function(event){
-    RetrieveWaitingPoints(1000, map, bounds);
+    RetrieveWaitingPoints(1000, tid, map, bounds);
   });
 
   //click-menu(5) events ajax comm
   $("#li_show_waitingpoints_u5").click(function(event){
-    RetrieveWaitingPoints(5000, map, bounds);
+    RetrieveWaitingPoints(5000, tid, map, bounds);
   });
 
+   //click-menu(add waiting-points) events
+  $("#li_add_waitingpoint").click(function(event){
+    //define custom dialog and show
+    $("#input_add_waitingpoint").dialog({
+      autoOpen: false,
+      modal: true,
+      buttons: {
+        "Do request": function() {
+          var name=$("#inputName").val();
+          var memo=$("#inputMemo").val();
+          AddWaitingPoint(tid, name, memo);
+          $(this).dialog("close");
+        },
+        "Cancel": function() {
+          $(this).dialog("close");
+        }
+      }
+    });
+    $("#input_add_waitingpoint").dialog("open");
+  });
   console.log("INFO : initMap() finish")
 }
 
-//waiting-points retrieve request
-function RetrieveWaitingPoints(dist, map, bounds) {
-  console.log("INFO : RetrieveWaitingPoints start", dist);
-
+//waiting-points add request
+function AddWaitingPoint(tid, name, memo){
+  console.log("INFO : AddWaitingPoint() start");
   $.ajax({
-    url: 'http://192.168.0.22:3000/api/v1/retrieve_waiting_points',
-    type: 'GET',
+    url: 'https://murmuring-plains-31869.herokuapp.com/api/v1/waiting_points',
+    type: 'POST',
     dataType: 'json',
-    data: 'dist='+String(dist)+'&lat='+String(clicklat)+'&lon='+String(clicklon),
+    data: 'tid='+String(tid)+'&name='+name+'&memo='+memo+'&geog=POINT('+String(clicklon)+' '+String(clicklat)+')',
     scriptCharset: 'utf-8',
     timeout: 5000,
     success: function(data){
-      console.log("INFO: ajax.success start", data);
+      console.log("INFO : ajax.success start", data);
+      if(data["status"]=='SUCCESS') alert("INFO : 正常に保存されました.");
+      else {
+        //validation error, etc
+        alert("ERROR: "+data["data"]);
+      }
+    },
+    error: function(data){
+      console.log("ERROR: ajax.error", data);
+      if(data["data"]) alert("ERROR : "+data["data"]);
+      else alert("ERROR : 通信エラー発生");
+    }  
+  });
+  console.log("INFO : AddWaitingPoint() finish");
+}
+
+//waiting-points retrieve request
+function RetrieveWaitingPoints(dist, tid, map, bounds) {
+  console.log("INFO : RetrieveWaitingPoints() start");
+  $.ajax({
+    url: 'https://murmuring-plains-31869.herokuapp.com/api/v1/retrieve_waiting_points',
+    type: 'GET',
+    dataType: 'json',
+    data: 'tid='+String(tid)+'&dist='+String(dist)+'&lat='+String(clicklat)+'&lon='+String(clicklon),
+    scriptCharset: 'utf-8',
+    timeout: 5000,  
+    success: function(data){
+      console.log("INFO: ajax.success", data);
       retrieved_datas.length=0;
       for(var i=0; i<data["data"].length; i++){
         retrieved_datas.push(data["data"][i]);
       }
-      if(i>0) 
-        DrawWaitingPoints(map, bounds);
-      else 
-        alert("no waiting_points within specified distance.");
-      console.log("INFO : ajax.success");
+      if(i>0) DrawWaitingPoints(map, bounds);
+      else alert("INFO: 指定範囲内に待機可能地点が見つかりません.");
     },
-    error: function(){
-      alert("no response from server to retrieve waiting-points.");
-      console.log("ERROR: ajax.error");
+    error: function(data){
+      console.log("ERROR: ajax.error", data);
+      if(data["data"]) alert("ERROR : "+data["data"]);
+      else alert("ERROR : 通信エラー発生");
     }  
-  }); 
-  console.log("INFO : RetrieveWaitingPoints finish");
+  });
+  console.log("INFO : RetrieveWaitingPoints() finish");
 }
 
 // draw waiting-points markers
 function DrawWaitingPoints(map, bounds){
-  console.log("INFO : DrawWaitingPoints start");
+  console.log("INFO : DrawWaitingPoints() start");
 
   if(retrieved_datas.length>0){
     var center_lat=0, center_lon=0, coord_count=0;  
@@ -271,5 +315,5 @@ function DrawWaitingPoints(map, bounds){
     map.setCenter(new google.maps.LatLng(center_lat, center_lon));
     map.fitBounds(bounds_for_wp);
   }
-  console.log("INFO : DrawWaitingPoints finish");
+  console.log("INFO : DrawWaitingPoints() finish");
 }
