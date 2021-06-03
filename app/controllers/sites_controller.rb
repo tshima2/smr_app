@@ -189,7 +189,7 @@ class SitesController < ApplicationController
     if !(@site = Site.find_by(id: params[:id]))
         flash[:alert]=I18n.t('views.messages.invalid_site_specified')
         redirect_to statics_top_path
-    end
+    end 
   end
 
   def site_creator_or_team_owner?

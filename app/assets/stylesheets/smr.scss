@@ -141,3 +141,20 @@ html {
 .site_show_comment_item {
     word-break: break-all;
 }
+
+#site_show_clickmenu {
+    background-color: white;
+    list-style: none;
+    width: 280px;
+	height: 80px;
+	left: 150px;
+	top: 150px;
+	padding: 0.5em;
+	z-index: 11;
+    position: absolute;
+    display: none;
+}
+
+#input_add_waitingpoint {
+    display: none;
+}

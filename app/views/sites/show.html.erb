@@ -77,40 +77,61 @@
     <section class="site_show_map_block">  
       <div class="row">
 
+        <% if @site.kml.present? %>
+          <div class="col-auto">
+            <span class="text-monospace"><%= I18n.t('views.labels.site_kml') %></span><BR>
+            <div id="mapDiv" style="width:600px; height:300px;"></div>
+            <input name="tid" type="hidden" value="<%= @site.team_id %>" class="col-auto__hidden__tid">
+            <input name="arr_json_points" type="hidden" value="<%= @points %>" class="arr_json_points">
+            <input name="arr_json_lines" type="hidden" value="<%= @line_strings %>" class="arr_json_lines">
+            <input name="arr_json_polygons" type="hidden" value="<%= @polygons %>" class="arr_json_polygons">
+          </div>
+        <% end %>
         <% if @site.address.present? %>
           <div class="col-auto">
             <span class="text-monospace"><%= I18n.t('views.labels.site_address') %></span><BR>
             <iframe frameborder="0" 
-                      style="border:0; width: 400px; height: 300px" 
+                      style="border:0; width: 600px; height: 300px" 
                       src="https://maps.google.co.jp/maps?output=embed&q=<%= @site.address%>">
             </iframe>
           </div>
         <% end %>
 
-        <% if @points %>
-          <div class="col-auto">
-            <span class="text-monospace"><%= I18n.t('views.labels.site_kml') %></span><BR>
-            <div id="mapDiv" style="width:400px; height:300px;"></div>
-            <input name="arr_json_points" type="hidden" value="<%= @points %>" class="arr_json_points">
-            <input name="arr_json_lines" type="hidden" value="<%= @line_strings %>" class="arr_json_lines">
-            <input name="arr_json_polygons" type="hidden" value="<%= @polygons %>" class="arr_json_polygons">
-            <script>
-              jQuery(function($) {
-                var arrJsonPoints=$('.arr_json_points').val();
-                var arrJsonLines=$('.arr_json_lines').val();
-                var arrJsonPolygons=$('.arr_json_polygons').val();
-                var conf={
-                  points: JSON.parse(arrJsonPoints),
-                  lines: JSON.parse(arrJsonLines),
-                  polygons: JSON.parse(arrJsonPolygons)
-                };
-                $.gmapSearch($, google, conf);
-              });
-            </script>
-          </div>
-        <% end %>
-
       </div>
+  
+      <div>
+      	<ul id="site_show_clickmenu">
+		      <li>
+            <div id="li_show_waitingpoints_u1">
+              <i class="fas fa-map-marker-alt"></i>&nbsp;<%= I18n.t('views.labels.site_show_clickmenu1') %>
+			      </div>
+		      </li>
+		      <li>
+            <div id="li_show_waitingpoints_u5">
+              <i class="fas fa-map-marker"></i>&nbsp;<%= I18n.t('views.labels.site_show_clickmenu2') %>
+			      </div>
+		      </li>
+		      <li>
+            <div id="li_add_waitingpoint">
+              <i class="fa fa-location-arrow"></i>&nbsp;<%= I18n.t('views.labels.site_show_clickmenu3') %>
+      			</div>
+          </li>
+    	  </ul>
+      </div> 
+
+      <div id="input_add_waitingpoint" title="<%= I18n.t('views.labels.site_show_clickmenu3_dialog') %>">
+        <table>
+          <tr>
+            <th>名前</th>
+            <td><input type="text" id="inputName" size="36" maxlength="256"></td>
+          </tr>   
+          <tr>
+            <th>メモ</th>
+            <td><input type="text" id="inputMemo" size="36" maxlength="1024" /></td>
+          </tr>
+        </table>
+      </div>   
+    
     </section>
     <!-- mapブロック end -->
 
