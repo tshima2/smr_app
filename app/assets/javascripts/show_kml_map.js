@@ -165,14 +165,14 @@ jQuery.initMap = function ($, tid, conf) {
 
   //map click-events
   google.maps.event.addListener(map, 'click', function(event){
-    $("#site_show_clickmenu").css('display', 'inline');
-    $("#site_show_clickmenu").css('top', event.pixel.y-5+300);
-    $("#site_show_clickmenu").css('left', event.pixel.x-5);
     clicklat = event.latLng.lat();
     clicklon = event.latLng.lng();
-    
     console.log("lat: "+String(clicklat))
     console.log("lon: "+String(clicklon))
+
+    $("#site_show_clickmenu").css('display', 'inline');
+    $("#site_show_clickmenu").css('top', event.pixel.y-5+300);
+    $("#site_show_clickmenu").css('left', event.pixel.x-5);    
   });
 
   //click-menu(1) events
@@ -213,6 +213,7 @@ function AddWaitingPoint(tid, name, memo){
   console.log("INFO : AddWaitingPoint() start");
   $.ajax({
     url: 'https://murmuring-plains-31869.herokuapp.com/api/v1/waiting_points',
+    //url: 'http://192.168.0.22:3000/api/v1/waiting_points',      
     type: 'POST',
     dataType: 'json',
     data: 'tid='+String(tid)+'&name='+name+'&memo='+memo+'&geog=POINT('+String(clicklon)+' '+String(clicklat)+')',
@@ -240,6 +241,7 @@ function RetrieveWaitingPoints(dist, tid, map, bounds) {
   console.log("INFO : RetrieveWaitingPoints() start");
   $.ajax({
     url: 'https://murmuring-plains-31869.herokuapp.com/api/v1/retrieve_waiting_points',
+    //url: 'http://192.168.0.22:3000/api/v1/retrieve_waiting_points',      
     type: 'GET',
     dataType: 'json',
     data: 'tid='+String(tid)+'&dist='+String(dist)+'&lat='+String(clicklat)+'&lon='+String(clicklon),
